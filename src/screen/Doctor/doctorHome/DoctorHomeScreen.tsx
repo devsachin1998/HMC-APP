@@ -57,7 +57,7 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
-       <CustomHeader backgroundColor='maroon' logout={true}/>
+       <CustomHeader backgroundColor='maroon' logout={true} />
        <View  style={{ flex: 1 }}>
         <View style={styles.iconContainer}>
             <Icon

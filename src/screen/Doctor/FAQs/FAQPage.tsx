@@ -51,8 +51,10 @@ export default class FAQPage extends FAQPageController {
     console.log("????????",item)
     return (
       <View style={{flexDirection:'column'}}>
-        
-      <TouchableOpacity onPress={()=>this.setState({iconChange:true})} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
+
+    
+      <View>
+      <TouchableOpacity onPress={()=>this.updateValueById(item.FaqId)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
       <View style={{flex:1}}>
           <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
       
@@ -61,23 +63,26 @@ export default class FAQPage extends FAQPageController {
       <View 
           style={{alignSelf:'center'}}
           >
-      {!iconChange?
+
       <Icon1
-          name="caretdown"
+          name={!item.iscollaps?"caretdown":"caretup"}
           size={12}
           color="white"
           // style={styles.icon}
         />
-        :
-        <Icon1
-          name="caretup"
-          size={12}
-          color="white"
-          // style={styles.icon}
-        />
-      }
+    
         </View>
       </TouchableOpacity>
+      {item.iscollaps?
+      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,padding:Scale(10)}}>
+          <Text style={{marginVertical:Scale(10),color:'#009AEE'}}>Answer :-</Text>
+      
+          <Text style={{color:'#009AEE'}}>{item.Answers} </Text>
+      </View>
+      :
+      null}
+      </View>
+      
       </View>
     )
   }

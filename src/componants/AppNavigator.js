@@ -17,6 +17,8 @@ import AddQuery from '../screen/Doctor/Query/AddQuery';
 import FAQPage from '../screen/Doctor/FAQs/FAQPage';
 import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
 import ArticlesScreen from '../screen/articles/ArticlesScreen';
+import CustomSideMenuDoctor from './CustomSideMenuDoctor';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,7 +26,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
 
-    <Stack.Navigator initialRouteName="FAQPage">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -33,6 +35,11 @@ const AppNavigator = () => (
        <Stack.Screen
         name="DrawerNavigator"
         component={DrawerNavigator}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="DrawerNavigatorDoctor"
+        component={DrawerNavigatorDoctor}
         options={{headerShown: false}}
       />
        <Stack.Screen
@@ -125,6 +132,43 @@ const DrawerNavigator = () => {
         component={ArticlesScreen}
         options={{headerShown: false}}
       />
+      
+    </Drawer.Navigator>
+  );
+};
+
+const DrawerNavigatorDoctor = () => {
+  
+  return (
+    <Drawer.Navigator
+      initialRouteName="CustomSideMenuDoctor"
+      screenOptions={{
+        headerShown: false,
+      }}
+      drawerContent={props => (
+        <CustomSideMenuDoctor
+          data={{
+            name: '',
+            profile_pic: '',
+          }}
+          {...props}
+        />
+      )}>
+      <Drawer.Screen
+        name="DoctorHomeScreen"
+        component={DoctorHomeScreen}
+        options={{headerShown: false}}
+      />
+       {/* <Stack.Screen
+        name="CouncilMemberScreen"
+        component={CouncilMemberScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ArticlesScreen"
+        component={ArticlesScreen}
+        options={{headerShown: false}}
+      /> */}
       
     </Drawer.Navigator>
   );

@@ -47,7 +47,10 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
 
     const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
     console.log('responseData:::--->', responseData);
+    this.props.navigation.navigate('DrawerNavigatorDoctor')
   }
+
+
 //   async loginBtnClick() {
 //     Keyboard.dismiss();
 //     if (!this.state.phoneNumber || this.state.phoneNumber.length != 10) {

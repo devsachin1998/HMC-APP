@@ -26,6 +26,7 @@ interface S {
   addQuery:string;
   iconChange:boolean;
   FAQsList:any;
+  
   // Customizable Area End
 }
 
@@ -102,6 +103,8 @@ export default class FAQPageController extends Component<Props, S, SS> {
     const jsonData1 =  responseData.Table.map((table: any) => ({
       Answers: table?.Answer,
       Questions:table?.Question,
+      FaqId:table?.FaqId,
+      iscollaps:false
       // Address:table?.Address,
       // EmailId:table?.EmailId,
       // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
@@ -110,6 +113,21 @@ export default class FAQPageController extends Component<Props, S, SS> {
     }))
     this.setState({FAQsList:jsonData1})
     this.setState({isLoading:false})
+  }
+
+  updateValueById = (FaqId) => {
+    let updatedDataList = this.state.FAQsList.map(article => {
+      if (article.FaqId === FaqId) {
+          return { ...article, iscollaps: !article.iscollaps };
+      }
+      return article;
+  });
+  
+  this.setState({ FAQsList: updatedDataList }, () => {
+      console.log("Updated datalist:", this.state.FAQsList);
+  });
+  
+  
   }
 
   // Customizable Area End
