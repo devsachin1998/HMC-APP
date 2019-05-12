@@ -23,6 +23,7 @@ interface S {
   moreLoading: boolean;
   datalist:any;
   filterdata:any;
+  
   // Customizable Area End
 }
 

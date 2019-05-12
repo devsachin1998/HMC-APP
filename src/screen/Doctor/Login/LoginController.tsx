@@ -54,7 +54,7 @@ export default class LoginController extends Component<Props, S, SS> {
      const headers = {
       'Content-Type': 'multipart/form-data',
     };
-    const options = {
+    const options = { 
       method: "GET",
       // headers: headers,
     };
@@ -152,7 +152,7 @@ export default class LoginController extends Component<Props, S, SS> {
       storeData("loginDetails",responseData)
       this.setState({isloading:false})
 
-      this.props.navigation.navigate('DrawerNavigatorDoctor');
+      this.props.navigation.replace('DrawerNavigatorDoctor');
       }
     }
     else

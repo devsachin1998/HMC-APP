@@ -36,6 +36,7 @@ interface S {
   filename:any;
   selectedCountry:string;
   TalukaID:any;
+  District:any;
   // Customizable Area End
 }
 
@@ -79,7 +80,8 @@ export default class AddTalukaAdminController extends Component<Props, S, SS> {
       states:[],
       filename:'',
       selectedCountry:'',
-      TalukaID:''
+      TalukaID:'',
+      District:''
       // Customizable Area End
     };
 
@@ -100,7 +102,7 @@ export default class AddTalukaAdminController extends Component<Props, S, SS> {
         console.log("?????????11111",itemdata)
         const loginDetails= await getdata("loginDetails");
         this.setState({name:itemdata.TalukaName,
-          DistrictID:itemdata.DistrictID,TalukaID:itemdata.TalukaID})
+          DistrictID:itemdata.DistrictID,TalukaID:itemdata.TalukaID,District:itemdata.DistrictName})
 
       }
       const loginDetails= await getdata("loginDetails");

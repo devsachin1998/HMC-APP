@@ -2,8 +2,6 @@ import {Component} from 'react';
 import {makeApiCall, makeApiCallxml, makeApiCallxmlimage} from '../../globalServices/api';
 import {apiFunctions, showtoasterror} from '../../globalServices/utils';
 import {Alert, Keyboard} from 'react-native';
-import axios from 'axios';
-
 // import messaging from '@react-native-firebase/messaging';
 
 export interface Props {
@@ -104,13 +102,15 @@ interface S {
   QStateID: any;
   QualificationDate: any;
   BloodGroupID:any;
+  appointmentData:any;
+  selectedIndex:number
 }
 
 interface SS {
   id: any;
 }
 
-export default class RegistrationController extends Component<Props, S, SS> {
+export default class RegistrationStep2Controller extends Component<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -218,13 +218,39 @@ export default class RegistrationController extends Component<Props, S, SS> {
       QStateID: 1,
       QualificationDate: '01/01/1992',
       BloodGroupID:1,
-    };
+      appointmentData:  [],
+      selectedIndex: 0
+   };
   }
 
   async componentDidMount() {
-    this.getCountry();
+    //this.getCountry();
     // this.getColleges()
+    const response = {
+      Status: [{ Status: "done", msg: "Record saved", id: 32474, OnlineMemberGUID: "dfec32aa-8bb4-4e14-978b-cf36fe9b1260" }],
+      AppointmentDate: [
+        { FullDates: "2024-10-09T00:00:00" },
+        { FullDates: "2024-10-10T00:00:00" },
+        { FullDates: "2024-10-11T00:00:00" },
+        { FullDates: "2024-10-14T00:00:00" },
+        { FullDates: "2024-10-15T00:00:00" },
+        { FullDates: "2024-10-16T00:00:00" },
+        { FullDates: "2024-10-17T00:00:00" },
+        { FullDates: "2024-10-18T00:00:00" },
+        { FullDates: "2024-10-21T00:00:00" },
+        { FullDates: "2024-10-22T00:00:00" }
+      ]
+    };
 
+    // Format the dates and update the state
+    const formattedDates = response.AppointmentDate.map(item => {
+      const date = new Date(item.FullDates);
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+      return `${day} ${month}`;
+    });
+
+    this.setState({ appointmentData: formattedDates });
     // this.getFcmToken()
   }
 
@@ -348,7 +374,6 @@ export default class RegistrationController extends Component<Props, S, SS> {
     this.setState({loader: false});
   };
   loginBtnClick = async () => {
-    
     Keyboard.dismiss();
     if (!this.state.firstName) {
       return Alert.alert('Please enter valid First Name.');
@@ -391,7 +416,7 @@ export default class RegistrationController extends Component<Props, S, SS> {
     } else if (!this.state.ProvisionalCerty) {
       return Alert.alert('Please upload Provisional Completion Certificate.');
     } else {
-    //    E/FIELD JSON ->>>>>>: {"FirstName":"test","MiddleName":"test","LastName":"test","DateOfBirth":"01\/01\/1900","BirthPlace":"","BloodGroupID":1,"Gender":true,"AddressR":"test","RCountryIDF":1,"RStateIDF":1,"RDistricIDF":1,"RTalukaIDF":1,"RCityIDF":1,"RPinCode":0,"PhoneR1":0,"AddressO":"","OCountryIDF":1,"OStateIDF":1,"ODistricIDF":1,"OTalukaIDF":1,"OCityIDF":1,"OPinCode":0,"PhoneO1":0,"Mobile1":1234567890,"Email1":"tewt@yopmail.com","AadharNo":0,"OtherStateRegNo":"","QulificationIDF":8,"QualificationObtainedDate":"18\/09\/2024","QualificationStateIDF":12,"UniversityIDF":376,"CollegeIDF":669,"InternshipPeriodFrom":"18\/09\/2024","InternshipPeriodTo":"18\/09\/2025","RepeatedFrom":"18\/09\/2024","RepeatedTo":"18\/09\/2025","Place":"dd","Remark":"ee"}
+      // E/FIELD JSON ->>>>>>: {"FirstName":"test","MiddleName":"test","LastName":"test","DateOfBirth":"01\/01\/1900","BirthPlace":"","BloodGroupID":1,"Gender":true,"AddressR":"test","RCountryIDF":1,"RStateIDF":1,"RDistricIDF":1,"RTalukaIDF":1,"RCityIDF":1,"RPinCode":0,"PhoneR1":0,"AddressO":"","OCountryIDF":1,"OStateIDF":1,"ODistricIDF":1,"OTalukaIDF":1,"OCityIDF":1,"OPinCode":0,"PhoneO1":0,"Mobile1":1234567890,"Email1":"tewt@yopmail.com","AadharNo":0,"OtherStateRegNo":"","QulificationIDF":8,"QualificationObtainedDate":"18\/09\/2024","QualificationStateIDF":12,"UniversityIDF":376,"CollegeIDF":669,"InternshipPeriodFrom":"18\/09\/2024","InternshipPeriodTo":"18\/09\/2025","RepeatedFrom":"18\/09\/2024","RepeatedTo":"18\/09\/2025","Place":"dd","Remark":"ee"}
     //  {"AadharNo": "1234567890", "AddressO": "Dsadsadasd", "AddressR": "Dsadad", "BirthPlace": "Dsadsa", "BloodGroupID": "A+", "CollegeIDF": "1", "DateOfBirth": 2024-09-18T16:13:10.032Z, "Email1": "Test@yopmil.cpm", "FirstName": "Tet", "Gender": true, "InternshipPeriodFrom": 2024-09-18T16:16:00.944Z, "InternshipPeriodTo": "2025-09-18T16:16:00.944Z", "LastName": "Dsad", "MiddleName": "Dasd", "Mobile1": "85111714880", "OCityIDF": 0, "OCountryIDF": "9", "ODistricIDF": 0, "OPinCode": "dsadasd", "OStateIDF": "12", "OTalukaIDF": 0, "OtherStateRegNo": "", "PhoneO1": "566666612", "PhoneR1": "dsadd", "Place": "Dsadad as das", "QualificationObtainedDate": "18/09/2024", "QualificationStateIDF": 0, "QulificationIDF": "1", "RCityIDF": 0, "RCountryIDF": "9", "RDistricIDF": 0, "RPinCode": "sdasd", "RStateIDF": "12", "RTalukaIDF": 0, "Remark": "Ddsds", "RepeatedFrom": 2024-09-18T16:16:07.670Z, "RepeatedTo": "2025-09-18T16:16:07.670Z", "UniversityIDF": "1"}
       let fieldsJson = {
         FirstName: this.state.firstName,
@@ -433,76 +458,11 @@ export default class RegistrationController extends Component<Props, S, SS> {
         Place: this.state.place,
         Remark: this.state.remark,
       };
-
-      let urlencoded = `fieldsJson=${JSON.stringify(fieldsJson)}`;
-      urlencoded += `&PhotoFileName=${this.state.isImage.fileName}`;
-      urlencoded += `&PhotoFileByte=${this.state.isImage.base64}`;
-      urlencoded += `&SignatureFileName=${this.state.signImg.fileName}`;
-      urlencoded += `&SignatureFileByte=${this.state.signImg.base64}`;
-      urlencoded += `&SchoolLeavingFileName=${this.state.LCimg.fileName}`;
-      urlencoded += `&SchoolLeavingFileByte=${this.state.LCimg.base64}`;
-      urlencoded += `&Marksheet1FileName=${this.state.FYMarksheet.fileName}`;
-      urlencoded += `&Marksheet1FileByte=${this.state.FYMarksheet.base64}`;
-      urlencoded += `&Marksheet2FileName=${this.state.SYMarksheet.fileName}`;
-      urlencoded += `&Marksheet2FileByte=${this.state.SYMarksheet.base64}`;
-      urlencoded += `&Marksheet3FileName=${this.state.TYMarksheet.fileName}`;
-      urlencoded += `&Marksheet3FileByte=${this.state.TYMarksheet.base64}`;
-      urlencoded += `&Marksheet4FileName=${this.state.FinalYearMarksheet.fileName}`;
-      urlencoded += `&Marksheet4FileByte=${this.state.FinalYearMarksheet.base64}`;
-      urlencoded += `&PcName=${this.state.InternShipCerty.fileName}`;
-      urlencoded += `&PcFileByte=${this.state.InternShipCerty.base64}`;
-      urlencoded += `&DcName=${this.state.DegreeCerty.fileName}`;
-      urlencoded += `&DcFileByte=${this.state.DegreeCerty.base64}`;
-      urlencoded += `&CcName=${this.state.InternCompletion.fileName}`;
-      urlencoded += `&CcFileByte=${this.state.InternCompletion.base64}`;
-      urlencoded += `&PpcName=${this.state.ProvisionalCerty.fileName}`;
-      urlencoded += `&PpcFileByte=${this.state.ProvisionalCerty.base64}`;
-//       const formData = new FormData();
-
-// // Append the fieldsJson as a string
-// formData.append('fieldsJson', JSON.stringify(fieldsJson));
-
-// // Append each file name and its corresponding base64 content to the FormData
-// formData.append('PhotoFileName', this.state.isImage.fileName);
-// formData.append('PhotoFileByte', this.state.isImage.base64);
-// formData.append('SignatureFileName', this.state.signImg.fileName);
-// formData.append('SignatureFileByte', this.state.signImg.base64);
-// formData.append('SchoolLeavingFileName', this.state.LCimg.fileName);
-// formData.append('SchoolLeavingFileByte', this.state.LCimg.base64);
-// formData.append('Marksheet1FileName', this.state.FYMarksheet.fileName);
-// formData.append('Marksheet1FileByte', this.state.FYMarksheet.base64);
-// formData.append('Marksheet2FileName', this.state.SYMarksheet.fileName);
-// formData.append('Marksheet2FileByte', this.state.SYMarksheet.base64);
-// formData.append('Marksheet3FileName', this.state.TYMarksheet.fileName);
-// formData.append('Marksheet3FileByte', this.state.TYMarksheet.base64);
-// formData.append('Marksheet4FileName', this.state.FinalYearMarksheet.fileName);
-// formData.append('Marksheet4FileByte', this.state.FinalYearMarksheet.base64);
-// formData.append('PcName', this.state.InternShipCerty.fileName);
-// formData.append('PcFileByte', this.state.InternShipCerty.base64);
-// formData.append('DcName', this.state.DegreeCerty.fileName);
-// formData.append('DcFileByte', this.state.DegreeCerty.base64);
-// formData.append('CcName', this.state.InternCompletion.fileName);
-// formData.append('CcFileByte', this.state.InternCompletion.base64);
-// formData.append('PpcName', this.state.ProvisionalCerty.fileName);
-// formData.append('PpcFileByte', this.state.ProvisionalCerty.base64);
-        console.log("dsadasdasd",urlencoded)
-      try {
-        const response = await axios.post('http://api.gujarathmc.org/WebService/HomoeoCouncil.asmx/OnlineRegistrationStep1?'+urlencoded, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-    
-        console.log('Response:', response.data);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-
-      // const responseData =
-      // await makeApiCallxml(apiFunctions.OnlineRegistrationStep1 + "?"+urlencoded, 'POST', "webservice");
-      
-      // const urlencoded = new URLSearchParams();
-      // // urlencoded.append('fieldsJson', JSON.stringify(fieldsJson));
+      let param = "fieldsJson="+fieldsJson;
+      const responseData =
+      await makeApiCallxml(apiFunctions.OnlineRegistrationStep1 + "?"+param, 'GET', "webservice");
+      const urlencoded = new URLSearchParams();
+      // urlencoded.append('fieldsJson', JSON.stringify(fieldsJson));
       // urlencoded.append('PhotoFileName', this.state.isImage.fileName);
       // urlencoded.append('PhotoFileByte', this.state.isImage.base64);
       // urlencoded.append('SignatureFileName', this.state.signImg.fileName);
@@ -526,11 +486,11 @@ export default class RegistrationController extends Component<Props, S, SS> {
       // urlencoded.append('PpcName', this.state.ProvisionalCerty.fileName);
       // urlencoded.append('PpcFileByte', this.state.ProvisionalCerty.base64);
       // console.log("Dsadasd",urlencoded)
-      //  const responseData =  await makeApiCallxmlimage(apiFunctions.OnlineRegistrationStep1, 'POST', "webservice",urlencoded.toString());
+      // const responseData =  await makeApiCallxml(apiFunctions.OnlineRegistrationStep1, 'POST', "webservice",urlencoded.toString());
       
-      //  console.log("responseData",responseData)
+      console.log("responseData",responseData)
     }
-    //  {"Status":[{"Status":"done", "msg":"Record saved", "id":32474,"OnlineMemberGUID":"dfec32aa-8bb4-4e14-978b-cf36fe9b1260"}],"AppointmentDate":[{"FullDates":"2024-10-09T00:00:00"},{"FullDates":"2024-10-10T00:00:00"},{"FullDates":"2024-10-11T00:00:00"},{"FullDates":"2024-10-14T00:00:00"},{"FullDates":"2024-10-15T00:00:00"},{"FullDates":"2024-10-16T00:00:00"},{"FullDates":"2024-10-17T00:00:00"},{"FullDates":"2024-10-18T00:00:00"},{"FullDates":"2024-10-21T00:00:00"},{"FullDates":"2024-10-22T00:00:00"}]}
+
     // Please select Qualification
   };
 
@@ -559,6 +519,4 @@ export default class RegistrationController extends Component<Props, S, SS> {
   //        console.log('fcm',fcmToken);
   //     }
   // }
-
- 
 }

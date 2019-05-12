@@ -106,7 +106,7 @@ export default class UploadPhotoAdmin extends UploadPhotoAdminController {
                   <View style={styles.input}>
 
                   <Text>{this.state.date?moment(this.state.date).format("DD/MM/YYYY"):''}</Text>
-</View>
+                 </View>
                   
                   </TouchableOpacity>
 

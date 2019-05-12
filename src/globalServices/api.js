@@ -1,3 +1,4 @@
+import { Element } from 'react-native-render-html';
 import {apiFunctions} from './utils';
 import xml2js from 'react-native-xml2js';
 
@@ -41,6 +42,11 @@ export const makeApiCallxml  = async (endpoint, method, url = "base") => {
          apiUrl = `${apiFunctions.urlweb}${endpoint}`;
   
       }
+      else if(url=="webservice")
+        {
+          apiUrl = `${apiFunctions.url}${endpoint}`;
+  
+        }
   console.log(apiUrl);
 
   const headers = {
@@ -56,6 +62,7 @@ export const makeApiCallxml  = async (endpoint, method, url = "base") => {
 
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
+    console.log("responseData:::::", responseData);
 
     // Parse XML data
     const parsedData = await new Promise((resolve, reject) => {
@@ -93,6 +100,11 @@ export const makeApiCallxmlimage  = async (endpoint, method, url = "base",body) 
          apiUrl = `${apiFunctions.urlweb}${endpoint}`;
   
       }
+      else if(url=="webservice")
+      {
+        apiUrl = `${apiFunctions.url}${endpoint}`;
+
+      }
   console.log(apiUrl);
 
   const headers = {
@@ -109,7 +121,7 @@ export const makeApiCallxmlimage  = async (endpoint, method, url = "base",body) 
     console.log("Api:::::", options);
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
-    console.log("Api:::::", responseData,response);
+    console.log("Api:::::Res", responseData,response);
 
     // Parse XML data
     const parsedData = await new Promise((resolve, reject) => {

@@ -11,6 +11,7 @@ import Login from '../screen/Doctor/Login/Login';
 import ConditionApply from '../screen/Doctor/Login/ConditionApply';
 import CouncilLogin from '../screen/Council/Login/CouncilLogin';
 import Registration from '../screen/Registration/Registration';
+import RegistrationStep2 from '../screen/Registration/RegistrationStep2'
 import DoctorHomeScreen from '../screen/Doctor/doctorHome/DoctorHomeScreen';
 import QueriesPage from '../screen/Doctor/Query/QueriesPage';
 import AddQuery from '../screen/Doctor/Query/AddQuery';
@@ -115,6 +116,11 @@ const AppNavigator = () => (
       <Stack.Screen
         name="Registration"
         component={Registration}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RegistrationStep2"
+        component={RegistrationStep2}
         options={{headerShown: false}}
       />
        <Stack.Screen

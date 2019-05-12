@@ -92,14 +92,14 @@ export default class AddStatesAdminController extends Component<Props, S, SS> {
   async componentDidMount() {
 
      this.setState({ isLoading: true }); 
-     let data=this.props.route.params.edit;
+     let data=this.props.route.params.edit; 
      console.log("component Data",this.props.route.params)
       if(data)
       {
         let itemdata=this.props.route.params.item;
         const loginDetails= await getdata("loginDetails");
         this.setState({name:itemdata.StateName,
-          CountryID:itemdata.CountryID,StateID:itemdata.StateID})
+          CountryID:itemdata.CountryID,StateID:itemdata.StateID,selectedCountry:itemdata.CountryName})
 
       }
       const loginDetails= await getdata("loginDetails");

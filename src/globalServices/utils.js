@@ -117,6 +117,7 @@ export const apiFunctions = {
   GalleryDetailInsert:'/GalleryDetailInsert',
   GalleryDetailUpdate:'/GalleryDetailUpdate',
   GalleryDetailDelete:'/GalleryDetailDelete',
+  OnlineRegistrationStep1:'/OnlineRegistrationStep1'
 
 };
 export const storeData = async (key, value) => {

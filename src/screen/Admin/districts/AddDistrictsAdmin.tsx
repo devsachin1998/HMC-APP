@@ -104,7 +104,7 @@ export default class AddDistrictsAdmin extends AddDistrictsAdminController {
                     selectedTextStyle={{paddingStart: 5}}
                     value={this.state.selectedState}
                     onChange={item => {
-                                     this.setState({selectedState: item.label,StateID:item.StateID});
+                                     this.setState({selectedState: item.StateName,StateID:item.StateID});
                     }}
                   />
             

@@ -36,6 +36,7 @@ interface S {
   filename:any;
   selectedCountry:string;
   StateID:any;
+  selectedState:any;
   // Customizable Area End
 }
 
@@ -79,7 +80,8 @@ export default class AddDistrictsAdminController extends Component<Props, S, SS>
       states:[],
       filename:'',
       selectedCountry:'',
-      StateID:''
+      StateID:'',
+      selectedState:''
       // Customizable Area End
     };
 
@@ -93,13 +95,13 @@ export default class AddDistrictsAdminController extends Component<Props, S, SS>
 
      this.setState({ isLoading: true }); 
      let data=this.props.route.params.edit;
-    //  console.log("component Data",this.props.route.params)
+     console.log("component Data",this.props.route.params)
       if(data)
       {
         let itemdata=this.props.route.params.item;
         const loginDetails= await getdata("loginDetails");
         this.setState({name:itemdata.DistrictName,
-          DistrictID:itemdata.DistrictID,StateID:itemdata.StateID})
+          DistrictID:itemdata.DistrictID,StateID:itemdata.StateID,selectedState:itemdata.StateName})
 
       }
       const loginDetails= await getdata("loginDetails");

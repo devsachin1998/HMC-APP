@@ -449,7 +449,7 @@ export default class HomeScreen extends HomeScreenController {
             backgroundColor: '#29CF96',
           },
         ]}>
-        <View style={styles.innerContainer}>
+        <View style={[styles.innerContainer,{marginStart:30}]}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('CollegeScreen')}
             style={[styles.touchable, {marginStart: 0, marginEnd: 30}]}>
@@ -458,7 +458,7 @@ export default class HomeScreen extends HomeScreenController {
             </View>
             <Text style={styles.text}>{'Homoeopathic Collages'}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[styles.touchable, {marginStart: 20, marginEnd: 30}]}>
             <View style={styles.iconContainer}>
               <MaterialCommunityIcons
@@ -468,7 +468,7 @@ export default class HomeScreen extends HomeScreenController {
               />
             </View>
             <Text style={styles.text}>{'Advertisements'}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     );

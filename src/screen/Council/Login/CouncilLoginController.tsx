@@ -76,7 +76,7 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
      {
       this.setState({isLoading:false})
       storeData("loginDetails",result)
-      this.props.navigation.navigate('DrawerNavigatorAdmin');
+      this.props.navigation.replace('DrawerNavigatorAdmin');
 
      }
 

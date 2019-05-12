@@ -102,10 +102,10 @@ export default class AddTalukaAdmin extends AddTalukaAdminController {
                     valueField="DistrictName"
                     maxHeight={210}
                     selectedTextStyle={{paddingStart: 5}}
-                    value={this.state.selectedState}
+                    value={this.state.District}
                     onChange={item => {
                       console.log("???????22222",item)
-                      this.setState({selectedState: item.label,DistrictID:item.DistrictID});
+                      this.setState({District: item.DistrictName,DistrictID:item.DistrictID});
                     }}
                   />
             

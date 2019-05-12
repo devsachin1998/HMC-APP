@@ -161,7 +161,6 @@ export default class DownloadScreen extends DownloadScreenController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-// underlineColorAndroid='red'
 autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.searchValueById(e)}

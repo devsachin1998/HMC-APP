@@ -106,6 +106,7 @@ export default class Login extends LoginController {
               placeholder="Mobile Number"
               style={[styles.input,{paddingStart:Scale(5)}]}
               keyboardType="numeric"
+              placeholderTextColor={"#C0C0C0"}
               value={this.state.phoneNumber}
               onChangeText={(e: number) => {
                 this.setState({phoneNumber: e});

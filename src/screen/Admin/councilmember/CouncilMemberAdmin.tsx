@@ -173,7 +173,7 @@ export default class CouncilMemberAdmin extends CouncilMemberAdminController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-underlineColorAndroid='red'
+
 autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.searchValueById(e)}
