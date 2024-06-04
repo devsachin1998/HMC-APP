@@ -40,12 +40,10 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={{flex:1}}>
     
     
-    {/* <AppNavigator/> */}
+    
       <Login/>
-    </SafeAreaView>
   );
 }
 
