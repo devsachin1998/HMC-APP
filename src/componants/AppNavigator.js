@@ -5,6 +5,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {getdata} from '../globalServices/utils';
 
 import SplashScreen from '../screen/splash/SplashScreen';
+import HomeScreen from '../screen/home/HomeScreen';
+import CustomSidebarMenu from './CustomSideMenu';
+import Login from '../screen/Doctor/Login/Login';
+import ConditionApply from '../screen/Doctor/Login/ConditionApply';
+import CouncilLogin from '../screen/Council/Login/CouncilLogin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -283,51 +288,70 @@ const AppNavigator = () => (
     </Drawer.Navigator> */}
     {/* <StatusBar backgroundColor={color.bgcolor} barStyle={'light-content'} /> */}
 
-    <Stack.Navigator initialRouteName="SplashScreen">
+    <Stack.Navigator initialRouteName="CouncilLogin">
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
         options={{headerShown: false}}
       />
-     
+       <Stack.Screen
+        name="DrawerNavigator"
+        component={DrawerNavigator}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ConditionApply"
+        component={ConditionApply}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CouncilLogin"
+        component={CouncilLogin}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
-// const DrawerNavigator = () => {
-//   const [username, setusername] = useState('');
-//   const [userprofile, setuserprofile] = useState('');
+const DrawerNavigator = () => {
+  // const [username, setusername] = useState('');
+  // const [userprofile, setuserprofile] = useState('');
 
-//   (async () => {
-//     const user = await getdata('userdetails');
-//     // console.log("dasdasdasdsa",user)
-//     const username = user.first_name + ' ' + user.last_name;
-//     const userprofile = user.profile_pic;
-//     setuserprofile(userprofile);
-//     setusername(username);
-//   })();
-//   return (
-//     <Drawer.Navigator
-//       initialRouteName="CustomSideMenu"
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//       drawerContent={props => (
-//         <CustomSidebarMenu
-//           data={{
-//             name: username,
-//             profile_pic: userprofile,
-//           }}
-//           {...props}
-//         />
-//       )}>
-//       <Drawer.Screen
-//         name="Main"
-//         component={TabNavigator}
-//         options={{headerShown: false}}
-//       />
-//     </Drawer.Navigator>
-//   );
-// };
+  // (async () => {
+  //   const user = await getdata('userdetails');
+  //   // console.log("dasdasdasdsa",user)
+  //   const username = user.first_name + ' ' + user.last_name;
+  //   const userprofile = user.profile_pic;
+  //   setuserprofile(userprofile);
+  //   setusername(username);
+  // })();
+  return (
+    <Drawer.Navigator
+      initialRouteName="CustomSideMenu"
+      screenOptions={{
+        headerShown: false,
+      }}
+      drawerContent={props => (
+        <CustomSidebarMenu
+          data={{
+            name: '',
+            profile_pic: '',
+          }}
+          {...props}
+        />
+      )}>
+      <Drawer.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+    </Drawer.Navigator>
+  );
+};
 // const DrawerNavigatorAdmin = () => {
 //   const [username, setusername] = useState('');
 //   const [userprofile, setuserprofile] = useState('');

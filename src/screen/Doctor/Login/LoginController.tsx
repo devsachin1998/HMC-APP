@@ -10,7 +10,7 @@ export interface Props {
 }
 
 interface S {
-  phoneNumber: any;
+  phoneNumber: number;
   isDatePickerVisible:any;
   date: any;
   mode:any,

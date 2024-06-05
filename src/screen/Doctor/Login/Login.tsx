@@ -7,17 +7,22 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ScrollView,
+  TouchableWithoutFeedback,
   TextInput,
   Button,
+  Keyboard,
   Platform,
   SafeAreaView,
+  Dimensions,
 } from 'react-native';
 // import GlobalStyle from '../../globalServices/globalStyle';
 import LoginController, {Props} from './LoginController';
-import Scale from '../../globalServices/Scale';
+import Scale from '../../../globalServices/Scale';
 import moment from 'moment';
 // import Icon from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon1 from 'react-native-vector-icons/Ionicons'
 // import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-native-date-picker'
@@ -52,15 +57,38 @@ export default class Login extends LoginController {
     const { date, mode, isDatePickerVisible,open,date1 } = this.state;
 
     return (
-       
-        <SafeAreaView  style={{flex:1}}>
-      <View style={{backgroundColor: 'skyblue', flex: 1,justifyContent:'center'}}>
-        <View style={{paddingHorizontal: 20}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          // keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+        >
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
+    
+       <ImageBackground
+          style={{width: '100%', height: '100%', justifyContent: 'center'}}
+          // tintColor={"skyblue"}
+          source={require('../../../images/loginback1.jpg')}
+          resizeMode={'stretch'}>
+             <TouchableOpacity style={{marginTop:10,zIndex:1}} onPress={()=>this.props.navigation.goBack()}>
+              <Icon1 name="chevron-back" size={30} color="white" style={styles.icon} />
+            </TouchableOpacity>
+           <View style={{ 
+          ...StyleSheet.absoluteFillObject, 
+          backgroundColor: 'rgba(125, 112, 152, 0.7)' // Sky blue with 50% opacity
+        }} />
+             
+     
+      <View style={{flex: 1}}>
+    
+        <View style={{flex:1,justifyContent:'center'}}>
+          <View style={{paddingHorizontal: 20}}>
           <View style={styles.logoContainer}>
             <Image
               resizeMode={'cover'}
               style={styles.logoImg}
-              source={require('../../images/splash.jpg')}
+              source={require('../../../images/logo.png')}
             />
           </View>
           <Text style={styles.headerText}>
@@ -76,8 +104,8 @@ export default class Login extends LoginController {
               style={[styles.input,{paddingStart:Scale(5)}]}
               keyboardType="numeric"
               value={this.state.phoneNumber}
-              onChangeText={(Number: string) => {
-                this.setState({phoneNumber: Number});
+              onChangeText={(e: number) => {
+                this.setState({phoneNumber: e});
               }}
             />
           </View>
@@ -144,23 +172,26 @@ export default class Login extends LoginController {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'skyblue', fontWeight: 'bold', fontSize: 16}}>
+            <Text style={{color: 'rgb(0,0,53)', fontWeight: 'bold', fontSize: 16}}>
               LOGIN
             </Text>
           </TouchableOpacity>
-          <View
+          <TouchableOpacity
+            onPress={()=>this.props.navigation.navigate('ConditionApply')}
             style={{
               marginTop: Scale(20),
-              borderBottomWidth: 1,
+              // borderBottomWidth: 1,
               borderColor: 'red',
-              borderWidth:1
+              width:Dimensions.get('window').width/2.7,
+              borderBottomWidth:1
             }}>
             <Text style={{color: 'red', fontSize: 18}}>  
               * Conditions Apply
             </Text>
+          </TouchableOpacity>
           </View>
-        </View>
-        <TouchableOpacity
+          <TouchableOpacity
+          onPress={()=>this.props.navigation.navigate('CouncilLogin')}
           style={{
             backgroundColor: 'white',
             alignSelf: 'flex-end',
@@ -168,10 +199,19 @@ export default class Login extends LoginController {
             borderTopLeftRadius: 20,
             borderBottomLeftRadius: 20,
           }}>
-          <Text>Council Login ?</Text>
-        </TouchableOpacity>
+          <Text style={{color:'rgb(0,0,53)',fontSize:16,fontWeight:600}}>Council Login ?</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{justifyContent:'flex-end',flex:0.1}}>
+          <Text style={{paddingStart:0,fontSize:12,textAlign:'center',marginBottom:10,color:'white',fontWeight:700}}>{"Copyright © . All rights reserved. \n Designed by C.S.Comsoft Pvt. Ltd."}</Text>
+
+        </View>
       </View>
+      </ImageBackground>
+      </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
+    </TouchableWithoutFeedback>
     );
   }
 }

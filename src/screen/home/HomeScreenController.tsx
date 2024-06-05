@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
+import {makeApiCallxml} from '../../globalServices/api';
 
 export interface Props {
   navigation?: any;
@@ -27,7 +28,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class SplashScreenController extends Component<Props, S, SS> {
+export default class HomeScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -58,21 +59,18 @@ export default class SplashScreenController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
-    // let id = await getdata('id');
-    // let role_id = await getdata('role');
-
-    // if (!id || id == '' || id == null) {
-       this.props.navigation.replace('DrawerNavigator');
-    // } else {
-    //   console.log('id:::--->', role_id);
-
-    //   if (role_id == '4') {
-    //     this.props.navigation.replace('DrawerNavigatorAdmin');
-    //   } else {
-    //     this.props.navigation.replace('DrawerNavigator');
-    //   }
-    // }
+    this.getbanner();
   }
+  
+  getbanner = async () => {
+    const responseData = await makeApiCallxml(apiFunctions.BannerSelect+"?UN1=2&PWD1=2", 'GET', null);
+  console.log('responseData:::--->', responseData);
+  const jsonData1 =   responseData.map((table: { IID: any; URL: any; }) => ({
+    IID: table?.IID,
+    URL: table?.URL
+  }))
+  console.log("dsddsfdd111",jsonData1 )
 
+  }
   // Customizable Area End
 }

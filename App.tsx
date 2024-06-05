@@ -25,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import AppNavigator from './src/componants/AppNavigator';
-import Login from './src/screen/login/Login';
+import Login from './src/screen/Login/Login';
 import Registration from './src/screen/Registration/Registration';
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -42,8 +42,9 @@ function App(): JSX.Element {
   return (
     
     
+    <AppNavigator/>
     
-      <Login/>
+
   );
 }
 

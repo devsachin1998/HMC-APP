@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import {View, ToastAndroid, Platform, AlertIOS} from 'react-native';
-import Snackbar from 'react-native-snackbar';
+// import Snackbar from 'react-native-snackbar';
 import * as ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
 import Scale from './Scale';
@@ -11,24 +11,25 @@ export const apiFunctions = {
   urlbasic:'http://hmc.Khedutmitra.com/hm_web/hmbasic.asmx',
   urladmin:'http://hmc.khedutmitra.com/hm_web/HM_Admn.asmx',
   login: 'otp/login',
+  BannerSelect:'/BannerSelect'
 };
 export const storeData = async (key, value) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value));
+    // await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (e) {
     // saving error
   }
 };
 export const clearData = async () => {
   try {
-    await AsyncStorage.clear();
+    // await AsyncStorage.clear();
   } catch (e) {
     // saving error
   }
 };
 export const getdata = async key => {
   try {
-    const retrievedItem = await AsyncStorage.getItem(key);
+    const retrievedItem = ''
     const item = JSON.parse(retrievedItem);
     // console.log(item);
     return item;
@@ -37,23 +38,23 @@ export const getdata = async key => {
   }
   return;
 };
-export function showtoasterror(msg) {
-  Snackbar.show({
-    text: msg,
-    position: 'top',
-    duration: 4000,
-    backgroundColor: '#C1464C',
-    // marginBottom:50
-  });
-}
-export function showtoastsucces(msg) {
-  Snackbar.show({
-    text: msg,
-    position: 'top',
-    duration: Snackbar.LENGTH_LONG,
-    backgroundColor: '#5AB126',
-  });
-}
+// export function showtoasterror(msg) {
+//   Snackbar.show({
+//     text: msg,
+//     position: 'top',
+//     duration: 4000,
+//     backgroundColor: '#C1464C',
+//     // marginBottom:50
+//   });
+// }
+// export function showtoastsucces(msg) {
+//   Snackbar.show({
+//     text: msg,
+//     position: 'top',
+//     duration: Snackbar.LENGTH_LONG,
+//     backgroundColor: '#5AB126',
+//   });
+// }
 export function launchCamera(callback) {
   let options = {
     includeBase64: true,
