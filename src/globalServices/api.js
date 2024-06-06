@@ -41,7 +41,7 @@ export const makeApiCallxml  = async (endpoint, method, body = null) => {
   try {
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
-    console.log("dsddsfdd", responseData);
+    // console.log("dsddsfdd", responseData);
 
     // Parse XML data
     const parsedData = await new Promise((resolve, reject) => {
@@ -49,8 +49,8 @@ export const makeApiCallxml  = async (endpoint, method, body = null) => {
         if (error) {
           reject(error);
         } else {
-          const tables = result['diffgr:diffgram'].NewDataSet.Table;
-          console.log("tables:::::", tables);
+          const tables = result['diffgr:diffgram'].NewDataSet;
+          console.log("tables:::::11", tables);
           resolve(tables);
         }
       });

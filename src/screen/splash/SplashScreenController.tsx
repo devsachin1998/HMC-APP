@@ -62,7 +62,9 @@ export default class SplashScreenController extends Component<Props, S, SS> {
     // let role_id = await getdata('role');
 
     // if (!id || id == '' || id == null) {
-       this.props.navigation.replace('DrawerNavigator');
+      setTimeout(() =>   this.props.navigation.replace('DrawerNavigator'), 1000)
+
+     
     // } else {
     //   console.log('id:::--->', role_id);
 

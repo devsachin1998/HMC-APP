@@ -7,6 +7,7 @@ import {
   Text,
   Alert,
   SafeAreaView,
+  Linking,
 } from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import Scale from '../globalServices/Scale';
@@ -58,20 +59,22 @@ class CustomSidebarMenu extends Component {
               <TouchableOpacity
                 style={styles.mainview}
                 >
-               <Icon name="home" size={20} color="white"  />
+               <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
                 >
-               <FontAwesome5 name="user-edit" size={20} color="white"  />
+               <FontAwesome5 name="user-edit" size={Scale(20)}  color="white"  />
                 <Text style={styles.textstyle}>Registration</Text>
               </TouchableOpacity>
             
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>Linking.openURL("https://www.onlinesbi.com/sbicollect/icollecthome.htm")}
+
                 >
-               <FontAwesome5 name="credit-card" size={20} color="white"  />
+               <FontAwesome5 name="credit-card" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Online Payment</Text>
               </TouchableOpacity>
               <TouchableOpacity

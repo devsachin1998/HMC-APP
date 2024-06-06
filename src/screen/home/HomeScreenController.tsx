@@ -19,6 +19,7 @@ interface S {
   totalPage: number;
   pageIndex: number;
   moreLoading: boolean;
+  images:any;
   // Customizable Area End
 }
 
@@ -49,6 +50,7 @@ export default class HomeScreenController extends Component<Props, S, SS> {
       totalCount: 1,
       totalPage: 1,
       moreLoading: false,
+      images:[]
       // Customizable Area End
     };
 
@@ -65,11 +67,27 @@ export default class HomeScreenController extends Component<Props, S, SS> {
   getbanner = async () => {
     const responseData = await makeApiCallxml(apiFunctions.BannerSelect+"?UN1=2&PWD1=2", 'GET', null);
   console.log('responseData:::--->', responseData);
-  const jsonData1 =   responseData.map((table: { IID: any; URL: any; }) => ({
+  const jsonData1 =   responseData.Table.map((table: { IID: any; URL: any; }) => ({
     IID: table?.IID,
-    URL: table?.URL
+    URL: apiFunctions.bannerurl+table?.URL
   }))
+  const urls = jsonData1.map((item: { URL: any; }) => item.URL);
+  this.setState({images:urls})
+  console.log("images",this.state.images)
   console.log("dsddsfdd111",jsonData1 )
+  this.getAlldata();
+  }
+  getAlldata = async () => {
+    const responseData = await makeApiCallxml(apiFunctions.HomeSelectSP+"?UN1=2&PWD1=2", 'GET', null);
+  console.log('responseData:::--->', responseData);
+  // const jsonData1 =   responseData.map((table: { IID: any; URL: any; }) => ({
+  //   IID: table?.IID,
+  //   URL: apiFunctions.bannerurl+table?.URL
+  // }))
+  // const urls = jsonData1.map((item: { URL: any; }) => item.URL);
+  // this.setState({images:urls})
+  // console.log("images",this.state.images)
+  // console.log("dsddsfdd111",jsonData1 )
 
   }
   // Customizable Area End

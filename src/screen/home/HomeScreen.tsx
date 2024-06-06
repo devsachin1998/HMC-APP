@@ -10,14 +10,19 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TextInput,
   ScrollView,
   SafeAreaView,
-  Platform
+  Platform,
+  Linking,
 } from 'react-native';
 import color from '../../globalServices/color';
 import GlobalStyle from '../../globalServices/globalStyle';
+import Icon from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import {SliderBox} from 'react-native-image-slider-box';
 
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
 // Merge Engine - Artboard Dimension  - Start
@@ -25,7 +30,8 @@ import GlobalStyle from '../../globalServices/globalStyle';
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
 import HomeScreenController, {Props} from '../home/HomeScreenController';
-import { CustomHeader } from '../../componants/CustomHeader';
+import {CustomHeader} from '../../componants/CustomHeader';
+import Scale from '../../globalServices/Scale';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -38,49 +44,203 @@ export default class HomeScreen extends HomeScreenController {
 
   // Customizable Area Start
   // Customizable Area End
+  bottomTab = () => {
+    return (
+      <View style={styles.fixedView}>
+        <TouchableOpacity style={styles.bottomview}>
+          <View style={{ alignItems: 'center' }}>
+            <FontAwesome5 name="home" size={23} color="green" />
+          </View>
+          <Text style={{ fontSize: 12, textAlign: 'center' }}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => Linking.openURL('https://www.onlinesbi.com/sbicollect/icollecthome.htm')}
+          style={[styles.bottomview, { paddingStart: 0 }]}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <FontAwesome5 name="credit-card" size={23} />
+          </View>
+          <Text style={{ fontSize: 12, textAlign: 'center', flex: 1 }}>Online Payment</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.bottomview, { paddingStart: 10 }]}>
+          <View style={{ alignItems: 'center' }}>
+            <FontAwesome5 name="user-edit" size={23} />
+          </View>
+          <Text style={{ fontSize: 12, textAlign: 'center' }}>Registration</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Login')}
+          style={styles.bottomview}
+        >
+          <View style={{ alignItems: 'center' }}>
+            <MaterialIcons name="logout" size={23} />
+          </View>
+          <Text style={{ fontSize: 12, textAlign: 'center' }}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  renderarticle = () => {
+    return (
+      <ImageBackground style={{ height: 200 }} source={require('../../images/articles.jpg')}>
+        <View style={{ zIndex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+          <Text style={{ flex: 1, fontSize: 20, fontWeight: '700', color: 'white', textAlign: 'justify' }}>Articles </Text>
+          <TouchableOpacity style={{ borderRadius: 10 }}>
+            <Text style={{ padding: 10, fontSize: 16, fontWeight: '700', backgroundColor: 'white' }}>View All</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    );
+  };
+  renderAct = () => {
+    return (
+      <ImageBackground style={{ height: 200 }} source={require('../../images/banner_gallary.jpg')}>
+        <View style={{ zIndex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+          <Text style={{ flex: 1, fontSize: 20, fontWeight: '700', color: 'white', textAlign: 'justify' }}>Acts. </Text>
+          <TouchableOpacity style={{ borderRadius: 10 }}>
+            <Text style={{ padding: 10, fontSize: 16, fontWeight: '700', backgroundColor: 'white' }}>View All</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    );
+  };
+  renderGallary = () => {
+    return (
+      <View  >
+        <View style={{ zIndex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+          <Text style={{ flex: 1, fontSize: 20, fontWeight: '700', color: 'white', textAlign: 'justify' }}>Our Gallary </Text>
+          <TouchableOpacity style={{ borderRadius: 10 }}>
+            <Text style={{ padding: 10, fontSize: 16, fontWeight: '700', backgroundColor: 'white' }}>View All</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+
+  renderbottom = () => {
+    return (
+      <View style={[styles.container, { borderTopEndRadius: 0, marginTop:0, borderTopStartRadius: 0, backgroundColor: '#29CF96' }]}>
+        <View style={styles.innerContainer}>
+          <TouchableOpacity style={[styles.touchable, { marginStart: 0, marginEnd: 30 }]}>
+            <View style={styles.iconContainer}>
+              <FontAwesome5 name="school" size={23} color="green" />
+            </View>
+            <Text style={styles.text}>{"Homoeopathic Collages"}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.touchable, { marginStart: 20, marginEnd: 30 }]}>
+            <View style={styles.iconContainer}>
+              <MaterialCommunityIcons name="advertisements" size={25} color="red" />
+            </View>
+            <Text style={styles.text}>{"Advertisements"}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
 
   render() {
-    // Customizable Area Start
-
-    // Merge Engine - render - Start
     return (
-
       <SafeAreaView style={{ flex: 1 }}>
-      {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}> */}
-        <ImageBackground
-          style={{width: '100%', height: '100%',}}
-          source={require('../../images/home_bg.jpg')}
-          resizeMode={'stretch'}>
-            <CustomHeader></CustomHeader>
-            {/* <View>
-              <Image
-                resizeMode={'contain'}
-                source={require('../../images/ic_logo.png')}
-                style={{alignSelf: 'center', marginTop: 30}}
-              />
-            </View> */}
-            
+        <ImageBackground style={{ flex: 1 }} source={require('../../images/home_bg.jpg')} resizeMode="stretch">
+          <CustomHeader />
+          <View style={{ flex: 1 }}>
+            <ScrollView >
+              <View>
+                <View style={{ margin: 5, marginTop: 10 }}>
+                  <SliderBox resizeMode="contain" dotColor="green" images={this.state.images} />
+                </View>
+                <View style={styles.container}>
+                  <View style={styles.innerContainer}>
+                    <TouchableOpacity style={styles.touchable}>
+                      <View style={styles.iconContainer}>
+                        <FontAwesome5 name="users" size={23} color="green" />
+                      </View>
+                      <Text style={styles.text}>{"Council\nMembers"}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.touchable}>
+                      <View style={styles.iconContainer}>
+                        <FontAwesome5 name="users" size={23} color="red" />
+                      </View>
+                      <Text style={styles.text}>{"Registered \nHomoeopaths"}</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={{ padding: 10, backgroundColor: 'red' }}>
+                  <Text style={{ fontSize: 22, fontWeight: '600', color: 'white', textAlign: 'center' }}>Headline</Text>
+                </View>
+               <View style={{ height: 100, backgroundColor: 'white' }}></View> 
+                {this.renderarticle()}
+                {this.renderGallary()}
+                {this.renderAct()}
+                {this.renderbottom()}
+              </View>
+            </ScrollView>
+            {this.bottomTab()}
+          </View>
         </ImageBackground>
-       {/* </ScrollView> */}
       </SafeAreaView>
     );
-    // Merge Engine - render - End
-    // Customizable Area End
   }
 }
+
 
 // Customizable Area Start
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // padding: 16,
-
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    marginTop: 20,
+    backgroundColor: '#ffaa11',
+    // height: '30%',
     width: '100%',
-    height:'100%'
-    // maxWidth: 1000,
-    // backgroundColor: '#ffffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent:'center',
+    // borderWidth:1,
+    borderTopRightRadius: 35,
+    borderTopLeftRadius: 35,
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    // width: '50%',
+    marginTop: Scale(10),
+    marginBottom: Scale(5),
+
+  },
+  touchable: {
+    // borderWidth: 1,
+    // padding: Scale(20),
+    marginStart:Scale(55),
+    marginEnd:Scale(45),
+    alignItems: 'center',
+    justifyContent: 'center',
+   // To equally divide the space between two touchable elements
+  },
+  iconContainer: {
+    alignItems: 'center',
+    padding:Scale(16),
+    borderRadius:Scale(10),
+    backgroundColor:'white'
+  },
+  text: {
+    fontSize: 14,
+    marginTop:Scale(8),
+    color:'white',
+    fontWeight:'700',
+    textAlign: 'center',
+  },
+  fixedView: {
+    // height: Scale(50),
+    flexDirection: 'row',
+    padding: 10,
+    backgroundColor: 'white',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  bottomview: {
+    flex: 1,
   },
   titleContainer: {
     alignItems: 'center',

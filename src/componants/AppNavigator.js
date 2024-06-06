@@ -288,7 +288,7 @@ const AppNavigator = () => (
     </Drawer.Navigator> */}
     {/* <StatusBar backgroundColor={color.bgcolor} barStyle={'light-content'} /> */}
 
-    <Stack.Navigator initialRouteName="CouncilLogin">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}

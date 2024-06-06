@@ -10,8 +10,10 @@ export const apiFunctions = {
   url: 'http://api.gujarathmc.org/WebService/HomoeoCouncil.asmx', //staging server
   urlbasic:'http://hmc.Khedutmitra.com/hm_web/hmbasic.asmx',
   urladmin:'http://hmc.khedutmitra.com/hm_web/HM_Admn.asmx',
+  bannerurl:'http://hmc.Khedutmitra.com/',
   login: 'otp/login',
-  BannerSelect:'/BannerSelect'
+  BannerSelect:'/BannerSelect',
+  HomeSelectSP:'/HomeSelectSP'
 };
 export const storeData = async (key, value) => {
   try {
