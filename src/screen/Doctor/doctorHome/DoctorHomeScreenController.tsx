@@ -20,6 +20,10 @@ interface S {
   pageIndex: number;
   moreLoading: boolean;
   images:any;
+  currentIndex: number;
+  texts: any;
+  searchVal:string;
+  addQuery:string;
   // Customizable Area End
 }
 
@@ -50,7 +54,20 @@ export default class DoctorHomeScreenController extends Component<Props, S, SS> 
       totalCount: 1,
       totalPage: 1,
       moreLoading: false,
-      images:[]
+      images:[],
+      currentIndex: 0,
+      texts: [
+        {
+          text: "Welcome To HMC - The Council of Homoeopathic System of Medicine Gujarat",
+          flex: 0.1
+        },
+        {
+          text: "Dr.J.P. Nanavati brought homoeopathy in Gujarat.He Started a homoeopathy society in 1889. He also started a charitable homoeopathy dispensary in kalupur Ahmedabad. This dispensary is still serving the large number of people.",
+          flex: 0.25
+        }
+      ],
+      searchVal:'',
+      addQuery: ''
       // Customizable Area End
     };
 
@@ -62,6 +79,16 @@ export default class DoctorHomeScreenController extends Component<Props, S, SS> 
   // Customizable Area Start
   async componentDidMount() {
     this.getbanner();
+
+    this.interval = setInterval(() => {
+      this.setState(prevState => ({
+        currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
+      }));
+    }, 3000);
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   
   getbanner = async () => {

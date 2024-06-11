@@ -33,10 +33,11 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DoctorHomeScreenController, {Props} from '../doctorHome/DoctorHomeScreenController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
+import { TextInput } from 'react-native-gesture-handler';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class DoctorHomeScreen extends DoctorHomeScreenController {
+export default class QueriesPage extends DoctorHomeScreenController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -53,61 +54,35 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
 
 
   render() {
-    const { currentIndex, texts } = this.state;
+    const { searchVal } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={styles.iconContainer}>
-            <Icon
-              name="home"
-              size={26}
-              color="maroon"
-              // style={styles.icon}
-            />
-            <Text style={{color:"maroon",fontWeight:'500',fontSize:Scale(16)}}>HomePage</Text>
+          <View style={{backgroundColor:'#ffaa11'}}>
+            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10)}}>Queries</Text>
           </View>
-          <View style={{ flex: 1 }}>
-          <View style={{flexDirection:'row'}}>
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('QueriesPage')} style={[styles.iconSubConatiner,{flex:1, backgroundColor:'#ffaa11',}]}>
-              <MaterialCommunityIcons
-                name="progress-question"
-                size={26}
-                color="white"
-                // style={styles.icon}
-              />
-              <Text style={{color:'white'}}>Queries</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity  style={[styles.iconSubConatiner,{flex:1, backgroundColor:'blue'}]}>
-              <MaterialCommunityIcons
-                name="progress-question"
-                size={26}
-                color="white"
-                // style={styles.icon}
-              />
-              <Text style={{color:'white'}}>FAQs</Text>
-            </TouchableOpacity>
-
+        <View style={{marginTop:Scale(10),flex:1}}>
+            <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+            {this.state.addQuery?
+            <Text style={{padding:Scale(10),backgroundColor:'#009AEE',color:'white',margin:Scale(20)}}>{this.state.addQuery}</Text>
+            :
+            null
+        }
             
-          </View>   
-
-          <View style={{flexDirection:'row'}}>
-          <TouchableOpacity  style={[styles.iconSubConatiner,{flex:0.5, backgroundColor:'green',}]}>
-              <MaterialCommunityIcons
-                name="progress-question"
-                size={26}
-                color="white"
-                // style={styles.icon}
-              />
-              <Text style={{color:'white'}}>Articles</Text>
-            </TouchableOpacity> 
-            </View>
-          </View>  
-          
-          <View style={{flex: texts[currentIndex].flex ,backgroundColor:'skyblue',padding:3}}> 
-             <Text style={styles.bottomText}>{texts[currentIndex].text}</Text>
-          </View>
+        </View>
+        <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddQuery')} style={styles.plusIconContainer}>
+                <MaterialCommunityIcons
+                    name="plus"
+                    size={26}
+                    color="white"
+                    // style={styles.icon}
+                />
+            </TouchableOpacity>
+     
+        </View>
+         
       </SafeAreaView>
     );
   }
@@ -292,6 +267,14 @@ const styles = StyleSheet.create({
     color:'maroon',
     fontSize:Scale(16),
     textAlign:'center',
-    fontWeight:'bold'}
+    fontWeight:'bold'
+},
+    plusIconContainer: {
+        backgroundColor:"#009AEE",
+        width:Scale(50),
+        height:Scale(50),
+        borderRadius:Scale(25),
+        justifyContent:'center',
+        alignItems:'center'}
 });
 // Customizable Area End

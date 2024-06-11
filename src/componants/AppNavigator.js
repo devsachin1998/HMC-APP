@@ -12,6 +12,8 @@ import ConditionApply from '../screen/Doctor/Login/ConditionApply';
 import CouncilLogin from '../screen/Council/Login/CouncilLogin';
 import Registration from '../screen/Registration/Registration';
 import DoctorHomeScreen from '../screen/Doctor/doctorHome/DoctorHomeScreen';
+import QueriesPage from '../screen/Doctor/doctorHome/QueriesPage';
+import AddQuery from '../screen/Doctor/doctorHome/AddQuery';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -290,7 +292,7 @@ const AppNavigator = () => (
     </Drawer.Navigator> */}
     {/* <StatusBar backgroundColor={color.bgcolor} barStyle={'light-content'} /> */}
 
-    <Stack.Navigator initialRouteName="DoctorHomeScreen">
+    <Stack.Navigator initialRouteName="QueriesPage">
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -326,7 +328,18 @@ const AppNavigator = () => (
         component={DoctorHomeScreen}
         options={{headerShown: false}}
       />
+
+      <Stack.Screen
+        name="QueriesPage"
+        component={QueriesPage}
+        options={{headerShown: false}}
+      />
      
+     <Stack.Screen
+        name="AddQuery"
+        component={AddQuery}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
