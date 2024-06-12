@@ -15,7 +15,7 @@ export const apiFunctions = {
   BannerSelect:'/BannerSelect',
   HomeSelectSP:'/HomeSelectSP',
   DoctorLogin:'/MemberLogin',
-  FAQsList: '/FAQSelect?',
+  FAQsList: '/FAQSelect',
   urlweb:'http://hmc.Khedutmitra.com/hm_web/HM_Web.asmx', //staging server
   councilurl:'http://hmc.Khedutmitra.com/img/CouncilMember/',
   ScrollNewsSelect:'/ScrollNewsSelect',

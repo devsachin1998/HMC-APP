@@ -58,7 +58,8 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={styles.iconContainer}>
+       <View  style={{ flex: 1 }}>
+        <View style={styles.iconContainer}>
             <Icon
               name="home"
               size={26}
@@ -97,10 +98,12 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
             </TouchableOpacity> 
             </View>
           </View>  
-          
-          <View style={{flex: texts[currentIndex].flex ,backgroundColor:'skyblue',padding:3}}> 
-             <Text style={styles.bottomText}>{texts[currentIndex].text}</Text>
-          </View>
+       </View>
+        
+       <View style={{flex: texts[currentIndex].flex ,backgroundColor:'skyblue',padding:3}}> 
+          <Text style={styles.bottomText}>{texts[currentIndex].text}</Text>
+        </View>
+       
       </SafeAreaView>
     );
   }
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
-    flex: 0.25,
+    flex: 0.18,
     justifyContent:'center',
     // padding:Scale(20),
     borderRadius:Scale(10),

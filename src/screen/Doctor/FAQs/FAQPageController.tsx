@@ -25,6 +25,7 @@ interface S {
   searchVal:string;
   addQuery:string;
   iconChange:boolean;
+  FAQsList:any;
   // Customizable Area End
 }
 
@@ -69,7 +70,8 @@ export default class FAQPageController extends Component<Props, S, SS> {
       ],
       searchVal:'',
       addQuery: '',
-      iconChange: false
+      iconChange: false,
+      FAQsList:[]
       // Customizable Area End
     };
 
@@ -80,6 +82,7 @@ export default class FAQPageController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
+    this.setState({isLoading:true})
     this.getFAQS();
 
     this.interval = setInterval(() => {
@@ -94,8 +97,19 @@ export default class FAQPageController extends Component<Props, S, SS> {
   }
  
   getFAQS = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', null);
+    const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', "admin");
     console.log('responseData FAQS:::--->', responseData);
+    const jsonData1 =  responseData.Table.map((table: any) => ({
+      Answers: table?.Answer,
+      Questions:table?.Question,
+      // Address:table?.Address,
+      // EmailId:table?.EmailId,
+      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
+      // QualificationName:table?.QualificationName,
+      // DesignationName:table?.DesignationName,
+    }))
+    this.setState({FAQsList:jsonData1})
+    this.setState({isLoading:false})
   }
 
   // Customizable Area End

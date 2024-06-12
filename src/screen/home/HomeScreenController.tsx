@@ -76,7 +76,7 @@ export default class HomeScreenController extends Component<Props, S, SS> {
   
   getbanner = async () => {
     const responseData = await makeApiCallxml(apiFunctions.BannerSelect+"?UN1=2&PWD1=2", 'GET');
-  console.log('responseData:::--->', responseData);
+ // console.log('responseData:::--->', responseData);
   const jsonData1 =   responseData.Table.map((table: { IID: any; URL: any; }) => ({
     IID: table?.IID,
     URL: apiFunctions.bannerurl+table?.URL
@@ -107,7 +107,7 @@ export default class HomeScreenController extends Component<Props, S, SS> {
   }))
   this.setState({gallaryimages:jsonData1,actlist:jsonData2,articleslist:jsonData3})
 
- console.log('responseData:::--->', jsonData2);
+ //console.log('responseData:::--->', jsonData2);
 
 this.getHeadline()
 
@@ -122,7 +122,7 @@ this.getHeadline()
   this.setState({headline:jsonData1})
   this.setState({isLoading:false})
 
- console.log('responseData:::--->headline', jsonData1);
+ //console.log('responseData:::--->headline', jsonData1);
 
   }
   // Customizable Area End
