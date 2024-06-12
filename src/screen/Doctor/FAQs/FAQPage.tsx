@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -20,7 +19,7 @@ import color from '../../../globalServices/color';
 import GlobalStyle from '../../../globalServices/globalStyle';
 import Icon from 'react-native-vector-icons/Entypo';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon1 from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {SliderBox} from 'react-native-image-slider-box';
 
@@ -31,13 +30,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import DoctorHomeScreenController, {Props} from '../doctorHome/DoctorHomeScreenController';
+import FAQPageController, {Props} from './FAQPageController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
+import { TextInput } from 'react-native-gesture-handler';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class QueriesPage extends DoctorHomeScreenController {
+export default class FAQPage extends FAQPageController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -54,26 +54,52 @@ export default class QueriesPage extends DoctorHomeScreenController {
 
 
   render() {
-    const { addQuery } = this.state;
+    const { searchVal,iconChange } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={{backgroundColor:'#ffaa11',flexDirection:'row',alignItems:'center',padding:Scale(10)}}>
-            <MaterialCommunityIcons
-                    name="progress-question"
-                    size={26}
-                    color="white"
-                    // style={styles.icon}
-                />
-            <Text style={{color:'white',fontWeight:'bold',marginLeft:Scale(10),fontSize:Scale(20)}}>Add Query</Text>
+          <View style={{backgroundColor:'blue'}}>
+            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>FAQs</Text>
           </View>
-        <View style={[styles.shadowContainer,{paddingTop:Scale(10),flex:1}]}>
-            <TextInput placeholder='Query' placeholderTextColor="grey" style={{backgroundColor:"white",fontSize:Scale(18),margin:Scale(10),padding:Scale(10),borderRadius:Scale(5)}} value={addQuery} onChangeText={(e)=>this.setState({addQuery:e})}/>
+        <View style={{marginTop:Scale(10),flex:1}}>
+            <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
 
-            <TouchableOpacity style={styles.submitContainer} onPress={()=>this.props.navigation.navigate('QueriesPage')}>
-                <Text style={{color:'white',fontSize:Scale(16),fontWeight:'700'}}>SUBMIT</Text>
-            </TouchableOpacity>
+          <View style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row',flex:0.17}}>
+            <View style={{flex:1}}>
+                <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
+            
+                <Text style={{color:'white'}}>How to register My self as </Text>
+            </View>
+            <TouchableOpacity onPress={()=>this.setState({iconChange:true})}
+                style={{alignSelf:'center'}}
+                >
+            {!iconChange?
+            <Icon1
+                name="caretdown"
+                size={12}
+                color="white"
+                // style={styles.icon}
+              />
+              :
+              <Icon1
+                name="caretup"
+                size={12}
+                color="white"
+                // style={styles.icon}
+              />
+            }
+              </TouchableOpacity>
+            
+          </View>
+            
+            
+        </View>
+        <View style={{flex:0.07,padding:Scale(10),backgroundColor:'black'}}>
+            <Text style={{textAlign:'center',color:'white'}}>
+                Please Feel Free to Contanct us, if you dont find a Solution for your query. Click Here to Contact us.
+            </Text>
+     
         </View>
          
       </SafeAreaView>
@@ -84,26 +110,6 @@ export default class QueriesPage extends DoctorHomeScreenController {
 
 // Customizable Area Start
 const styles = StyleSheet.create({
-    submitContainer: {
-        backgroundColor:'#3F3F3F',padding:Scale(10),
-        margin:Scale(10),
-        justifyContent:'center',alignItems:'center',
-        borderRadius:Scale(5)
-    },
-    shadowContainer: { 
-        backgroundColor:'#ffaa11',
-   
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 3.84,
-      },
-      android: {
-        elevation: 5,
-      }})
-    },
   container: {
     marginTop: 20,
     backgroundColor: '#ffaa11',

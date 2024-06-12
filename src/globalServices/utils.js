@@ -1,4 +1,4 @@
-//  import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import {View, ToastAndroid, Platform, AlertIOS} from 'react-native';
 // import Snackbar from 'react-native-snackbar';
@@ -7,14 +7,19 @@ import moment from 'moment';
 import Scale from './Scale';
 
 export const apiFunctions = {
-  url: 'http://api.gujarathmc.org/WebService/HomoeoCouncil.asmx', //staging server
+  url: 'http://api.gujarathmc.org/WebService/HomoeoCouncil.asmx',
+  urlweb:'http://hmc.Khedutmitra.com/hm_web/HM_Web.asmx', //staging server
   urlbasic:'http://hmc.Khedutmitra.com/hm_web/hmbasic.asmx',
   urladmin:'http://hmc.khedutmitra.com/hm_web/HM_Admn.asmx',
   bannerurl:'http://hmc.Khedutmitra.com/',
+  councilurl:'http://hmc.Khedutmitra.com/img/CouncilMember/',
   login: 'otp/login',
   BannerSelect:'/BannerSelect',
   HomeSelectSP:'/HomeSelectSP',
-  DoctorLogin:'/MemberLogin'
+  ScrollNewsSelect:'/ScrollNewsSelect',
+  ProfileSelect:'/ProfileSelect',
+  ArticleSelect:'/ArticleSelect',
+  NotificationSelect:'/NotificationSelect'
 };
 export const storeData = async (key, value) => {
   try {

@@ -30,14 +30,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import DoctorHomeScreenController, {Props} from '../doctorHome/DoctorHomeScreenController';
+import QueryController, {Props} from './QueryController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 import { TextInput } from 'react-native-gesture-handler';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class QueriesPage extends DoctorHomeScreenController {
+export default class QueriesPage extends QueryController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -64,11 +64,11 @@ export default class QueriesPage extends DoctorHomeScreenController {
           </View>
         <View style={{marginTop:Scale(10),flex:1}}>
             <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
-            {this.state.addQuery?
-            <Text style={{padding:Scale(10),backgroundColor:'#009AEE',color:'white',margin:Scale(20)}}>{this.state.addQuery}</Text>
-            :
+            {/* {this.state.addQuery? */}
+            <Text style={{padding:Scale(10),backgroundColor:'#009AEE',color:'white',margin:Scale(20)}}>{}</Text>
+            {/* :
             null
-        }
+            } */}
             
         </View>
         <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>

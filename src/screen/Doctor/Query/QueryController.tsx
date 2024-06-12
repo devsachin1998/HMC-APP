@@ -34,7 +34,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class DoctorHomeScreenController extends Component<Props, S, SS> {
+export default class QueryController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -80,7 +80,7 @@ export default class DoctorHomeScreenController extends Component<Props, S, SS> 
 
   // Customizable Area Start
   async componentDidMount() {
-    
+   
 
     this.interval = setInterval(() => {
       this.setState(prevState => ({
@@ -93,5 +93,7 @@ export default class DoctorHomeScreenController extends Component<Props, S, SS> 
     clearInterval(this.interval);
   }
   
+  
+
   // Customizable Area End
 }
