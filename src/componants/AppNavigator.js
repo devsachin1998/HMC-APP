@@ -10,6 +10,8 @@ import CustomSidebarMenu from './CustomSideMenu';
 import Login from '../screen/Doctor/Login/Login';
 import ConditionApply from '../screen/Doctor/Login/ConditionApply';
 import CouncilLogin from '../screen/Council/Login/CouncilLogin';
+import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
+import ArticlesScreen from '../screen/articles/ArticlesScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -314,6 +316,8 @@ const AppNavigator = () => (
         component={CouncilLogin}
         options={{headerShown: false}}
       />
+      
+      
     </Stack.Navigator>
   </NavigationContainer>
 );
@@ -349,6 +353,17 @@ const DrawerNavigator = () => {
         component={HomeScreen}
         options={{headerShown: false}}
       />
+       <Stack.Screen
+        name="CouncilMemberScreen"
+        component={CouncilMemberScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ArticlesScreen"
+        component={ArticlesScreen}
+        options={{headerShown: false}}
+      />
+      
     </Drawer.Navigator>
   );
 };

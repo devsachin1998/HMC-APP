@@ -23,7 +23,7 @@ type AppProps = {
 export const CustomHeader = () => {
   const navigation = useNavigation();
 
-  console.log("navigation",navigation)
+  // console.log("navigation",navigation)
   return (
     <View style={styles.modalBackground}>
       <View style={{flexDirection: 'row', alignItems: 'center',margin:Scale(5)}}>
