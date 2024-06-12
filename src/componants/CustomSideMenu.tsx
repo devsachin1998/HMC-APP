@@ -58,6 +58,7 @@ class CustomSidebarMenu extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>this.props.navigation.navigate("HomeScreen")}
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
@@ -85,6 +86,7 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>this.props.navigation.navigate("CouncilMemberScreen")}
                 >
                <FontAwesome5 name="users" size={20} color="white"  />
                 <Text style={styles.textstyle}>Council Members</Text>
@@ -110,6 +112,9 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                
+                onPress={()=> this.props.navigation.navigate("ArticlesScreen",{type:1})}
+
                 >
                <MaterialIcons name="article" size={20} color="white"  />
                 <Text style={styles.textstyle}>Articles</Text>
@@ -128,6 +133,8 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("ArticlesScreen",{type:2})}
+
                 >
                <MaterialIcons name="notifications" size={20} color="white"  />
                 <Text style={styles.textstyle}>Act. to Notification</Text>

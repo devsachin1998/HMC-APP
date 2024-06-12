@@ -1,4 +1,4 @@
-//  import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import {View, ToastAndroid, Platform, AlertIOS} from 'react-native';
 // import Snackbar from 'react-native-snackbar';
@@ -15,7 +15,13 @@ export const apiFunctions = {
   BannerSelect:'/BannerSelect',
   HomeSelectSP:'/HomeSelectSP',
   DoctorLogin:'/MemberLogin',
-  FAQsList: '/FAQSelect?'
+  FAQsList: '/FAQSelect?',
+  urlweb:'http://hmc.Khedutmitra.com/hm_web/HM_Web.asmx', //staging server
+  councilurl:'http://hmc.Khedutmitra.com/img/CouncilMember/',
+  ScrollNewsSelect:'/ScrollNewsSelect',
+  ProfileSelect:'/ProfileSelect',
+  ArticleSelect:'/ArticleSelect',
+  NotificationSelect:'/NotificationSelect'
 };
 export const storeData = async (key, value) => {
   try {

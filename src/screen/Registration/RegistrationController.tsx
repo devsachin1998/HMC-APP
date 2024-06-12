@@ -2,7 +2,6 @@ import {Component} from 'react';
 // import makeApiCall from '../../globalServices/api';
 // import {apiFunctions, showtoasterror} from '../../globalServices/utils';
 import {Keyboard} from 'react-native';
-
 // import messaging from '@react-native-firebase/messaging';
 
 export interface Props {

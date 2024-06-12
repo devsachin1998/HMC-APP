@@ -15,6 +15,8 @@ import DoctorHomeScreen from '../screen/Doctor/doctorHome/DoctorHomeScreen';
 import QueriesPage from '../screen/Doctor/Query/QueriesPage';
 import AddQuery from '../screen/Doctor/Query/AddQuery';
 import FAQPage from '../screen/Doctor/FAQs/FAQPage';
+import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
+import ArticlesScreen from '../screen/articles/ArticlesScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -384,6 +386,17 @@ const DrawerNavigator = () => {
         component={HomeScreen}
         options={{headerShown: false}}
       />
+       <Stack.Screen
+        name="CouncilMemberScreen"
+        component={CouncilMemberScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ArticlesScreen"
+        component={ArticlesScreen}
+        options={{headerShown: false}}
+      />
+      
     </Drawer.Navigator>
   );
 };

@@ -24,8 +24,23 @@ export const makeApiCall = async (endpoint, method, body = null) => {
     console.error(error);
   }
 };
-export const makeApiCallxml  = async (endpoint, method, body = null) => {
-  const apiUrl = `${apiFunctions.urlbasic}${endpoint}`;
+export const makeApiCallxml  = async (endpoint, method, url = "base") => {
+  let apiUrl = "";
+  if(url=="base")
+    {
+      apiUrl = `${apiFunctions.urlbasic}${endpoint}`;
+
+    }
+    else  if(url=="admin")
+    {
+       apiUrl = `${apiFunctions.urladmin}${endpoint}`;
+
+    }
+    else  if(url=="web")
+      {
+         apiUrl = `${apiFunctions.urlweb}${endpoint}`;
+  
+      }
   console.log(apiUrl);
 
   const headers = {
@@ -35,9 +50,7 @@ export const makeApiCallxml  = async (endpoint, method, body = null) => {
     method: method,
     // headers: headers,
   };
-  if (body) {
-    options.body = body;
-  }
+  
   try {
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
@@ -50,7 +63,7 @@ export const makeApiCallxml  = async (endpoint, method, body = null) => {
           reject(error);
         } else {
           const tables = result['diffgr:diffgram'].NewDataSet;
-          console.log("tables:::::11", tables);
+          // console.log("tables:::::11", tables);
           resolve(tables);
         }
       });
