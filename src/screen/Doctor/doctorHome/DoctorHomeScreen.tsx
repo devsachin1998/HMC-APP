@@ -67,6 +67,7 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
             />
             <Text style={{color:"maroon",fontWeight:'500',fontSize:Scale(16)}}>HomePage</Text>
           </View>
+          
           <View style={{ flex: 1 }}>
           <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={()=>this.props.navigation.navigate('QueriesPage')} style={[styles.iconSubConatiner,{flex:1, backgroundColor:'#ffaa11',}]}>

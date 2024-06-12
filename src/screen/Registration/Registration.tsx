@@ -21,7 +21,9 @@ import Scale from '../../globalServices/Scale';
 import { TextInput} from 'react-native-paper';
 import RadioGroup from 'react-native-radio-buttons-group';
 import DatePicker from 'react-native-date-picker';
-import * as ImagePicker from 'react-native-image-crop-picker';
+// import * as ImagePicker from 'react-native-image-crop-picker';
+import * as ImagePicker from 'react-native-image-picker';
+
 import moment from 'moment';
 
 import Icon from 'react-native-vector-icons/Entypo';
@@ -42,28 +44,47 @@ renderLabel() {
     return null;
   }
 
-  chooseImg = ()=>{
-    try {
-      ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        cropping: true
-      }).then(image => {
-        console.log(image);
-        let imgObj: any = {
-          uri: image.path,
-          type: image.mime,
-          name: Platform.OS === 'ios' ? image.filename : "IMG_0002.JPG",
-          filename: Platform.OS === 'ios' ? image.filename : "IMG_0002.JPG",
-      }
-      this.setState({ isImage: imgObj })
+  // chooseImg = ()=>{
+  //   try {
+  //     ImagePicker.launchImageLibrary({
+  //       width: 300,
+  //       height: 400,
+  //       cropping: true
+  //     }).then(image => {
+  //       console.log(image);
+  //       let imgObj: any = {
+  //         uri: image.path,
+  //         type: image.mime,
+  //         name: Platform.OS === 'ios' ? image.filename : "IMG_0002.JPG",
+  //         filename: Platform.OS === 'ios' ? image.filename : "IMG_0002.JPG",
+  //     }
+  //     this.setState({ isImage: imgObj })
 
-      });
+  //     });
      
-    }catch(e) {
-      console.log("?????????ee", e)
-    }
-  } 
+  //   }catch(e) {
+  //     console.log("?????????ee", e)
+  //   }
+  // } 
+   chooseImg = () => {
+    const options = {
+      mediaType: 'photo',
+      quality: 1,
+      maxWidth: 600,
+      maxHeight: 600,
+    };
+  
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+
+  
+      }
+    });
+  }
 render() {
     const { value, isFocus ,date1,open,selectedBloodGroup, bloodGroups ,month,year} = this.state;
   return (
