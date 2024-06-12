@@ -50,8 +50,9 @@ export default class FAQPage extends FAQPageController {
     const { iconChange } = this.state;
     console.log("????????",item)
     return (
-      
-      <TouchableOpacity onPress={()=>this.setState({iconChange:true})} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row',flex:0.17}}>
+      <View style={{flexDirection:'column'}}>
+        
+      <TouchableOpacity onPress={()=>this.setState({iconChange:true})} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
       <View style={{flex:1}}>
           <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
       
@@ -77,6 +78,7 @@ export default class FAQPage extends FAQPageController {
       }
         </View>
       </TouchableOpacity>
+      </View>
     )
   }
   // Customizable Area End
@@ -103,7 +105,7 @@ export default class FAQPage extends FAQPageController {
             <View>
                   <FlatList
                     data={this.state.FAQsList}
-                    horizontal
+                   
                     renderItem={({item, index})=> this.renderItemFAQs(item,index)}
                     // keyExtractor={(item) => item.id}
                   />
