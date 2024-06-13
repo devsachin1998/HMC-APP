@@ -1,4 +1,4 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
 import {View, ToastAndroid, Platform, AlertIOS} from 'react-native';
 // import Snackbar from 'react-native-snackbar';
@@ -26,23 +26,23 @@ export const apiFunctions = {
 };
 export const storeData = async (key, value) => {
   try {
-    // await AsyncStorage.setItem(key, JSON.stringify(value));
+    console.log("key 29:::",key+value)
+    await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (e) {
-    // saving error
+    console.log("Async",e);
   }
 };
 export const clearData = async () => {
   try {
-    // await AsyncStorage.clear();
+    await AsyncStorage.clear();
   } catch (e) {
     // saving error
   }
 };
 export const getdata = async key => {
   try {
-    const retrievedItem = ''
+    const retrievedItem = await AsyncStorage.getItem(key);
     const item = JSON.parse(retrievedItem);
-    // console.log(item);
     return item;
   } catch (error) {
     console.log(error.message);

@@ -42,10 +42,10 @@ class CustomSideMenuDoctor extends Component {
         <SafeAreaView style={{flex: 1,backgroundColor:'#ffaa11'}}>
           <View style={{paddingTop: Scale(10), paddingBottom: Scale(0.1),alignItems:'center'}}>
             <TouchableOpacity style={styles.avatar}>
-              {/* <Image
+              <Image
                 source={require("../images/logo.png")}
                 style={styles.avatar}
-              /> */}
+              />
             </TouchableOpacity>
             <View style={{paddingTop: Scale(2), paddingBottom: Scale(10)}}>
               <Text style={[styles.textstyle, {fontWeight: '800',fontSize:16,textAlign:'center'}]}>
@@ -58,14 +58,21 @@ class CustomSideMenuDoctor extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("HomeScreen")}
+                onPress={()=>this.props.navigation.navigate("DoctorHomeScreen")}
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
               </TouchableOpacity>
              
             
-         
+              <TouchableOpacity
+                style={styles.mainview}
+                
+
+                >
+               <Icon name="user" size={20} color="white"  />
+                <Text style={styles.textstyle}>Profile</Text>
+              </TouchableOpacity>
            
   
               <TouchableOpacity
@@ -76,27 +83,30 @@ class CustomSideMenuDoctor extends Component {
                <MaterialIcons name="article" size={20} color="white"  />
                 <Text style={styles.textstyle}>Articles</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.mainview}
+                
+
+                >
+               <MaterialIcons name="progress-question" size={20} color="white"  />
+                <Text style={styles.textstyle}>Queries</Text>
+              </TouchableOpacity>
              
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>this.props.navigation.navigate("FAQPage")}
                 >
                <MaterialIcons name="photo-library" size={20} color="white"  />
                 <Text style={styles.textstyle}>FAQs</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("ArticlesScreen",{type:2})}
-
+                onPress={()=>this.props.navigation.replace("DrawerNavigator")}
                 >
-               <MaterialIcons name="notifications" size={20} color="white"  />
-                <Text style={styles.textstyle}>Act. to Notification</Text>
+               <MaterialIcons name="logout" size={20} color="white"  />
+                <Text style={styles.textstyle}>Log Out</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.mainview}
-                >
-               <MaterialIcons name="contact-phone" size={20} color="white"  />
-                <Text style={styles.textstyle}>Contact Us</Text>
-              </TouchableOpacity>
+              
             </ScrollView>
             <Text style={[styles.textstyle,{paddingStart:0,fontSize:12,textAlign:'center',marginTop:10}]}>{"Copyright © . All rights reserved. \n| Designed by C.S.Comsoft Pvt. Ltd."}</Text>
 

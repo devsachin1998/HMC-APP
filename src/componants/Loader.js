@@ -28,7 +28,7 @@ const Loader = (props) => {
                         size="large"
                         style={styles.activityIndicator}
                     />
-                                    <Text style={{fontSize:18,fontWeight:700,paddinTop:0,marginBottom:10}}>Loading...</Text>
+                                    <Text style={{fontSize:18,fontWeight:700,marginBottom:10}}>Loading...</Text>
 
 
                 </View>

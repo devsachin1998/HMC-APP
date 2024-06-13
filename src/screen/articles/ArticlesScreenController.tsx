@@ -109,7 +109,7 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
   }
   getdataNotification = async () => {
     const responseData = 
-    await makeApiCallxml(apiFunctions.NotificationSelect+"?UN1=2&PWD1=2", 'GET', "base");
+    await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=2&PWD1=2", 'GET', "base");
     const jsonData1 =  responseData.Table.map((table: any) => ({
       ArticleID:table?.NotificationID, 
       Title:table?.Title,

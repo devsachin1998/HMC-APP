@@ -43,13 +43,12 @@ export default class LoginController extends Component<Props, S, SS> {
 // this.getFcmToken()
   }
 
-  onClickDoctorLogin =async ()=>{
+  onClickDoctorLogin = async ()=>{
     const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
     const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
     console.log('responseData:::--->', responseData);
-    
-    this.props.navigation.navigate('DoctorHomeScreen')
+    this.props.navigation.navigate('DrawerNavigatorDoctor')
   }
 //   async loginBtnClick() {
 //     Keyboard.dismiss();

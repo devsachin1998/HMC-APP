@@ -1,7 +1,11 @@
 import {Component} from 'react';
-// import makeApiCall from '../../globalServices/api';
-// import {apiFunctions, showtoasterror} from '../../globalServices/utils';
+
 import {Keyboard} from 'react-native';
+import { makeApiCall } from '../../../globalServices/api';
+import { apiFunctions, storeData } from '../../../globalServices/utils';
+import moment from 'moment';
+
+
 // import messaging from '@react-native-firebase/messaging';
 
 export interface Props {
@@ -43,11 +47,13 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
   }
 
   onClickCouncilLogin =async ()=>{
-    const sDate=moment(this.state.date1).format('YYYY-MM-DD');
+    // const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
-    const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
-    console.log('responseData:::--->', responseData);
-    this.props.navigation.navigate('DrawerNavigatorDoctor')
+    // const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
+    // console.log('responseData:::--->', responseData);
+     storeData('sidemenu','doctor')
+
+    this.props.navigation.navigate('DrawerNavigator')
   }
 
 

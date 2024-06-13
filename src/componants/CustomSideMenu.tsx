@@ -36,7 +36,7 @@ class CustomSidebarMenu extends Component {
   // };
 
   render() {
-    console.log('props::', this.props.navigation);
+    // console.log('props::', this.props.navigation);
     return (
 
         <SafeAreaView style={{flex: 1,backgroundColor:'#ffaa11'}}>

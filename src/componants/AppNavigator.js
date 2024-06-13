@@ -57,23 +57,7 @@ const AppNavigator = () => (
       />
       
 
-      <Stack.Screen
-        name="QueriesPage"
-        component={QueriesPage}
-        options={{headerShown: false}}
-      />
      
-     <Stack.Screen
-        name="AddQuery"
-        component={AddQuery}
-        options={{headerShown: false}}
-      />
-
-      <Stack.Screen
-        name="FAQPage"
-        component={FAQPage}
-        options={{headerShown: false}}
-      />
   <Stack.Screen
         name="DrawerNavigatorDoctor"
         component={DrawerNavigatorDoctor}
@@ -174,16 +158,23 @@ const DrawerNavigatorDoctor = ({navigation}) => {
         component={DoctorHomeScreen}
         options={{headerShown: false}}
       />
-       {/* <Stack.Screen
-        name="CouncilMemberScreen"
-        component={CouncilMemberScreen}
+       <Stack.Screen
+        name="QueriesPage"
+        component={QueriesPage}
         options={{headerShown: false}}
       />
-       <Stack.Screen
-        name="ArticlesScreen"
-        component={ArticlesScreen}
+     
+     <Stack.Screen
+        name="AddQuery"
+        component={AddQuery}
         options={{headerShown: false}}
-      /> */}
+      />
+
+      <Stack.Screen
+        name="FAQPage"
+        component={FAQPage}
+        options={{headerShown: false}}
+      />
       
     </Drawer.Navigator>
   );

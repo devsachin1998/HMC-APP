@@ -81,6 +81,7 @@ export default class DoctorHomeScreenController extends Component<Props, S, SS> 
   // Customizable Area Start
   async componentDidMount() {
     
+    await storeData("sidemenu",'doctor')
 
     this.interval = setInterval(() => {
       this.setState(prevState => ({

@@ -63,7 +63,7 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
 
-      // this.setState({ isLoading: true }); // Example: Set isLoading state to true
+      this.setState({ isLoading: true }); // Example: Set isLoading state to true
     
         this.getdata();
   
