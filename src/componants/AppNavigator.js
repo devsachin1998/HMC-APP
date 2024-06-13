@@ -18,6 +18,8 @@ import FAQPage from '../screen/Doctor/FAQs/FAQPage';
 import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
 import ArticlesScreen from '../screen/articles/ArticlesScreen';
 import CollegeScreen from '../screen/colleges/CollegesScreen';
+import CustomSideMenuDoctor from './CustomSideMenuDoctor';
+
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -36,11 +38,8 @@ const AppNavigator = () => (
         component={DrawerNavigator}
         options={{headerShown: false,}}
       />
-       <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{headerShown: false}}
-      />
+        
+       
        <Stack.Screen
         name="ConditionApply"
         component={ConditionApply}
@@ -56,11 +55,7 @@ const AppNavigator = () => (
         component={Registration}
         options={{headerShown: false}}
       />
-       <Stack.Screen
-        name="DoctorHomeScreen"
-        component={DoctorHomeScreen}
-        options={{headerShown: false}}
-      />
+      
 
       <Stack.Screen
         name="QueriesPage"
@@ -79,12 +74,16 @@ const AppNavigator = () => (
         component={FAQPage}
         options={{headerShown: false}}
       />
-
+  <Stack.Screen
+        name="DrawerNavigatorDoctor"
+        component={DrawerNavigatorDoctor}
+        options={{headerShown: false}}
+      />
 
     </Stack.Navigator>
   </NavigationContainer>
 );
-const DrawerNavigator = () => {
+const DrawerNavigator = ({navigation}) => {
   // const [username, setusername] = useState('');
   // const [userprofile, setuserprofile] = useState('');
 
@@ -118,6 +117,16 @@ const DrawerNavigator = () => {
         options={{headerShown: false}}
       />
        <Stack.Screen
+        name="DoctorHomeScreen"
+        component={DoctorHomeScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
         name="CouncilMemberScreen"
         component={CouncilMemberScreen}
         options={{headerShown: false}}
@@ -132,12 +141,49 @@ const DrawerNavigator = () => {
         component={CollegeScreen}
         options={{headerShown: false}}
       />
-      
+    
        <Stack.Screen
         name="ArticlesScreen1"
         component={ArticlesScreen}
         options={{headerShown: false}}
       />
+      
+    </Drawer.Navigator>
+  );
+};
+
+const DrawerNavigatorDoctor = ({navigation}) => {
+  
+  return (
+    <Drawer.Navigator
+      initialRouteName="CustomSideMenuDoctor"
+      screenOptions={{
+        headerShown: false,
+      }}
+      drawerContent={props => (
+        <CustomSideMenuDoctor
+          data={{
+            name: '',
+            profile_pic: '',
+          }}
+          {...props}
+        />
+      )}>
+      <Drawer.Screen
+        name="DoctorHomeScreen"
+        component={DoctorHomeScreen}
+        options={{headerShown: false}}
+      />
+       {/* <Stack.Screen
+        name="CouncilMemberScreen"
+        component={CouncilMemberScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="ArticlesScreen"
+        component={ArticlesScreen}
+        options={{headerShown: false}}
+      /> */}
       
     </Drawer.Navigator>
   );

@@ -23,7 +23,7 @@ type AppProps = {
 export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
   const navigation = useNavigation();
 
-  // console.log("navigation",navigation,backgroundColor)
+ //  console.log("navigation",navigation,backgroundColor)
 
   return (
     <View style={[styles.modalBackground, {backgroundColor: backgroundColor}]}>
@@ -63,7 +63,7 @@ export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
           Council Of Homoeopathic System Of Medicine
         </Text>
         {logout == true ? (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>navigation.replace("DrawerNavigator")}>
             <Text style={{color: 'white',fontWeight:'bold',marginRight:Scale(5)}}>Logout</Text>
           </TouchableOpacity>
         ) : null}

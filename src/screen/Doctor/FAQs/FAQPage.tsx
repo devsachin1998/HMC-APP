@@ -45,6 +45,47 @@ export default class FAQPage extends FAQPageController {
   }
 
   // Customizable Area Start
+
+  renderItemFAQs=(item:any,index:number)=>{
+    const { iconChange } = this.state;
+    console.log("????????",item)
+    return (
+      <View style={{flexDirection:'column'}}>
+
+    
+      <View>
+      <TouchableOpacity onPress={()=>this.updateValueById(item.FaqId)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
+      <View style={{flex:1}}>
+          <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
+      
+          <Text style={{color:'white'}}>{item.Questions} </Text>
+      </View>
+      <View 
+          style={{alignSelf:'center'}}
+          >
+
+      <Icon1
+          name={!item.iscollaps?"caretdown":"caretup"}
+          size={12}
+          color="white"
+          // style={styles.icon}
+        />
+    
+        </View>
+      </TouchableOpacity>
+      {item.iscollaps?
+      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,padding:Scale(10)}}>
+          <Text style={{marginVertical:Scale(10),color:'#009AEE'}}>Answer :-</Text>
+      
+          <Text style={{color:'#009AEE'}}>{item.Answers} </Text>
+      </View>
+      :
+      null}
+      </View>
+      
+      </View>
+    )
+  }
   // Customizable Area End
  
  
@@ -65,33 +106,16 @@ export default class FAQPage extends FAQPageController {
         <View style={{marginTop:Scale(10),flex:1}}>
             <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
 
-          <View style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row',flex:0.17}}>
-            <View style={{flex:1}}>
-                <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
-            
-                <Text style={{color:'white'}}>How to register My self as </Text>
-            </View>
-            <TouchableOpacity onPress={()=>this.setState({iconChange:true})}
-                style={{alignSelf:'center'}}
-                >
-            {!iconChange?
-            <Icon1
-                name="caretdown"
-                size={12}
-                color="white"
-                // style={styles.icon}
-              />
-              :
-              <Icon1
-                name="caretup"
-                size={12}
-                color="white"
-                // style={styles.icon}
-              />
-            }
-              </TouchableOpacity>
-            
-          </View>
+       
+            <View>
+                  <FlatList
+                    data={this.state.FAQsList}
+                   
+                    renderItem={({item, index})=> this.renderItemFAQs(item,index)}
+                    // keyExtractor={(item) => item.id}
+                  />
+                  </View>
+
             
             
         </View>
