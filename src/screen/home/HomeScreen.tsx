@@ -55,7 +55,7 @@ export default class HomeScreen extends HomeScreenController {
             <FontAwesome5 name="file-pdf" size={20} color='white' />
           </View>
           <View style={{marginStart:10}}>
-        <Text  numberOfLines={1} style={{ width: '100%',fontSize:16,fontWeight:700,color:'white', textOverflow: 'ellipsis'}}>
+        <Text  numberOfLines={1} style={{ width: '100%',fontSize:16,fontWeight:700,color:'white', }}>
          
          {item.Title > 20
                 ? `${item.Title}`
@@ -77,7 +77,7 @@ export default class HomeScreen extends HomeScreenController {
             <FontAwesome5 name="file-pdf" size={20} color='green' />
           </View>
           <View style={{marginStart:10}}>
-        <Text  numberOfLines={1} style={{ width: '100%',fontSize:16,fontWeight:700,color:'green', textOverflow: 'ellipsis'}}>
+        <Text  numberOfLines={1} style={{ width: '100%',fontSize:16,fontWeight:700,color:'green',}}>
          
          {item.Title > 10
                 ? `${item.Title}`
@@ -331,7 +331,9 @@ export default class HomeScreen extends HomeScreenController {
           },
         ]}>
         <View style={styles.innerContainer}>
-          <TouchableOpacity
+          <TouchableOpacity 
+                    onPress={() => this.props.navigation.navigate('CollegeScreen')}
+
             style={[styles.touchable, {marginStart: 0, marginEnd: 30}]}>
             <View style={styles.iconContainer}>
               <FontAwesome5 name="school" size={23} color="green" />

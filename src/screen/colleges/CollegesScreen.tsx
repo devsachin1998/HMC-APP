@@ -24,7 +24,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
 // Merge Engine - Artboard Dimension  - Start
@@ -35,11 +35,11 @@ import {CustomHeader} from '../../componants/CustomHeader';
 import Scale from '../../globalServices/Scale';
 
 import Loader from '../../componants/Loader';
-import ArticlesScreenController, { Props } from './ArticlesScreenController';
+import CollegeScreenController, {Props} from './CollegeScreenController';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class ArticlesScreen extends ArticlesScreenController {
+export default class CollegeScreen extends CollegeScreenController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -48,45 +48,38 @@ export default class ArticlesScreen extends ArticlesScreenController {
 
   // Customizable Area Start
   // Customizable Area End
-  renderItemAct = (item: any,index) => {
+  renderItemAct = (item: any, index) => {
     return (
+<View style={{flexDirection: 'column', margin: 10, borderRadius: 5,overflow: 'hidden'}}>
+<TouchableOpacity style={{flexDirection: 'row',}}>
+          <View style={{flex: 0.5}}>
+            <Image
+              resizeMode="cover"
+              style={{height: 100, width: 100}}
+              source={require('../../images/hcollege.jpg')}
+            />
+          </View>
+          <View style={{flex: 1,backgroundColor:'white'}}>
+            <Text style={{color:'#009AEE',fontWeight:'700'}}>{item.CollegeName}</Text>
+            <View style={{flex: 1,flexDirection:'row',alignItems:'center'}}>
+            <FontAwesome5 name="school" size={20} color='#009AEE' style={{marginTop:20,padding:5}} />
 
-      <View style={{flexDirection:'column',margin:10,}}>
-     <TouchableOpacity style={{flexDirection:'row',  borderRadius:5,      backgroundColor:'#009AEE'
-}}  onPress={()=>this.updateValueById(item.ArticleID)}>
-
-        <View style={{padding:10,flex:1,
-        }}>
-       <Text style={{color:'white'}}>{item.Title}</Text>
-        </View>
-        <FontAwesome5 name={item.iscollaps?"caret-up":"caret-down"} size={28} color='white' style={{padding:5,marginEnd:10}} />
+            <Text style={{fontSize:12,marginTop:20,flex:1}}>{item.UniversityName}</Text>
+</View>
+          </View>
+          <View style={{flex:0.2 ,backgroundColor:'#009AEE',justifyContent:"center",alignItems:'center'}}>
+          <MaterialCommunityIcons name={"dots-vertical"} size={28} color='white' style={{padding:5,marginEnd:0}} />
+          </View>
+          
         </TouchableOpacity>
-        {item.iscollaps?  
-<View style={{borderWidth:1,borderColor:'#009AEE',borderRadius:5,marginTop:3}}>
-  
-     <View style={{flex:1,flexDirection:'row'
-        }}>
-        <Text style={{flex:0.3,backgroundColor:'#009AEE',padding:5,color:'white'}} >Date</Text>
-        <Text style={{flex:1,paddingStart:10, color:'#009AEE'}}>{item.Date}</Text>
-        </View>
-        <View style={{flex:1,flexDirection:'row'
-        }}>
-        <Text style={{flex:0.3,backgroundColor:'#009AEE',padding:5,color:'white'}} >PDF File</Text>
-        <Text style={{flex:1,paddingStart:10,color:'#009AEE'}}>{item.PDFFile}</Text>
-        </View>
-        <View style={{flex:1,flexDirection:'row',
-     }}>
-        <Text style={{flex:0.3,backgroundColor:'#009AEE',padding:5,color:'white'}} >Description</Text>
-        <Text style={{flex:1,paddingStart:10,color:'#009AEE'}}>{item.Description}</Text>
-        </View>
-      </View>:null}
-      </View>   
+        
+      </View>
     );
   };
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1,backgroundColor:'#fffbe7'}}>
+        <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
           <CustomHeader />
           <Loader loading={this.state.isLoading} />
 
@@ -101,11 +94,10 @@ export default class ArticlesScreen extends ArticlesScreenController {
               <FlatList
                 data={this.state.datalist}
                 renderItem={({item, index}) => this.renderItemAct(item, index)}
-                contentContainerStyle={{paddingBottom:150}}
+                contentContainerStyle={{paddingBottom: 150}}
                 // keyExtractor={(item) => item.id}
               />
             </View>
-            
           </View>
         </View>
       </SafeAreaView>

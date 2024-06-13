@@ -21,7 +21,8 @@ export const apiFunctions = {
   ScrollNewsSelect:'/ScrollNewsSelect',
   ProfileSelect:'/ProfileSelect',
   ArticleSelect:'/ArticleSelect',
-  NotificationSelect:'/NotificationSelect'
+  NotificationSelect:'/NotificationSelect',
+  CollegeSelect:'/CollegeSelect'
 };
 export const storeData = async (key, value) => {
   try {

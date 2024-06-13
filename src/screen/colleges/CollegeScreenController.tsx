@@ -30,7 +30,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class ArticlesScreenController extends Component<Props, S, SS> {
+export default class CollegeScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -63,14 +63,10 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
 
-      this.setState({ isLoading: true }); // Example: Set isLoading state to true
-      let type = this.props.route.params.type;
-      console.log("Type:", type);
-      if (type === 1) {
+      // this.setState({ isLoading: true }); // Example: Set isLoading state to true
+    
         this.getdata();
-      } else {
-        this.getdataNotification();
-      }
+  
 
   }
   
@@ -92,37 +88,19 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
  
   getdata = async () => {
     const responseData = 
-    await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
+    await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1", 'GET', "web");
     const jsonData1 =  responseData.Table.map((table: any) => ({
-      ArticleID:table?.ArticleID, 
-      Title:table?.Title,
-      Date:moment(table?.Date).format("DD/MM/YYYY"),
-      PDFFile:table?.PDFFile,
-      Description:table?.Description,
-      iscollaps:false
+      CollegeID:table?.CollegeID, 
+      CollegeName:table?.CollegeName,
+      UniversityName:table?.UniversityName,
+      
   }))
   this.setState({datalist:jsonData1})
   this.setState({isLoading:false})
 
- console.log('responseData:::--->headline', this.state.datalist);
+ console.log('responseData:::--->headline', responseData);
 
   }
-  getdataNotification = async () => {
-    const responseData = 
-    await makeApiCallxml(apiFunctions.NotificationSelect+"?UN1=2&PWD1=2", 'GET', "base");
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      ArticleID:table?.NotificationID, 
-      Title:table?.Title,
-      Date:moment(table?.UpdatedDate).format("DD/MM/YYYY"),
-      PDFFile:table?.FileName,
-      Description:table?.Description,
-      iscollaps:false
-  }))
-  this.setState({datalist:jsonData1})
-  this.setState({isLoading:false})
 
- console.log('responseData:::--->headline', this.state.datalist);
-
-  }
   // Customizable Area End
 }

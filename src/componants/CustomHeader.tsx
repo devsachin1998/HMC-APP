@@ -23,7 +23,7 @@ type AppProps = {
 export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
   const navigation = useNavigation();
 
-  console.log("navigation",navigation,backgroundColor)
+  // console.log("navigation",navigation,backgroundColor)
 
   return (
     <View style={[styles.modalBackground, {backgroundColor: backgroundColor}]}>

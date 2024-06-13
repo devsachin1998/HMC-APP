@@ -17,6 +17,7 @@ import AddQuery from '../screen/Doctor/Query/AddQuery';
 import FAQPage from '../screen/Doctor/FAQs/FAQPage';
 import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
 import ArticlesScreen from '../screen/articles/ArticlesScreen';
+import CollegeScreen from '../screen/colleges/CollegesScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -24,7 +25,7 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
 
-    <Stack.Navigator initialRouteName="Registration">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -33,7 +34,7 @@ const AppNavigator = () => (
        <Stack.Screen
         name="DrawerNavigator"
         component={DrawerNavigator}
-        options={{headerShown: false}}
+        options={{headerShown: false,}}
       />
        <Stack.Screen
         name="Login"
@@ -100,6 +101,7 @@ const DrawerNavigator = () => {
       initialRouteName="CustomSideMenu"
       screenOptions={{
         headerShown: false,
+        unmountOnBlur:true,
       }}
       drawerContent={props => (
         <CustomSidebarMenu
@@ -122,6 +124,17 @@ const DrawerNavigator = () => {
       />
        <Stack.Screen
         name="ArticlesScreen"
+        component={ArticlesScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="CollegeScreen"
+        component={CollegeScreen}
+        options={{headerShown: false}}
+      />
+      
+       <Stack.Screen
+        name="ArticlesScreen1"
         component={ArticlesScreen}
         options={{headerShown: false}}
       />

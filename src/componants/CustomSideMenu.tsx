@@ -36,7 +36,7 @@ class CustomSidebarMenu extends Component {
   // };
 
   render() {
-    console.log('props::', this.props.data.profile_pic);
+    console.log('props::', this.props.navigation);
     return (
 
         <SafeAreaView style={{flex: 1,backgroundColor:'#ffaa11'}}>
@@ -106,14 +106,17 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                
+                onPress={()=> this.props.navigation.navigate("CollegeScreen")}
+
                 >
                <FontAwesome5 name="school" size={20} color="white"  />
-                <Text style={styles.textstyle}>Collages</Text>
+                <Text style={styles.textstyle}>Colleges</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
                 
-                onPress={()=> this.props.navigation.navigate("ArticlesScreen",{type:1})}
+                onPress={()=> this.props.navigation.navigate("ArticlesScreen1",{type:1})}
 
                 >
                <MaterialIcons name="article" size={20} color="white"  />
