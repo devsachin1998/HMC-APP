@@ -61,7 +61,7 @@ export default class ArticlePage extends ArticlePageController {
       <View style={{alignSelf:'center',flexDirection:'row',flex:1,justifyContent:'space-around'}}>
       <TouchableOpacity 
           style={{alignSelf:'center'}}
-          onPress={()=>this.props.navigation.navigate('EditArticle',{item:item,type:1})}
+          onPress={()=>this.props.navigation.navigate('AddEditArticle',{item:item,type:1})}
           >
         <MaterialCommunityIcons
           name="pencil"
@@ -146,7 +146,7 @@ export default class ArticlePage extends ArticlePageController {
             
         </View>
         <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddArticle')} style={styles.plusIconContainer}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddEditArticle')} style={styles.plusIconContainer}>
                 <MaterialCommunityIcons
                     name="plus"
                     size={26}

@@ -20,7 +20,7 @@ import ArticlesScreen from '../screen/articles/ArticlesScreen';
 import CollegeScreen from '../screen/colleges/CollegesScreen';
 import CustomSideMenuDoctor from './CustomSideMenuDoctor';
 import ArticlePage from '../screen/Doctor/Articles/ArticlePage';
-import EditArticle from '../screen/Doctor/Articles/AddEditArticle/AddEditArticle'
+import AddEditArticle from '../screen/Doctor/Articles/AddEditArticle/AddEditArticle'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -28,17 +28,8 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
 
-    <Stack.Navigator initialRouteName="EditArticle">
-    <Stack.Screen
-        name="ArticlePage"
-        component={ArticlePage}
-        options={{headerShown: false}}
-      />
-       <Stack.Screen
-        name="EditArticle"
-        component={EditArticle}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator initialRouteName="SplashScreen">
+  
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -193,8 +184,8 @@ const DrawerNavigatorDoctor = ({navigation}) => {
         options={{headerShown: false}}
       />
        <Stack.Screen
-        name="EditArticle"
-        component={EditArticle}
+        name="AddEditArticle"
+        component={AddEditArticle}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

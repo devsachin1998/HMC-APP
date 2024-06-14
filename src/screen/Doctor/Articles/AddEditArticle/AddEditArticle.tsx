@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -19,10 +20,11 @@ import color from '../../../../globalServices/color';
 import GlobalStyle from '../../../../globalServices/globalStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import moment from 'moment';
 import Icon1 from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {SliderBox} from 'react-native-image-slider-box';
-
+import DatePicker from 'react-native-date-picker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
@@ -33,7 +35,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AddEditArticleController, {Props} from './AddEditArticleController';
 import {CustomHeader} from '../../../../componants/CustomHeader';
 import Scale from '../../../../globalServices/Scale';
-import { TextInput } from 'react-native-gesture-handler';
+
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -50,7 +52,7 @@ export default class EditArticle extends AddEditArticleController {
 
 
   render() {
-    const { searchVal,iconChange } = this.state;
+    const { searchVal,open,date1 } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
@@ -75,7 +77,27 @@ export default class EditArticle extends AddEditArticleController {
             <View style={{paddingVertical:Scale(5)}}>
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Date</Text>
             <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
-                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+
+                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={    date1.toISOString().substr(0, 10) ==
+                  new Date().toISOString().substr(0, 10)
+                    ? ''
+                    : date1.toISOString().substr(0, 10)} onPressIn={()=>this.setState({open: true})}/>
+                <DatePicker
+                    modal
+                    open={open}
+                    date={date1}
+                    mode="date"
+                    onConfirm={selectedDate => {
+                      console.log(
+                        'Selected Date:',
+                        moment(selectedDate).format('YYYY-MM-DD'),
+                      );
+                      this.setState({open: false, date1: selectedDate});
+                    }}
+                    onCancel={() => {
+                      this.setState({open: false});
+                    }}
+                  />
             </TouchableOpacity>
             </View>
             
@@ -87,15 +109,15 @@ export default class EditArticle extends AddEditArticleController {
               <Text>No File Choosen</Text>
             </View>
             <TextInput
-            placeholder='Description'
-            multiline={true}
-            style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10)}}
+              placeholder='Description'
+              multiline={true}
+              style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10)}}
             />
             <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}>
               <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'white',fontWeight:'bold'}}>SUBMIT</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>this.props.navigation.goBack()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text  style={{color:'white',fontWeight:'bold'}}>CANCEL</Text>
               </TouchableOpacity>
             </View>

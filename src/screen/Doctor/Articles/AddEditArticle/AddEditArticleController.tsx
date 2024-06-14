@@ -26,7 +26,8 @@ interface S {
   addQuery:string;
   iconChange:boolean;
   ArticleList:any;
-  
+  open: boolean,
+  date1: any,
   // Customizable Area End
 }
 
@@ -72,7 +73,9 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
       searchVal:'',
       addQuery: '',
       iconChange: false,
-      ArticleList:[]
+      ArticleList:[],
+      open: false,
+      date1: new Date(),
       // Customizable Area End
     };
 

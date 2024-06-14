@@ -78,7 +78,7 @@ class CustomSideMenuDoctor extends Component {
               <TouchableOpacity
                 style={styles.mainview}
                 
-
+                onPress={()=>this.props.navigation.navigate("ArticlePage")}
                 >
                <MaterialIcons name="article" size={20} color="white"  />
                 <Text style={styles.textstyle}>Articles</Text>
@@ -86,7 +86,7 @@ class CustomSideMenuDoctor extends Component {
               <TouchableOpacity
                 style={styles.mainview}
                 
-
+                onPress={()=>this.props.navigation.navigate("QueriesPage")}
                 >
                <MaterialIcons name="progress-question" size={20} color="white"  />
                 <Text style={styles.textstyle}>Queries</Text>
