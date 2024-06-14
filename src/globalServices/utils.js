@@ -22,7 +22,9 @@ export const apiFunctions = {
   ProfileSelect:'/ProfileSelect',
   ArticleSelect:'/ArticleSelect',
   NotificationSelect:'/NotificationSelect',
-  CollegeSelect:'/CollegeSelect'
+  CollegeSelect:'/CollegeSelect',
+  ArticleInsert:'/ArticleInsert',
+ 
 };
 export const storeData = async (key, value) => {
   try {

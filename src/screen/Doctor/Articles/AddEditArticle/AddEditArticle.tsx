@@ -15,9 +15,9 @@ import {
   Platform,
   Linking,
 } from 'react-native';
-import color from '../../../globalServices/color';
-import GlobalStyle from '../../../globalServices/globalStyle';
-import Icon from 'react-native-vector-icons/Entypo';
+import color from '../../../../globalServices/color';
+import GlobalStyle from '../../../../globalServices/globalStyle';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Icon1 from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -30,14 +30,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import FAQPageController, {Props} from './FAQPageController';
-import {CustomHeader} from '../../../componants/CustomHeader';
-import Scale from '../../../globalServices/Scale';
+import AddEditArticleController, {Props} from './AddEditArticleController';
+import {CustomHeader} from '../../../../componants/CustomHeader';
+import Scale from '../../../../globalServices/Scale';
 import { TextInput } from 'react-native-gesture-handler';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class FAQPage extends FAQPageController {
+export default class EditArticle extends AddEditArticleController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -46,51 +46,7 @@ export default class FAQPage extends FAQPageController {
 
   // Customizable Area Start
 
-  renderItemFAQs=(item:any,index:number)=>{
-    const { iconChange } = this.state;
-    return (
-      <View style={{flexDirection:'column'}}>
-
-    
-      <View>
-      <TouchableOpacity onPress={()=>this.updateValueById(item.FaqId)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
-      <View style={{flex:1}}>
-          <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
-      
-          <Text style={{color:'white'}}>{item.Questions} </Text>
-      </View>
-      <View 
-          style={{alignSelf:'center'}}
-          >
-
-      <Icon1
-          name={!item.iscollaps?"caretdown":"caretup"}
-          size={12}
-          color="white"
-          // style={styles.icon}
-        />
-    
-        </View>
-      </TouchableOpacity>
-      {item.iscollaps?
-      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,padding:Scale(10)}}>
-          <Text style={{marginVertical:Scale(10),color:'#009AEE'}}>Answer :-</Text>
-      
-          <Text style={{color:'#009AEE'}}>{item.Answers} </Text>
-      </View>
-      :
-      null}
-      </View>
-      
-      </View>
-    )
-  }
   // Customizable Area End
- 
- 
- 
-
-
 
 
   render() {
@@ -99,31 +55,53 @@ export default class FAQPage extends FAQPageController {
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={{backgroundColor:'blue'}}>
-            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>FAQs</Text>
+          <View style={{backgroundColor:'green',flexDirection:'row',alignItems:'center',paddingLeft:Scale(10)}}>
+            <Icon
+            name="article"
+            size={16}
+            color="white"
+            // style={styles.icon}
+            />
+            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>Add Article</Text>
           </View>
-        <View style={{marginTop:Scale(10),flex:1}}>
-            <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+          <View style={{marginTop:Scale(10),flex:1,paddingHorizontal:Scale(10)}}>
+            <View style={{paddingVertical:Scale(5)}}>
+            <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Article Name</Text>
+            <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
+                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+            </TouchableOpacity>
+            </View>
 
-       
-            <View>
-                  <FlatList
-                    data={this.state.FAQsList}
-                   
-                    renderItem={({item, index})=> this.renderItemFAQs(item,index)}
-                    // keyExtractor={(item) => item.id}
-                  />
-                  </View>
+            <View style={{paddingVertical:Scale(5)}}>
+            <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Date</Text>
+            <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
+                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+            </TouchableOpacity>
+            </View>
+            
+            <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
+              <Text>Upload PDF</Text>
+              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5)}}>
+                <Text  style={{color:'white',fontWeight:'bold'}}>CHOOSE FILE</Text>
+              </TouchableOpacity>
+              <Text>No File Choosen</Text>
+            </View>
+            <TextInput
+            placeholder='Description'
+            multiline={true}
+            style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10)}}
+            />
+            <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}>
+              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text style={{color:'white',fontWeight:'bold'}}>SUBMIT</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+                <Text  style={{color:'white',fontWeight:'bold'}}>CANCEL</Text>
+              </TouchableOpacity>
+            </View>
+        </View>
 
-            
-            
-        </View>
-        <View style={{flex:0.07,padding:Scale(10),backgroundColor:'black'}}>
-            <Text style={{textAlign:'center',color:'white'}}>
-                Please Feel Free to Contanct us, if you dont find a Solution for your query. Click Here to Contact us.
-            </Text>
-     
-        </View>
+        
          
       </SafeAreaView>
     );

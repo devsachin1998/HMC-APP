@@ -25,7 +25,7 @@ interface S {
   searchVal:string;
   addQuery:string;
   iconChange:boolean;
-  FAQsList:any;
+  ArticleList:any;
   
   // Customizable Area End
 }
@@ -36,7 +36,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class FAQPageController extends Component<Props, S, SS> {
+export default class ArticlePageController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -72,7 +72,7 @@ export default class FAQPageController extends Component<Props, S, SS> {
       searchVal:'',
       addQuery: '',
       iconChange: false,
-      FAQsList:[]
+      ArticleList:[]
       // Customizable Area End
     };
 
@@ -84,7 +84,7 @@ export default class FAQPageController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
     this.setState({isLoading:true})
-    this.getFAQS();
+    this.getArticle();
 
     this.interval = setInterval(() => {
       this.setState(prevState => ({
@@ -97,9 +97,28 @@ export default class FAQPageController extends Component<Props, S, SS> {
     clearInterval(this.interval);
   }
  
-  getFAQS = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', "admin");
-    // console.log('responseData FAQS:::--->', responseData);
+  getArticle = async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
+    console.log('responseData Articles::--->', responseData);
+    const jsonData1 =  responseData.Table.map((table: any) => ({
+      Title: table?.Title,
+      Date: table?.Date,
+      PDFFile:table?.PDFFile,
+      Description:table?.Description,
+      ArticleID:table?.ArticleID,
+      iscollaps:false
+      // Address:table?.Address,
+      // EmailId:table?.EmailId,
+      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
+      // QualificationName:table?.QualificationName,
+      // DesignationName:table?.DesignationName,
+    }))
+    this.setState({ArticleList:jsonData1})
+    this.setState({isLoading:false})
+  }
+  insertArticle = async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+"?UN1=1&PWD1=1", 'GET', "web");
+    console.log('responseData Articles::--->', responseData);
     const jsonData1 =  responseData.Table.map((table: any) => ({
       Answers: table?.Answer,
       Questions:table?.Question,
@@ -115,16 +134,16 @@ export default class FAQPageController extends Component<Props, S, SS> {
     this.setState({isLoading:false})
   }
 
-  updateValueById = (FaqId) => {
-    let updatedDataList = this.state.FAQsList.map(article => {
-      if (article.FaqId === FaqId) {
+  updateValueById = (ArticleID) => {
+    let updatedDataList = this.state.ArticleList.map(article => {
+      if (article.ArticleID === ArticleID) {
           return { ...article, iscollaps: !article.iscollaps };
       }
       return article;
   });
   
-  this.setState({ FAQsList: updatedDataList }, () => {
-      console.log("Updated datalist:", this.state.FAQsList);
+  this.setState({ ArticleList: updatedDataList }, () => {
+      console.log("Updated datalist:", this.state.ArticleList);
   });
   
   
