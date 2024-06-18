@@ -1,6 +1,9 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
 import {makeApiCallxml} from '../../globalServices/api';
+import {  Platform } from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
+import { openSettings, PERMISSIONS, request } from "react-native-permissions";
 
 export interface Props {
   navigation?: any;
@@ -73,7 +76,68 @@ export default class HomeScreenController extends Component<Props, S, SS> {
      this.getbanner();
     // this.getAlldata();
   }
-  
+  async requestStoragePermission() {
+    try {
+      if (Platform.OS == "android") {
+          request(PERMISSIONS.ANDROID.READ_MEDIA_VIDEO).then(async (result) => {
+              if (result === "granted") {
+                  // console.log("result in android", result);
+              
+              }
+          })
+          // openSettings().catch(() => console.warn('cannot open settings'));
+      }
+  } catch (e) {
+      // console.log("eee permission android", e);
+  }
+  }
+   permissionFunc = async () => {
+    if (Platform.OS == 'ios') {
+        this.actualDownload();
+    } else {
+      this.actualDownload()
+      //this.requestStoragePermission();
+        }
+       
+    }
+
+ actualDownload = () => {
+  const { dirs } = RNFetchBlob.fs;
+  const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir
+  const configfb = {
+      useDownloadManager: true,
+      notification: true,
+      mediaScannable: true,
+      title: 'test.pdf',
+      path: `${dirToSave}/test.pdf`,
+  }
+  const configOptions = Platform.select({
+      ios: {
+          title: configfb.title,
+          path: configfb.path,
+          appendExt: 'pdf',
+      },
+      android: configfb,
+  });
+
+  console.log('The file saved to 23233', configfb, dirs);
+
+  RNFetchBlob.config(configOptions)
+      .fetch('GET', 'http://www.africau.edu/images/default/sample.pdf', {})
+      .then((res) => {
+          if (Platform.OS === "ios") {
+              RNFetchBlob.ios.previewDocument(configfb.path);
+          }
+          if (Platform.OS == 'android') {
+          }
+          console.log('The file saved to ', res);
+      })
+      .catch((e) => {
+         
+          console.log('The file saved to ERROR', e.message)
+      });
+}
+
   getbanner = async () => {
     const responseData = await makeApiCallxml(apiFunctions.BannerSelect+"?UN1=2&PWD1=2", 'GET');
  // console.log('responseData:::--->', responseData);

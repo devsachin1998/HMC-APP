@@ -24,7 +24,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
 // Merge Engine - Artboard Dimension  - Start
@@ -33,14 +33,19 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
 import {CustomHeader} from '../../componants/CustomHeader';
 import Scale from '../../globalServices/Scale';
-import CouncilMemberScreenController, {
+import HomoepathsMemberScreenController, {
   Props,
-} from './CouncilMemberScreenController';
+} from './HomoepathsMemberScreenController';
 import Loader from '../../componants/Loader';
+import { Dropdown } from 'react-native-element-dropdown';
 // import { Button } from "react-native-elements";
 // Customizable Area End
-
-export default class CouncilMemberScreen extends CouncilMemberScreenController {
+const filterData = [
+  { label: 'Name', value: 'Name' },
+  { label: 'Registration No', value: 'Registration' },
+  { label: 'City', value: 'city' }
+]
+export default class HomoepathsMemberScreen extends HomoepathsMemberScreenController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -49,74 +54,145 @@ export default class CouncilMemberScreen extends CouncilMemberScreenController {
 
   // Customizable Area Start
   // Customizable Area End
-
-  renderItemAct = (item: any,index) => {
+   shadowStyle = Platform.select({
+    ios: {
+      shadowColor: 'rgba(0,0,0,0.2)',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+    },
+    android: {
+      elevation: 5,
+    },
+  });
+  
+  renderItemAct = (item: any) => {
     return (
+      <View
+  style={{
+    flexDirection: 'column',
+    margin: 10,
+    ...this.shadowStyle, 
+    backgroundColor: '#BEE4F4',
+    borderRadius: 5,
+  }}>
+  <View style={{flexDirection: 'row'}}>
+    <View style={{padding: 10, flex: 0.3}}>
+      <Image
+        style={{height: Scale(100), width: Scale(100), borderRadius: 140/2}}
+        // resizeMode="contain"
+        source={{uri: "http://gujarathmc.org/img/293/mem/"+item.PersonImagePath}} />
+         <Text style={{fontWeight: '700', fontSize: 15, textAlign: 'center',marginTop:5,color:'red'}}>
+        {item.RegistrationNo}
+      </Text>
 
-      <View style={{flexDirection:'column',margin:10,backgroundColor:'#fffaaf',borderRadius:20}}>
-              <View style={{flexDirection:'row'}}>
+    </View>
 
-        <View style={{padding:10,flex:0.5,
-        }}>
-        <Image
-          style={{height:Scale(150),width:Scale(140)}}
-          resizeMode='contain'
-          source={{uri:item.ProfileImage}}
-          >
-            </Image>
-        </View>
-      
-             <View style={{flex:1,alignItems:'center',marginTop:0,padding:10
-        }}>
-        <Text style={{fontWeight:'700',fontSize:15,textAlign:'center'}}>{item.FullName}</Text>
-        <Text style={{fontSize:14,textAlign:'center'}}>{item.QualificationName}</Text>
-        <Text style={{fontSize:14,textAlign:'center'}}>{item.DesignationName}</Text>
-        <View style={{flexDirection:'row',alignItems:'center'}}>
-        <FontAwesome5 name="mobile-phone" size={28} color='orange' />
-
-        <Text style={{fontSize:14,textAlign:'center'}}> {item.Mobile}</Text>
-
-        </View>
-        <View style={{flexDirection:'row',alignItems:'center'}}>
-        <MaterialCommunityIcons name="email-outline" size={22} color='orange' />
-
-        <Text style={{fontSize:13,textAlign:'center'}}> {item.EmailId}</Text>
-
-        </View>
-
-
-        <Text style={{fontSize:14,textAlign:'center'}}>{item.Address}</Text>
-
-        </View>
-       
-        </View>
+    <View style={{flex: 0.9,justifyContent:'center',marginStart:10}}>
+     
+      <Text style={{fontWeight: '700', fontSize: 13,textAlign: 'center'}}>
+        {item.FullName}
+      </Text>
+      <Text style={{fontWeight: '700', fontSize: 15, textAlign: 'center',height:2,
+        backgroundColor:'#EBD687',marginEnd:10,marginTop:5}}>
+      </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center',marginTop:10}}>
+        <FontAwesome5 name="school" size={18} color="orange" />
+        <Text style={{fontSize: 14, textAlign: 'center',marginStart:10,}}>
+          {' '}
+          {item.RCityName}
+        </Text>
       </View>
+      <Text style={{fontSize: 14,marginTop:10}}>
+        Registration Date: {item.RegistrationDate}
+      </Text>
+      <Text style={{fontSize: 14,marginTop:10}}>
+      Renewal Upto: {item.RenewalYear}
+      </Text>
+    </View>
+  </View>
+</View>
     );
   };
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1,backgroundColor:'#fffbe7'}}>
+        <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
           <CustomHeader />
           <Loader loading={this.state.isLoading} />
-
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: 'purple',
+              padding: 10,
+            }}>
+            <TouchableOpacity
+              style={{flex: 0.1}}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name="chevron-small-left"
+                size={32}
+                color="white"
+                style={{width: Scale(30), height: Scale(30)}}
+              />
+            </TouchableOpacity>
+            <View style={{flex: 1, alignSelf: 'center'}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginStart: 5,
+                  marginTop: 1,
+                  fontSize: Scale(18),
+                }}>
+                {'REGISTERED HOMOEOPATHS'}
+              </Text>
+            </View>
+          
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: 'purple',
+              padding: 15,
+              margin:Scale(10)
+            }}>
+              
+            <View style={{ alignSelf: 'center',}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginTop: 1,
+                  fontSize: Scale(15),
+                }}>
+                {'Search Homoeopaths'}
+              </Text>
+          
+            </View>
+            <Dropdown
+                      style={styles.dropDownContainer}
+                      placeholder=" Country"
+                      data={filterData}
+                      labelField="label"
+                      valueField="value"
+                      selectedTextStyle={{paddingStart:10}}
+                      // value={value}
+                      onChange={item => {
+                        console.log('itemmmm', item);
+                        // this.setState({selectedBloodGroup: item.label});
+                      }}
+                    />
+          </View>
           <View>
-            <TextInput
-              placeholder="Search hear.."
-              style={styles.input}
-              // value={this.state.firstName}
-              // onChangeText={(e)=>this.setState({firstName:e})}
-            />
-            <View>
               <FlatList
                 data={this.state.memberlist}
-                renderItem={({item, index}) => this.renderItemAct(item, index)}
+                renderItem={({item, index}) => this.renderItemAct(item)}
                 contentContainerStyle={{paddingBottom:150}}
-                // keyExtractor={(item) => item.id}
+                onEndReached={()=>this.fetchMoreData()}  
+                onEndReachedThreshold={0.1}
               />
             </View>
-            
-          </View>
         </View>
       </SafeAreaView>
     );
@@ -144,6 +220,17 @@ const styles = StyleSheet.create({
     marginTop: Scale(10),
     marginBottom: Scale(5),
   },
+
+  dropDownContainer: {
+     backgroundColor:'white',
+      borderWidth: 1,
+      flex:1,
+      borderColor: 'grey',
+      marginStart:15,
+      // padding: Scale(10),
+      borderRadius: Scale(5),
+      // marginVertical: Scale(5)
+    },
   touchable: {
     // borderWidth: 1,
     // padding: Scale(20),
@@ -302,6 +389,11 @@ const styles = StyleSheet.create({
   buttonLoadMore: {
     height: 100,
     marginTop: 16,
+  },  dropDownItem: {
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    fontSize: 16,
+    marginVertical: 4, // Add margin around each dropdown item
   },
   paginationStyle: {
     flexDirection: 'row',

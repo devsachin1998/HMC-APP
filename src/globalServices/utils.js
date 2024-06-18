@@ -22,7 +22,11 @@ export const apiFunctions = {
   ProfileSelect:'/ProfileSelect',
   ArticleSelect:'/ArticleSelect',
   NotificationSelect:'/NotificationSelect',
-  CollegeSelect:'/CollegeSelect'
+  CollegeSelect:'/CollegeSelect',
+  CollegeGallerySelect:'/CollegeGallerySelect',
+  GallerySelect:'/GallerySelect',
+  ProcGalleryDetailSelectSP:'/ProcGalleryDetailSelectSP',
+  RegisteredMember:"/RegisteredMember"
 };
 export const storeData = async (key, value) => {
   try {

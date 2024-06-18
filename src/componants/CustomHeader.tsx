@@ -20,7 +20,7 @@ type AppProps = {
   onBackPress?: any;
 };
 
-export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
+export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false,menu=true}) => {
   const navigation = useNavigation();
 
  //  console.log("navigation",navigation,backgroundColor)
@@ -29,6 +29,7 @@ export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
     <View style={[styles.modalBackground, {backgroundColor: backgroundColor}]}>
       <View
         style={{flexDirection: 'row', alignItems: 'center', margin: Scale(5)}}>
+          {menu?
         <TouchableOpacity
           style={{flex: 0.1}}
           onPress={() => navigation.openDrawer()}>
@@ -38,7 +39,7 @@ export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false}) => {
             color="white"
             style={{width: Scale(30), height: Scale(30)}}
           />
-        </TouchableOpacity>
+        </TouchableOpacity>:null}
         <View style={{flex: 0.2}}>
           <Image
             resizeMode="contain"

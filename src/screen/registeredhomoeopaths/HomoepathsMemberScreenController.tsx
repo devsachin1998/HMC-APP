@@ -1,7 +1,6 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
-import {makeApiCallxml} from '../../globalServices/api';
-import moment from 'moment';
+import {makeApiCall, makeApiCallxml} from '../../globalServices/api';
 
 export interface Props {
   navigation?: any;
@@ -16,12 +15,11 @@ interface S {
   needRetakeToken: boolean;
   //   leaderboard: LeaderboardItem[];
   token: string;
+  totalCount: number;
   totalPage: number;
   pageIndex: number;
   moreLoading: boolean;
-  datalist:any;
-  modal:any;
-  filterdata:any;
+  memberlist:any;
   // Customizable Area End
 }
 
@@ -31,7 +29,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class CollegeScreenController extends Component<Props, S, SS> {
+export default class HomoepathsMemberScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -48,13 +46,11 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
       needRetakeToken: true,
       //   leaderboard: [],
       token: '',
-      pageIndex: 0,
-      modal: false,
+      pageIndex: 1,
+      totalCount: 1,
       totalPage: 1,
       moreLoading: false,
-      datalist:[],
-      filterdata:[],
-
+      memberlist:[],
       // Customizable Area End
     };
 
@@ -65,45 +61,33 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
+      this.setState({isLoading:true})
+     this.getMembers();
+    // this.getAlldata();
+  }
+  
 
-      this.setState({ isLoading: true }); 
+
+  fetchMoreData = () => {
     
-        this.getdata();
-  
-
-  }
-  
-  updateValueById = (CollegeName) => {
-    let filteredData = this.state.datalist.filter(item => item.CollegeName.toLowerCase().includes(CollegeName.toLowerCase()));
-
-  
-  this.setState({ filterdata: filteredData }, () => {
-      console.log("Updated datalist:", this.state.datalist);
-  });
-  
-  
-  }
-
- 
-  getdata = async () => {
+      this.setState({ isLoading: true });
+      // Increment page number and fetch data for the next page
+      this.setState(prevState => ({ pageIndex: prevState.pageIndex + 1 }), () => {
+        this.getMembers();
+      });
+    
+  };
+  getMembers = async () => {
     const responseData = 
-    await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1", 'GET', "web");
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      CollegeID:table?.CollegeID, 
-      CollegeName:table?.CollegeName,
-      UniversityName:table?.UniversityName,
-      PhoneNo:table?.PhoneNo,
-      Email:table?.Email,
-      Address:table?.Address,
-      Website:table?.Website,
+    await makeApiCall(apiFunctions.RegisteredMember+`?queryvalue=&cityvalue=&registrationNo=&crrPageNo=${this.state.pageIndex}`, 'GET',null);
+    this.setState(prevState => ({
+      memberlist: [...prevState.memberlist, ...responseData],
+      isLoading: false,
+    }));
+  
 
-  }))
-  this.setState({datalist:jsonData1,filterdata:jsonData1})
-  this.setState({isLoading:false})
-
- console.log('responseData:::--->headline', responseData);
+ console.log('responseData:::--->headline',responseData);
 
   }
-
   // Customizable Area End
 }

@@ -94,12 +94,15 @@ class CustomSidebarMenu extends Component {
             
               <TouchableOpacity
                 style={styles.mainview}
-                >
+                onPress={()=>this.props.navigation.navigate("HomoepathsMemberScreen")}>
+
                <FontAwesome5 name="users" size={20} color="white"  />
                 <Text style={styles.textstyle}>Registered Homoeopaths</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("GalleryScreen")}
+
                 >
                <MaterialIcons name="photo-library" size={20} color="white"  />
                 <Text style={styles.textstyle}>Gallary</Text>
@@ -130,6 +133,8 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>this.props.navigation.navigate("FAQPage",{isfrom:"basic"})}
+
                 >
                <MaterialIcons name="photo-library" size={20} color="white"  />
                 <Text style={styles.textstyle}>FAQs</Text>

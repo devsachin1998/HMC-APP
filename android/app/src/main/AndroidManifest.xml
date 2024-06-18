@@ -1,7 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+<uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+<uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+
 
     <application
     
@@ -10,6 +17,8 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
+        android:requestLegacyExternalStorage="true"
+
       android:usesCleartextTraffic="true"
       android:theme="@style/AppTheme">
       <provider
@@ -35,11 +44,5 @@
         </intent-filter>
       </activity>
     </application>
-     <queries>
-   <intent>
-     <action android:name="android.intent.action.VIEW" />
-     <!-- If you don't know the MIME type in advance, set "mimeType" to "*/*". -->
-     <data android:mimeType="application/pdf" />
-   </intent>
- </queries>
+    
 </manifest>

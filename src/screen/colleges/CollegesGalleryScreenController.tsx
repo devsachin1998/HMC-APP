@@ -15,13 +15,13 @@ interface S {
   isLoading: boolean;
   needRetakeToken: boolean;
   //   leaderboard: LeaderboardItem[];
-  token: string;
+  url: string;
   totalPage: number;
   pageIndex: number;
   moreLoading: boolean;
+  visible:boolean;
   datalist:any;
   modal:any;
-  filterdata:any;
   // Customizable Area End
 }
 
@@ -47,14 +47,13 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
       isLoading: false,
       needRetakeToken: true,
       //   leaderboard: [],
-      token: '',
+      url: '',
       pageIndex: 0,
       modal: false,
       totalPage: 1,
       moreLoading: false,
       datalist:[],
-      filterdata:[],
-
+      visible:false
       // Customizable Area End
     };
 
@@ -66,42 +65,55 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
 
+      
       this.setState({ isLoading: true }); 
-    
-        this.getdata();
-  
+      let Type = this.props.route.params?.type;
+      let ID = this.props.route.params?.Id;
+        if(Type=="home")
+        {
+          this.getGallaryDetails(ID)
 
-  }
-  
-  updateValueById = (CollegeName) => {
-    let filteredData = this.state.datalist.filter(item => item.CollegeName.toLowerCase().includes(CollegeName.toLowerCase()));
+        }else
+        {
+          this.getdata(ID);
 
-  
-  this.setState({ filterdata: filteredData }, () => {
-      console.log("Updated datalist:", this.state.datalist);
-  });
-  
+        }
+
   
   }
 
  
-  getdata = async () => {
+  getdata = async (collegeID:any) => {
     const responseData = 
-    await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1", 'GET', "web");
+    await makeApiCallxml(apiFunctions.CollegeGallerySelect+"?UN1=1&PWD1=1", 'GET', "admin");
     const jsonData1 =  responseData.Table.map((table: any) => ({
       CollegeID:table?.CollegeID, 
       CollegeName:table?.CollegeName,
-      UniversityName:table?.UniversityName,
-      PhoneNo:table?.PhoneNo,
-      Email:table?.Email,
-      Address:table?.Address,
-      Website:table?.Website,
+      Image:apiFunctions.bannerurl+"img/CollegeGallery/"+table?.Image,
 
   }))
-  this.setState({datalist:jsonData1,filterdata:jsonData1})
+  let filteredData = jsonData1.filter((item: { CollegeID: any; }) => item.CollegeID == collegeID);
+
+  this.setState({datalist:filteredData})
   this.setState({isLoading:false})
 
- console.log('responseData:::--->headline', responseData);
+//  console.log('responseData:::--->headline', this.state.datalist);
+
+  }
+  getGallaryDetails = async (GalleryID:any) => {
+    const responseData = 
+    await makeApiCallxml(apiFunctions.ProcGalleryDetailSelectSP+"?UN1=1&PWD1=1", 'GET', "admin");
+    const jsonData1 =  responseData.Table.map((table: any) => ({
+      Image:apiFunctions.bannerurl+"img/GalleryDetails/"+table?.Image,
+      GalleryID:table?.GalleryID
+
+  }))
+  let filteredData = jsonData1.filter((item: { GalleryID: any; }) => item.GalleryID == GalleryID);
+
+  this.setState({datalist:filteredData})
+  this.setState({isLoading:false})
+
+ console.log('responseData:::--->headline', jsonData1);
 
   }
 

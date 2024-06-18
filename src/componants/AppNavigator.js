@@ -19,6 +19,9 @@ import CouncilMemberScreen from '../screen/councilmember/CouncilMemberScreen';
 import ArticlesScreen from '../screen/articles/ArticlesScreen';
 import CollegeScreen from '../screen/colleges/CollegesScreen';
 import CustomSideMenuDoctor from './CustomSideMenuDoctor';
+import CollegesGalleryScreen from '../screen/colleges/CollegesGalleryScreen';
+import GalleryScreen from '../screen/gallery/GalleryScreen';
+import HomoepathsMemberScreen from '../screen/registeredhomoeopaths/HomoepathsMemberScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -55,7 +58,11 @@ const AppNavigator = () => (
         component={Registration}
         options={{headerShown: false}}
       />
-      
+       <Stack.Screen
+        name="FAQPage"
+        component={FAQPage}
+        options={{headerShown: false}}
+      />
 
      
   <Stack.Screen
@@ -63,7 +70,12 @@ const AppNavigator = () => (
         component={DrawerNavigatorDoctor}
         options={{headerShown: false}}
       />
-
+  <Stack.Screen
+        name="CollegesGalleryScreen"
+        component={CollegesGalleryScreen}
+        options={{headerShown: false}}
+      />
+    
     </Stack.Navigator>
   </NavigationContainer>
 );
@@ -115,6 +127,23 @@ const DrawerNavigator = ({navigation}) => {
         component={CouncilMemberScreen}
         options={{headerShown: false}}
       />
+        <Stack.Screen
+        name="GalleryScreen"
+        component={GalleryScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="FAQPage"
+        component={FAQPage}
+        options={{headerShown: false}}
+      />
+
+       <Stack.Screen
+        name="HomoepathsMemberScreen"
+        component={HomoepathsMemberScreen}
+        options={{headerShown: false}}
+      />
+    
        <Stack.Screen
         name="ArticlesScreen"
         component={ArticlesScreen}
@@ -125,7 +154,7 @@ const DrawerNavigator = ({navigation}) => {
         component={CollegeScreen}
         options={{headerShown: false}}
       />
-    
+      
        <Stack.Screen
         name="ArticlesScreen1"
         component={ArticlesScreen}
