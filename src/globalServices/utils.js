@@ -26,7 +26,10 @@ export const apiFunctions = {
   CollegeGallerySelect:'/CollegeGallerySelect',
   GallerySelect:'/GallerySelect',
   ProcGalleryDetailSelectSP:'/ProcGalleryDetailSelectSP',
-  RegisteredMember:"/RegisteredMember"
+  RegisteredMember:"/RegisteredMember",
+  DownloadSelect:'/DownloadSelect',
+  AttachmentViewType:'/AttachmentViewType',
+  AttachmentGetAll:'/AttachmentGetAll'
 };
 export const storeData = async (key, value) => {
   try {

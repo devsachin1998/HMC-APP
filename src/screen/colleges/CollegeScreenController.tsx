@@ -80,12 +80,29 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
   this.setState({ filterdata: filteredData }, () => {
       console.log("Updated datalist:", this.state.datalist);
   });
-  
-  
   }
 
  
   getdata = async () => {
+    const responseData = 
+    await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1", 'GET', "web");
+    const jsonData1 =  responseData.Table.map((table: any) => ({
+      CollegeID:table?.CollegeID, 
+      CollegeName:table?.CollegeName,
+      UniversityName:table?.UniversityName,
+      PhoneNo:table?.PhoneNo,
+      Email:table?.Email,
+      Address:table?.Address,
+      Website:table?.Website,
+
+  }))
+  this.setState({datalist:jsonData1,filterdata:jsonData1})
+  this.setState({isLoading:false})
+
+ console.log('responseData:::--->headline', responseData);
+
+  }
+  getdownloaddata = async () => {
     const responseData = 
     await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1", 'GET', "web");
     const jsonData1 =  responseData.Table.map((table: any) => ({

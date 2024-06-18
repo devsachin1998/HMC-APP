@@ -37,11 +37,11 @@ import {CustomHeader} from '../../componants/CustomHeader';
 import Scale from '../../globalServices/Scale';
 
 import Loader from '../../componants/Loader';
-import ArticlesScreenController, {Props} from './ArticlesScreenController';
+import DownloadScreenController, {Props} from './DownloadScreenController';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class ArticlesScreen extends ArticlesScreenController {
+export default class DownloadScreen extends DownloadScreenController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -50,28 +50,10 @@ export default class ArticlesScreen extends ArticlesScreenController {
 
   // Customizable Area Start
   // Customizable Area End
-  
-  renderItemAct = (item: any, index) => {
-    return (
-      <View style={{flexDirection: 'column', margin: 10}}>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            borderRadius: 5,
-            backgroundColor: '#009AEE',
-          }}
-          onPress={() => this.updateValueById(item.ArticleID)}>
-          <View style={{padding: 10, flex: 1}}>
-            <Text style={{color: 'white'}}>{item.Title}</Text>
-          </View>
-          <FontAwesome5
-            name={item.iscollaps ? 'caret-up' : 'caret-down'}
-            size={28}
-            color="white"
-            style={{padding: 5, marginEnd: 10}}
-          />
-        </TouchableOpacity>
-        {item.iscollaps ? (
+  renderItemSub =(item:any)=>
+    {
+      return(
+
           <View
             style={{
               borderWidth: 1,
@@ -87,12 +69,13 @@ export default class ArticlesScreen extends ArticlesScreenController {
                   padding: 5,
                   color: 'white',
                 }}>
-                Date
+                Title
               </Text>
               <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.Date}
+                {item.Titel}
               </Text>
             </View>
+           
             <View style={{flex: 1, flexDirection: 'row'}}>
               <Text
                 style={{
@@ -104,25 +87,53 @@ export default class ArticlesScreen extends ArticlesScreenController {
                 PDF File
               </Text>
               <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.PDFFile}
+                {item.FileName}
               </Text>
             </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                Description
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.Description}
-              </Text>
-            </View>
+           
           </View>
-        ) : null}
+        ) 
+
+    }
+  renderItemAct = (item: any, index) => {
+    console.log("asddasd",item)
+    return (
+      <View style={{flexDirection: 'column', margin: 10}}>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            borderRadius: 5,
+            backgroundColor: '#009AEE',
+          }}
+          onPress={() => this.updateValueById(item.AttachmentTypeIDP)}>
+          <View style={{padding: 10, flex: 1}}>
+            <Text style={{color: 'white'}}>{item.AttachmentTypeName}</Text>
+          </View>
+          <TouchableOpacity onPress={()=>{}}>
+          <MaterialIcons
+            name={'delete'}
+            size={23}
+            color="white"
+            style={{padding: 5, marginEnd: 10}}
+          />
+          </TouchableOpacity>
+          <FontAwesome5
+            name={item.isCollapsed ? 'caret-up' : 'caret-down'}
+            size={28}
+            color="white"
+            style={{padding: 5, marginEnd: 10}}
+          />
+            
+        </TouchableOpacity>
+        {item.isCollapsed?
+        <FlatList
+                data={this.state.filterdata}
+                extraData={this.state.filterdata}
+                renderItem={({item, index}) => this.renderItemSub(item)}
+                contentContainerStyle={{paddingBottom: 150}}
+                // keyExtractor={(item) => item.id}
+              />:null}
+       
       </View>
     );
   };
@@ -150,10 +161,10 @@ autoCorrect={false}
               onChangeText={(e)=>this.searchValueById(e)}
             />
             </View>
-            <View>
+            <View >
               <FlatList
-                data={this.state.filterdata}
-                extraData={this.state.filterdata}
+                data={this.state.datalist}
+                extraData={this.state.datalist}
                 renderItem={({item, index}) => this.renderItemAct(item, index)}
                 contentContainerStyle={{paddingBottom: 150}}
                 // keyExtractor={(item) => item.id}

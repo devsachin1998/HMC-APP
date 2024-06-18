@@ -40,7 +40,9 @@ import {CustomHeader} from '../../componants/CustomHeader';
 import Scale from '../../globalServices/Scale';
 
 import Loader from '../../componants/Loader';
-import CollegesGalleryScreenController, {Props} from './CollegesGalleryScreenController';
+import CollegesGalleryScreenController, {
+  Props,
+} from './CollegesGalleryScreenController';
 import ViewImage from '../../componants/ViewImage';
 // import { Button } from "react-native-elements";
 // Customizable Area End
@@ -55,65 +57,75 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
   renderEmptyListComponent = () => {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={{fontSize:16}}>No data available.</Text>
+        <Text style={{fontSize: 16}}>No data available.</Text>
       </View>
     );
   };
   renderItem = (item: any) => {
     return (
       <View style={styles.itemContainer}>
-      <TouchableOpacity onPress={()=> this.setState({visible:true,url:item.Image})}>
-      <Image  resizeMode='center'
-       source={{ uri: item.Image  }}
-       defaultSource={require('../../images/logo.png')}
-        style={styles.image} />
+        <TouchableOpacity
+          onPress={() => this.setState({visible: true, url: item.Image})}>
+          <Image
+            resizeMode="center"
+            source={{uri: item.Image}}
+            defaultSource={require('../../images/logo.png')}
+            style={styles.image}
+          />
         </TouchableOpacity>
-    </View>
+      </View>
     );
   };
   render() {
     return (
-      <SafeAreaView style={{flex: 1,backgroundColor:'white'}}>
-      {this.state.visible?<ViewImage  visible ={this.state.visible} press={()=>this.setState({visible:false})} url={this.state.url}/>:null}
+      <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+        {this.state.visible ? (
+          <ViewImage
+            visible={this.state.visible}
+            press={() => this.setState({visible: false})}
+            url={this.state.url}
+          />
+        ) : null}
 
-          <Loader loading={this.state.isLoading} />
-          <CustomHeader menu={false} ></CustomHeader>
+        <Loader loading={this.state.isLoading} />
+        <CustomHeader menu={false}></CustomHeader>
 
         <View
-        style={{flexDirection: 'row',backgroundColor:'red',padding:10}}>
-        <TouchableOpacity
-          style={{flex: 0.1}}
-          onPress={() => this.props.navigation.goBack()}>
-          <Icon
-            name="chevron-small-left"
-            size={30}
-            color="white"
-            style={{width: Scale(30), height: Scale(30)}}
-          />
-        </TouchableOpacity>
-        <View style={{flex:1,alignSelf:'center'}}>
-        <Text
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-            letterSpacing: 1,
-            marginStart:5,
-            fontSize: Scale(15),
-          }}>
-          {this.props.route.params.CollegeName||"Gallery Details"}
-        </Text>
+          style={{flexDirection: 'row', backgroundColor: 'red', padding: 10}}>
+          <TouchableOpacity
+            style={{flex: 0.1}}
+            onPress={() => this.props.navigation.goBack()}>
+            <Icon
+              name="chevron-small-left"
+              size={30}
+              color="white"
+              style={{width: Scale(30), height: Scale(30)}}
+            />
+          </TouchableOpacity>
+          <View style={{flex: 1, alignSelf: 'center'}}>
+            <Text
+              style={{
+                color: 'white',
+                fontWeight: 'bold',
+                letterSpacing: 1,
+                marginStart: 5,
+                fontSize: Scale(15),
+              }}>
+              {this.props.route.params.CollegeName || 'Gallery Details'}
+            </Text>
+          </View>
         </View>
-      
-           </View>
-           {this.state.datalist.length>0?
-           <FlatList
-      
-        data={this.state.datalist}
-        renderItem={({item, index}) => this.renderItem(item)}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        columnWrapperStyle={styles.columnWrapper}
-      />:this.renderEmptyListComponent()}
+        {this.state.datalist.length > 0 ? (
+          <FlatList
+            data={this.state.datalist}
+            renderItem={({item, index}) => this.renderItem(item)}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={2}
+            columnWrapperStyle={styles.columnWrapper}
+          />
+        ) : (
+          this.renderEmptyListComponent()
+        )}
       </SafeAreaView>
     );
   }
@@ -137,9 +149,8 @@ const styles = StyleSheet.create({
   image: {
     width: Dimensions.get('window').width / 2 - 20,
     height: 150,
-    resizeMode:'cover'
+    resizeMode: 'cover',
     // borderRadius: 10,
-
   },
   collegeName: {
     padding: 10,
@@ -148,7 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   emptyContainer: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -22,6 +22,8 @@ import CustomSideMenuDoctor from './CustomSideMenuDoctor';
 import CollegesGalleryScreen from '../screen/colleges/CollegesGalleryScreen';
 import GalleryScreen from '../screen/gallery/GalleryScreen';
 import HomoepathsMemberScreen from '../screen/registeredhomoeopaths/HomoepathsMemberScreen';
+import DownloadScreen from '../screen/download/DownloadScreen';
+import AboutUsScreen from '../screen/aboutus/AboutUsScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -128,6 +130,12 @@ const DrawerNavigator = ({navigation}) => {
         options={{headerShown: false}}
       />
         <Stack.Screen
+        name="DownloadScreen"
+        component={DownloadScreen}
+        options={{headerShown: false}}
+      />
+      
+        <Stack.Screen
         name="GalleryScreen"
         component={GalleryScreen}
         options={{headerShown: false}}
@@ -160,7 +168,11 @@ const DrawerNavigator = ({navigation}) => {
         component={ArticlesScreen}
         options={{headerShown: false}}
       />
-      
+       <Stack.Screen
+        name="AboutUsScreen"
+        component={AboutUsScreen}
+        options={{headerShown: false}}
+      />
     </Drawer.Navigator>
   );
 };

@@ -127,6 +127,8 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("DownloadScreen")}
+
                 >
                <Icon name="download" size={20} color="white"  />
                 <Text style={styles.textstyle}>Downloads</Text>
@@ -149,6 +151,9 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("AboutUsScreen")}
+
+                
                 >
                <MaterialIcons name="contact-phone" size={20} color="white"  />
                 <Text style={styles.textstyle}>Contact Us</Text>

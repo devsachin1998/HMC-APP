@@ -21,6 +21,7 @@ interface S {
   pageIndex: number;
   moreLoading: boolean;
   datalist:any;
+  filterdata:any;
   // Customizable Area End
 }
 
@@ -52,6 +53,7 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       totalPage: 1,
       moreLoading: false,
       datalist:[],
+      filterdata:[],
       // Customizable Area End
     };
 
@@ -68,28 +70,39 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       console.log("Type:", type);
       if (type === 1) {
         this.getdata();
-      } else {
+      } else  if (type === 2)  {
         this.getdataNotification();
+      }
+      else
+      {
+        this.getdataDownload();
       }
 
   }
   
   updateValueById = (articleId) => {
-    let updatedDataList = this.state.datalist.map(article => {
+    let updatedDataList = this.state.filterdata.map(article => {
       if (article.ArticleID === articleId) {
           return { ...article, iscollaps: !article.iscollaps };
       }
       return article;
   });
   
-  this.setState({ datalist: updatedDataList }, () => {
-      console.log("Updated datalist:", this.state.datalist);
+  this.setState({ filterdata: updatedDataList }, () => {
+      console.log("Updated datalist:", this.state.filterdata);
   });
   
   
   }
 
- 
+  searchValueById = (Title: string) => {
+    let filteredData = this.state.datalist.filter(item => item.Title.toLowerCase().includes(Title.toLowerCase()));
+
+  
+  this.setState({ filterdata: filteredData }, () => {
+      console.log("Updated datalist:", this.state.filterdata);
+  });
+}
   getdata = async () => {
     const responseData = 
     await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
@@ -101,7 +114,7 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       Description:table?.Description,
       iscollaps:false
   }))
-  this.setState({datalist:jsonData1})
+  this.setState({datalist:jsonData1,filterdata:jsonData1})
   this.setState({isLoading:false})
 
  console.log('responseData:::--->headline', this.state.datalist);
@@ -118,7 +131,26 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       Description:table?.Description,
       iscollaps:false
   }))
-  this.setState({datalist:jsonData1})
+  
+  this.setState({datalist:jsonData1,filterdata:jsonData1})
+  this.setState({isLoading:false})
+
+ console.log('responseData:::--->headline', this.state.datalist);
+
+  }
+  getdataDownload = async () => {
+    const responseData = 
+    await makeApiCallxml(apiFunctions.DownloadSelect+"?UN1=2&PWD1=2", 'GET', "base");
+    const jsonData1 =  responseData.Table.map((table: any) => ({
+      ArticleID:table?.DownloadID, 
+      Title:table?.Title,
+      Date:moment(table?.UpdatedDate).format("DD/MM/YYYY"),
+      PDFFile:table?.FileName,
+      Description:table?.Description,
+      iscollaps:false
+  }))
+  
+  this.setState({datalist:jsonData1,filterdata:jsonData1})
   this.setState({isLoading:false})
 
  console.log('responseData:::--->headline', this.state.datalist);
