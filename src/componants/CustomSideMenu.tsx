@@ -80,6 +80,8 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("AboutUsScreen")}
+
                 >
                <MaterialIcons name="info" size={20} color="white"  />
                 <Text style={styles.textstyle}>About</Text>
@@ -151,7 +153,6 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("AboutUsScreen")}
 
                 
                 >
