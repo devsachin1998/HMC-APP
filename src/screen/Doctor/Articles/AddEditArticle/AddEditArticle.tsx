@@ -10,6 +10,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Dimensions,
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
@@ -26,6 +27,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {SliderBox} from 'react-native-image-slider-box';
 import DatePicker from 'react-native-date-picker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+// import DocumentPicker from 'react-native-document-picker';
+// import Pdf from 'react-native-pdf';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
 // Merge Engine - Artboard Dimension  - Start
@@ -47,8 +50,31 @@ export default class EditArticle extends AddEditArticleController {
   }
 
   // Customizable Area Start
-
-  // Customizable Area End
+  // pickDocument = async () => {
+  //   const source = {
+  //     uri: 'http://www.pdf995.com/samples/pdf.pdf',
+  //     cache: true,
+  //   };
+  // return(
+  //   <Pdf
+  //       source={source}
+  //       onLoadComplete={(numberOfPages, filePath) => {
+  //         console.log(`Number of pages: ${numberOfPages}`);
+  //       }}
+  //       onPageChanged={(page, numberOfPages) => {
+  //         console.log(`Current page: ${page}`);
+  //       }}
+  //       onError={(error) => {
+  //         console.log(error);
+  //       }}
+  //       onPressLink={(uri) => {
+  //         console.log(`Link pressed: ${uri}`);
+  //       }}
+  //       style={styles.pdf}
+  //     />
+  // )
+  // };
+  // // Customizable Area End
 
 
   render() {
@@ -70,7 +96,7 @@ export default class EditArticle extends AddEditArticleController {
             <View style={{paddingVertical:Scale(5)}}>
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Article Name</Text>
             <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
-                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
+                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={this.state.articleName} onChangeText={(e)=>this.setState({articleName:e})}/>
             </TouchableOpacity>
             </View>
 
@@ -78,7 +104,7 @@ export default class EditArticle extends AddEditArticleController {
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Date</Text>
             <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
 
-                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={    date1.toISOString().substr(0, 10) ==
+                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={date1.toISOString().substr(0, 10) ==
                   new Date().toISOString().substr(0, 10)
                     ? ''
                     : date1.toISOString().substr(0, 10)} onPressIn={()=>this.setState({open: true})}/>
@@ -103,7 +129,9 @@ export default class EditArticle extends AddEditArticleController {
             
             <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
               <Text>Upload PDF</Text>
-              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5)}}>
+              <TouchableOpacity 
+              // onPress= {()=>this.pickDocument()} 
+              style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5)}}>
                 <Text  style={{color:'white',fontWeight:'bold'}}>CHOOSE FILE</Text>
               </TouchableOpacity>
               <Text>No File Choosen</Text>
@@ -112,9 +140,11 @@ export default class EditArticle extends AddEditArticleController {
               placeholder='Description'
               multiline={true}
               style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10)}}
+              value={this.state.desc}
+              onChangeText={(e)=>this.setState({desc:e})}
             />
             <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}>
-              <TouchableOpacity style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>this.addArticle()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'white',fontWeight:'bold'}}>SUBMIT</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={()=>this.props.navigation.goBack()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -184,6 +214,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignContent: 'center',
     alignItems: 'center',
+  },
+  pdf: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   bottomview: {
     flex: 1,

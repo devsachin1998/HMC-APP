@@ -71,7 +71,7 @@ export default class ArticlePage extends ArticlePageController {
         />
     
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity onPress={()=>this.deleteArticle(item.ArticleID)}
           style={{alignSelf:'center'}}
           >
         <Icon1

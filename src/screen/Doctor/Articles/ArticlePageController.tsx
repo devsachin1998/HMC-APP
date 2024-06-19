@@ -130,7 +130,7 @@ export default class ArticlePageController extends Component<Props, S, SS> {
       // QualificationName:table?.QualificationName,
       // DesignationName:table?.DesignationName,
     }))
-    this.setState({FAQsList:jsonData1})
+    this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
 
@@ -148,6 +148,26 @@ export default class ArticlePageController extends Component<Props, S, SS> {
   
   
   }
-
+ 
+  // deleteArticle = async(ArticleID)=>{
+  //   const responseData = await makeApiCallxml(apiFunctions.ArticleDelete+`?UN1=1&PWD1=1&ArticleID==${ArticleID}`, 'GET', "web");
+  //   console.log('responseData Articles oof delete::--->', responseData,ArticleID);
+  //   // const jsonData1 =  responseData.Table.map((table: any) => ({
+  //   //   Title: table?.Title,
+  //   //   Date: table?.Date,
+  //   //   PDFFile:table?.PDFFile,
+  //   //   Description:table?.Description,
+  //   //   ArticleID:table?.ArticleID,
+  //   //   iscollaps:false
+  //   //   // Address:table?.Address,
+  //   //   // EmailId:table?.EmailId,
+  //   //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
+  //   //   // QualificationName:table?.QualificationName,
+  //   //   // DesignationName:table?.DesignationName,
+  //   // }))
+  //   // this.setState({ArticleList:jsonData1})
+  //   // this.setState({isLoading:false})
+  // }
+  
   // Customizable Area End
 }

@@ -24,7 +24,7 @@ export const apiFunctions = {
   NotificationSelect:'/NotificationSelect',
   CollegeSelect:'/CollegeSelect',
   ArticleInsert:'/ArticleInsert',
- 
+  ArticleDelete:'/ArticleDelete'
 };
 export const storeData = async (key, value) => {
   try {

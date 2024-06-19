@@ -28,6 +28,11 @@ interface S {
   ArticleList:any;
   open: boolean,
   date1: any,
+  articleName:string,
+  pickedDocument:any,
+  pdfFile:any,
+  desc:string,
+
   // Customizable Area End
 }
 
@@ -76,6 +81,10 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
       ArticleList:[],
       open: false,
       date1: new Date(),
+      articleName:'',
+      pickedDocument:null,
+      pdfFile:'',
+      desc:''
       // Customizable Area End
     };
 
@@ -86,14 +95,16 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
+    
     this.setState({isLoading:true})
     this.getArticle();
-
     this.interval = setInterval(() => {
       this.setState(prevState => ({
         currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
       }));
     }, 3000);
+  
+    
   }
   
   componentWillUnmount() {
@@ -119,21 +130,29 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
     this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
-  insertArticle = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+"?UN1=1&PWD1=1", 'GET', "web");
+
+  addArticle = async()=>{
+    console.log('logins???????');
+    const pdfFile= ""
+    const loginDetails= await getdata("loginDetails")
+    // console.log('loginDetails???????',loginDetails[0]?.CouncilMemberIDP)
+    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title==${this.state.articleName}&Date==${this.state.date1}&PDFDoc==${pdfFile}&Description==${this.state.desc}&RegistrationID==${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
     console.log('responseData Articles::--->', responseData);
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      Answers: table?.Answer,
-      Questions:table?.Question,
-      FaqId:table?.FaqId,
-      iscollaps:false
-      // Address:table?.Address,
-      // EmailId:table?.EmailId,
-      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-      // QualificationName:table?.QualificationName,
-      // DesignationName:table?.DesignationName,
-    }))
-    this.setState({FAQsList:jsonData1})
+    // const jsonData1 = {
+    //   Title: this.state.articleName,
+    //   Date: this.state.date1,
+    //   PDFFile:this.state.pdfFile,
+    //   Description:this.state.desc,
+    //   // regNo: this.state.
+    //   // ArticleID:table?.ArticleID,
+    //   // iscollaps:false
+    //   // Address:table?.Address,
+    //   // EmailId:table?.EmailId,
+    //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
+    //   // QualificationName:table?.QualificationName,
+    //   // DesignationName:table?.DesignationName,
+    // }
+    // this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
 
