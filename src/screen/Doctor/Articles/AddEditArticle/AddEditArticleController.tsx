@@ -97,62 +97,18 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
   async componentDidMount() {
     
     this.setState({isLoading:true})
-    this.getArticle();
-    this.interval = setInterval(() => {
-      this.setState(prevState => ({
-        currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
-      }));
-    }, 3000);
-  
+    
     
   }
   
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
- 
-  getArticle = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
-    console.log('responseData Articles::--->', responseData);
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      Title: table?.Title,
-      Date: table?.Date,
-      PDFFile:table?.PDFFile,
-      Description:table?.Description,
-      ArticleID:table?.ArticleID,
-      iscollaps:false
-      // Address:table?.Address,
-      // EmailId:table?.EmailId,
-      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-      // QualificationName:table?.QualificationName,
-      // DesignationName:table?.DesignationName,
-    }))
-    this.setState({ArticleList:jsonData1})
-    this.setState({isLoading:false})
-  }
-
   addArticle = async()=>{
     console.log('logins???????');
-    const pdfFile= ""
+    const pdfFile= 'http://www.pdf995.com/samples/pdf.pdf'
     const loginDetails= await getdata("loginDetails")
     // console.log('loginDetails???????',loginDetails[0]?.CouncilMemberIDP)
     const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title==${this.state.articleName}&Date==${this.state.date1}&PDFDoc==${pdfFile}&Description==${this.state.desc}&RegistrationID==${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
     console.log('responseData Articles::--->', responseData);
-    // const jsonData1 = {
-    //   Title: this.state.articleName,
-    //   Date: this.state.date1,
-    //   PDFFile:this.state.pdfFile,
-    //   Description:this.state.desc,
-    //   // regNo: this.state.
-    //   // ArticleID:table?.ArticleID,
-    //   // iscollaps:false
-    //   // Address:table?.Address,
-    //   // EmailId:table?.EmailId,
-    //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-    //   // QualificationName:table?.QualificationName,
-    //   // DesignationName:table?.DesignationName,
-    // }
-    // this.setState({ArticleList:jsonData1})
+   
     this.setState({isLoading:false})
   }
 

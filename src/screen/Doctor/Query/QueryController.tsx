@@ -93,7 +93,6 @@ export default class QueryController extends Component<Props, S, SS> {
     clearInterval(this.interval);
   }
   
-  
 
   // Customizable Area End
 }
