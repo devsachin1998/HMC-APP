@@ -125,7 +125,9 @@ export default class HomeScreen extends HomeScreenController {
             Online Payment
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.bottomview, {paddingStart: 10}]}>
+        <TouchableOpacity 
+          onPress={() => this.props.navigation.navigate('Registration')}
+        style={[styles.bottomview, {paddingStart: 10}]}>
           <View style={{alignItems: 'center'}}>
             <FontAwesome5 name="user-edit" size={23} />
           </View>
