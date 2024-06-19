@@ -80,13 +80,17 @@ renderLabel() {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-
-  
+        const selectedFile = response.assets[0];
+        this.setState({
+          [this.state.currentSelection]: selectedFile
+        });
+     
       }
     });
   }
 render() {
-    const { value, isFocus ,date1,open,selectedBloodGroup, bloodGroups ,month,year} = this.state;
+    const { value, selectedDate ,date1,open, bloodGroups ,month,year,country,States,District,stateRegNo,
+      Qualification,passingMonth,passingYear,InternshipStarting,InternshipTo} = this.state;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={{flex: 1}}>
@@ -128,15 +132,15 @@ render() {
                   <TextInput
                     label="Middle Name"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.middleName}
+                    onChangeText={e => this.setState({middleName: e})}
                   />
 
                   <TextInput
                     label="Last Name"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.lastName}
+                    onChangeText={e => this.setState({lastName: e})}
                   />
 
                   <View
@@ -188,7 +192,7 @@ render() {
                   </View>
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.setState({open: true})}>
+                      onPress={() => this.setState({selectedDate: true})}>
                       <TextInput
                         label="Birth Date"
                         style={styles.input}
@@ -199,14 +203,14 @@ render() {
                             : date1.toISOString().substr(0, 10)
                         }
                         editable={false}
-                        onPressIn={() => this.setState({open: true})}
+                        onPressIn={() => this.setState({selectedDate: true})}
                       />
                     </TouchableOpacity>
                   </View>
 
                   <DatePicker
                     modal
-                    open={open}
+                    open={selectedDate}
                     date={date1}
                     mode="date"
                     onConfirm={selectedDate => {
@@ -224,8 +228,8 @@ render() {
                   <TextInput
                     label="Birth Place"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.birthPlace}
+                    onChangeText={e => this.setState({birthPlace: e})}
                   />
 
                   <View>
@@ -246,7 +250,7 @@ render() {
                       //   )
                       // }}
                       onChange={item => {
-                        console.log('itemmmm', item);
+                    
                         this.setState({selectedBloodGroup: item.label});
                       }}
                     />
@@ -265,8 +269,8 @@ render() {
                     label="Address"
                     multiline={true}
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.address}
+                    onChangeText={e => this.setState({address: e})}
                   />
 
                   <View>
@@ -281,14 +285,13 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Country"
-                      data={bloodGroups}
+                      data={country}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedCountry: item.label});
                       }}
                     />
                   </View>
@@ -305,14 +308,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" State"
-                      data={bloodGroups}
+                      data={States}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedState: item.label});
                       }}
                     />
                   </View>
@@ -329,14 +332,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" District"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -353,14 +356,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Taluka"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -377,14 +380,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" City"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -392,15 +395,15 @@ render() {
                   <TextInput
                     label="Pin Code"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.pinCode}
+                    onChangeText={e => this.setState({pinCode: e})}
                   />
 
                   <TextInput
                     label="Phone"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.phoneNumber}
+                    onChangeText={e => this.setState({phoneNumber: e})}
                   />
 
                   <Text
@@ -415,9 +418,9 @@ render() {
                   <TextInput
                     label="Address"
                     style={styles.input}
-                    value={this.state.firstName}
+                    value={this.state.address}
                     multiline={true}
-                    onChangeText={e => this.setState({firstName: e})}
+                    onChangeText={e => this.setState({address: e})}
                   />
 
                   <View>
@@ -432,14 +435,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Country"
-                      data={bloodGroups}
+                      data={country}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedCountry: item.label});
                       }}
                     />
                   </View>
@@ -456,14 +459,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" State"
-                      data={bloodGroups}
+                      data={States}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedState: item.label});
                       }}
                     />
                   </View>
@@ -480,14 +483,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" District"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -504,14 +507,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Taluka"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -528,14 +531,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" City"
-                      data={bloodGroups}
+                      data={District}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedDistrict: item.label});
                       }}
                     />
                   </View>
@@ -543,42 +546,42 @@ render() {
                   <TextInput
                     placeholder="Pin Code"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.pinCode}
+                    onChangeText={e => this.setState({pinCode: e})}
                   />
 
                   <TextInput
                     placeholder="Phone"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.phoneNumber}
+                    onChangeText={e => this.setState({phoneNumber: e})}
                   />
 
                   <TextInput
                     placeholder="Mobile"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.phoneNumber}
+                    onChangeText={e => this.setState({phoneNumber: e})}
                   />
 
                   <TextInput
                     placeholder="Aadhar Card"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.aadharNo}
+                    onChangeText={e => this.setState({aadharNo: e})}
                   />
                   <TextInput
                     placeholder="Email"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.email}
+                    onChangeText={e => this.setState({email: e})}
                   />
 
                   <TextInput
                     placeholder="Other State RegNo"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.stateRegNo}
+                    onChangeText={e => this.setState({stateRegNo: e})}
                   />
 
                   <Text
@@ -602,14 +605,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Select Qualification "
-                      data={bloodGroups}
+                      data={Qualification}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedQualification: item.label});
                       }}
                     />
                   </View>
@@ -626,14 +629,14 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Select Qualification State"
-                      data={bloodGroups}
+                      data={States}
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
                       value={value}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedBloodGroup: item.label});
+                        this.setState({selectedState: item.label});
                       }}
                     />
                   </View>
@@ -644,7 +647,7 @@ render() {
 
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.setState({open: true})}>
+                      onPress={() => this.setState({passingMonth: true})}>
                       <TextInput
                         label="Pass Out Month"
                         style={styles.input}
@@ -655,14 +658,14 @@ render() {
                             : moment(month).format('MMMM')
                         }
                         editable={false}
-                        onPressIn={() => this.setState({open: true})}
+                        onPressIn={() => this.setState({passingMonth: true})}
                       />
                     </TouchableOpacity>
                   </View>
 
                   <DatePicker
                     modal
-                    open={open}
+                    open={passingMonth}
                     date={month}
                     mode="date"
                     onConfirm={selectedMonth => {
@@ -670,16 +673,16 @@ render() {
                         'Pass Out Month',
                         moment(selectedMonth).format('YYYY-MM-DD'),
                       );
-                      this.setState({open: false, month: selectedMonth});
+                      this.setState({passingMonth: false, month: selectedMonth});
                     }}
                     onCancel={() => {
-                      this.setState({open: false});
+                      this.setState({passingMonth: false});
                     }}
                   />
 
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.setState({open: true})}>
+                      onPress={() => this.setState({passingYear: true})}>
                       <TextInput
                         label="Pass Out Year"
                         style={styles.input}
@@ -690,14 +693,14 @@ render() {
                             : moment(year).format('YYYY')
                         }
                         editable={false}
-                        onPressIn={() => this.setState({open: true})}
+                        onPressIn={() => this.setState({passingYear: true})}
                       />
                     </TouchableOpacity>
                   </View>
 
                   <DatePicker
                     modal
-                    open={open}
+                    open={passingYear}
                     date={year}
                     mode="date"
                     onConfirm={selectedMonth => {
@@ -705,10 +708,10 @@ render() {
                         'Pass Out Year',
                         moment(selectedMonth).format('YYYY-MM-DD'),
                       );
-                      this.setState({open: false, year: selectedMonth});
+                      this.setState({passingYear: false, year: selectedMonth});
                     }}
                     onCancel={() => {
-                      this.setState({open: false});
+                      this.setState({passingYear: false});
                     }}
                   />
 
@@ -720,14 +723,14 @@ render() {
                   <Dropdown
                     style={styles.dropDownContainer}
                     placeholder=" College Name"
-                    data={bloodGroups}
+                    data={Qualification}
                     labelField="label"
                     valueField="value"
                     maxHeight={210}
                     value={value}
                     onChange={item => {
                       console.log('itemmmm', item);
-                      this.setState({selectedBloodGroup: item.label});
+                      this.setState({selectedQualification: item.label});
                     }}
                   />
 
@@ -738,20 +741,20 @@ render() {
                   <Dropdown
                     style={styles.dropDownContainer}
                     placeholder="University"
-                    data={bloodGroups}
+                    data={Qualification}
                     labelField="label"
                     valueField="value"
                     maxHeight={210}
                     value={value}
                     onChange={item => {
                       console.log('itemmmm', item);
-                      this.setState({selectedBloodGroup: item.label});
+                      this.setState({selectedQualification: item.label});
                     }}
                   />
 
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.setState({open: true})}>
+                      onPress={() => this.setState({InternshipStarting: true})}>
                       <TextInput
                         label="Internship Period From *"
                         style={styles.input}
@@ -762,14 +765,14 @@ render() {
                             : date1.toISOString().substr(0, 10)
                         }
                         editable={false}
-                        onPressIn={() => this.setState({open: true})}
+                        onPressIn={() => this.setState({InternshipStarting: true})}
                       />
                     </TouchableOpacity>
                   </View>
 
                   <DatePicker
                     modal
-                    open={open}
+                    open={InternshipStarting}
                     date={date1}
                     mode="date"
                     onConfirm={selectedDate => {
@@ -777,16 +780,16 @@ render() {
                         'Selected Date:',
                         moment(selectedDate).format('YYYY-MM-DD'),
                       );
-                      this.setState({open: false, date1: selectedDate});
+                      this.setState({InternshipStarting: false, date1: selectedDate});
                     }}
                     onCancel={() => {
-                      this.setState({open: false});
+                      this.setState({InternshipStarting: false});
                     }}
                   />
 
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.setState({open: true})}>
+                      onPress={() => this.setState({InternshipTo: true})}>
                       <TextInput
                         label="Internship Period To"
                         style={styles.input}
@@ -797,14 +800,14 @@ render() {
                             : date1.toISOString().substr(0, 10)
                         }
                         editable={false}
-                        onPressIn={() => this.setState({open: true})}
+                        onPressIn={() => this.setState({InternshipTo: true})}
                       />
                     </TouchableOpacity>
                   </View>
 
                   <DatePicker
                     modal
-                    open={open}
+                    open={InternshipTo}
                     date={date1}
                     mode="date"
                     onConfirm={selectedDate => {
@@ -812,10 +815,10 @@ render() {
                         'Selected Date:',
                         moment(selectedDate).format('YYYY-MM-DD'),
                       );
-                      this.setState({open: false, date1: selectedDate});
+                      this.setState({InternshipTo: false, date1: selectedDate});
                     }}
                     onCancel={() => {
-                      this.setState({open: false});
+                      this.setState({InternshipTo: false});
                     }}
                   />
 
@@ -917,7 +920,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'isImage'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -930,9 +935,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Sign Image *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.signImg ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.signImg.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -955,7 +960,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'signImg'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -968,9 +975,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>LC Image *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.LCimg ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.LCimg.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -993,7 +1000,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'LCimg'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1006,9 +1015,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>FY Marksheet *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.FYMarksheet ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.FYMarksheet.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1031,7 +1040,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'FYMarksheet'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1044,9 +1055,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>SY Marksheet *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.SYMarksheet ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.SYMarksheet.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1069,7 +1080,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'SYMarksheet'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1082,9 +1095,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>TY Marksheet *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.TYMarksheet ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.TYMarksheet.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1107,7 +1120,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'TYMarksheet'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1120,9 +1135,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Final Year Marksheet *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.FinalYearMarksheet ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.FinalYearMarksheet.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1145,7 +1160,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'FinalYearMarksheet'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1158,9 +1175,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Internship Provisional Certificate *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.InternShipCerty ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.InternShipCerty.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1183,7 +1200,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'InternShipCerty'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1196,9 +1215,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Internship Completion Certificate *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.InternCompletion ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.InternCompletion.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1221,7 +1240,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'InternCompletion'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1234,9 +1255,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Provisional Completion Certificate *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.ProvisionalCerty ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.ProvisionalCerty.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1259,7 +1280,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'ProvisionalCerty'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1272,9 +1295,9 @@ render() {
                     <View style={styles.photoContainer}>
                       <Text style={styles.imgTitle}>Degree Certificate *</Text>
                       <View>
-                        {this.state.isImage ? (
+                        {this.state.DegreeCerty ? (
                           <Image
-                            source={{uri: this.state.isImage.uri}}
+                            source={{uri: this.state.DegreeCerty.uri}}
                             style={styles.imgBox}
                           />
                         ) : (
@@ -1297,7 +1320,9 @@ render() {
                       }}>
                       <TouchableOpacity
                         style={styles.chooseBtn}
-                        onPress={() => this.chooseImg()}>
+                        onPress={() => {
+                          this.setState({ currentSelection: 'DegreeCerty'},()=> this.chooseImg())
+                         }}>
                         <Text>CHOOSE FILE</Text>
                       </TouchableOpacity>
                       <Text style={{margin: Scale(10, 10, 0, 0), flex: 1}}>
@@ -1309,22 +1334,22 @@ render() {
                   <TextInput
                     label="Other Image Desc"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.ImgDesc}
+                    onChangeText={e => this.setState({ImgDesc: e})}
                   />
 
                   <TextInput
                     label="Place"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.place}
+                    onChangeText={e => this.setState({place: e})}
                   />
 
                 <TextInput
                     label="Any Remark"
                     style={styles.input}
-                    value={this.state.firstName}
-                    onChangeText={e => this.setState({firstName: e})}
+                    value={this.state.remark}
+                    onChangeText={e => this.setState({remark: e})}
                   />
 
                   <TouchableOpacity style={styles.RegisterBtn}>
