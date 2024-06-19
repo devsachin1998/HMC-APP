@@ -25,6 +25,8 @@ import HomoepathsMemberScreen from '../screen/registeredhomoeopaths/HomoepathsMe
 import DownloadScreen from '../screen/download/DownloadScreen';
 import AboutUsScreen from '../screen/aboutus/AboutUsScreen';
 
+import ArticlePage from '../screen/Doctor/Articles/ArticlePage';
+import AddEditArticle from '../screen/Doctor/Articles/AddEditArticle/AddEditArticle'
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -33,6 +35,7 @@ const AppNavigator = () => (
   <NavigationContainer>
 
     <Stack.Navigator initialRouteName="SplashScreen">
+  
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -217,6 +220,16 @@ const DrawerNavigatorDoctor = ({navigation}) => {
         options={{headerShown: false}}
       />
       
+      <Stack.Screen
+        name="ArticlePage"
+        component={ArticlePage}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="AddEditArticle"
+        component={AddEditArticle}
+        options={{headerShown: false}}
+      />
     </Drawer.Navigator>
   );
 };

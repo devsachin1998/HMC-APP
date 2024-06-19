@@ -1,6 +1,6 @@
 import {Component} from 'react';
-import {apiFunctions, storeData, getdata} from '../../../globalServices/utils';
-import {makeApiCallxml} from '../../../globalServices/api';
+import {apiFunctions, storeData, getdata} from '../../../../globalServices/utils';
+import {makeApiCallxml} from '../../../../globalServices/api';
 
 export interface Props {
   navigation?: any;
@@ -25,8 +25,14 @@ interface S {
   searchVal:string;
   addQuery:string;
   iconChange:boolean;
-  FAQsList:any;
-  
+  ArticleList:any;
+  open: boolean,
+  date1: any,
+  articleName:string,
+  pickedDocument:any,
+  pdfFile:any,
+  desc:string,
+
   // Customizable Area End
 }
 
@@ -36,7 +42,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class FAQPageController extends Component<Props, S, SS> {
+export default class AddEditArticleController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -72,7 +78,13 @@ export default class FAQPageController extends Component<Props, S, SS> {
       searchVal:'',
       addQuery: '',
       iconChange: false,
-      FAQsList:[]
+      ArticleList:[],
+      open: false,
+      date1: new Date(),
+      articleName:'',
+      pickedDocument:null,
+      pdfFile:'',
+      desc:''
       // Customizable Area End
     };
 
@@ -83,27 +95,31 @@ export default class FAQPageController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
+    
     this.setState({isLoading:true})
-    this.getFAQS();
-
+    this.getArticle();
     this.interval = setInterval(() => {
       this.setState(prevState => ({
         currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
       }));
     }, 3000);
+  
+    
   }
   
   componentWillUnmount() {
     clearInterval(this.interval);
   }
  
-  getFAQS = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', "admin");
-    // console.log('responseData FAQS:::--->', responseData);
+  getArticle = async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
+    console.log('responseData Articles::--->', responseData);
     const jsonData1 =  responseData.Table.map((table: any) => ({
-      Answers: table?.Answer,
-      Questions:table?.Question,
-      FaqId:table?.FaqId,
+      Title: table?.Title,
+      Date: table?.Date,
+      PDFFile:table?.PDFFile,
+      Description:table?.Description,
+      ArticleID:table?.ArticleID,
       iscollaps:false
       // Address:table?.Address,
       // EmailId:table?.EmailId,
@@ -111,20 +127,45 @@ export default class FAQPageController extends Component<Props, S, SS> {
       // QualificationName:table?.QualificationName,
       // DesignationName:table?.DesignationName,
     }))
-    this.setState({FAQsList:jsonData1})
+    this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
 
-  updateValueById = (FaqId) => {
-    let updatedDataList = this.state.FAQsList.map(article => {
-      if (article.FaqId === FaqId) {
+  addArticle = async()=>{
+    console.log('logins???????');
+    const pdfFile= ""
+    const loginDetails= await getdata("loginDetails")
+    // console.log('loginDetails???????',loginDetails[0]?.CouncilMemberIDP)
+    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title==${this.state.articleName}&Date==${this.state.date1}&PDFDoc==${pdfFile}&Description==${this.state.desc}&RegistrationID==${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
+    console.log('responseData Articles::--->', responseData);
+    // const jsonData1 = {
+    //   Title: this.state.articleName,
+    //   Date: this.state.date1,
+    //   PDFFile:this.state.pdfFile,
+    //   Description:this.state.desc,
+    //   // regNo: this.state.
+    //   // ArticleID:table?.ArticleID,
+    //   // iscollaps:false
+    //   // Address:table?.Address,
+    //   // EmailId:table?.EmailId,
+    //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
+    //   // QualificationName:table?.QualificationName,
+    //   // DesignationName:table?.DesignationName,
+    // }
+    // this.setState({ArticleList:jsonData1})
+    this.setState({isLoading:false})
+  }
+
+  updateValueById = (ArticleID) => {
+    let updatedDataList = this.state.ArticleList.map(article => {
+      if (article.ArticleID === ArticleID) {
           return { ...article, iscollaps: !article.iscollaps };
       }
       return article;
   });
   
-  this.setState({ FAQsList: updatedDataList }, () => {
-      console.log("Updated datalist:", this.state.FAQsList);
+  this.setState({ ArticleList: updatedDataList }, () => {
+      console.log("Updated datalist:", this.state.ArticleList);
   });
   
   

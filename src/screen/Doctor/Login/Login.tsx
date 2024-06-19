@@ -183,7 +183,7 @@ export default class Login extends LoginController {
               marginTop: Scale(20),
               // borderBottomWidth: 1,
               borderColor: 'red',
-              width:Dimensions.get('window').width/2.7,
+              width: Scale(170),
               borderBottomWidth:1
             }}>
             <Text style={{color: 'red', fontSize: 18}}>  

@@ -29,7 +29,9 @@ export const apiFunctions = {
   RegisteredMember:"/RegisteredMember",
   DownloadSelect:'/DownloadSelect',
   AttachmentViewType:'/AttachmentViewType',
-  AttachmentGetAll:'/AttachmentGetAll'
+  AttachmentGetAll:'/AttachmentGetAll',
+  ArticleInsert:'/ArticleInsert',
+  ArticleDelete:'/ArticleDelete'
 };
 export const storeData = async (key, value) => {
   try {

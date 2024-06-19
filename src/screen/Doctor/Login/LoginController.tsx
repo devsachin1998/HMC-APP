@@ -47,8 +47,11 @@ export default class LoginController extends Component<Props, S, SS> {
     const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
     const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
-    console.log('responseData:::--->', responseData);
-    this.props.navigation.navigate('DrawerNavigatorDoctor')
+    console.log('responseData:::  LOGIn--->', responseData);
+   storeData("loginDetails",responseData)
+
+    this.props.navigation.navigate('DrawerNavigatorDoctor');
+    
   }
 //   async loginBtnClick() {
 //     Keyboard.dismiss();

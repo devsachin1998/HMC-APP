@@ -30,14 +30,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import FAQPageController, {Props} from './FAQPageController';
+import ArticlePageController, {Props} from './ArticlePageController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 import { TextInput } from 'react-native-gesture-handler';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class FAQPage extends FAQPageController {
+export default class ArticlePage extends ArticlePageController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -48,35 +48,67 @@ export default class FAQPage extends FAQPageController {
 
   renderItemFAQs=(item:any,index:number)=>{
     const { iconChange } = this.state;
+    
     return (
       <View style={{flexDirection:'column'}}>
 
     
       <View>
-      <TouchableOpacity onPress={()=>this.updateValueById(item.FaqId)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
-      <View style={{flex:1}}>
-          <Text style={{color:'white',marginVertical:Scale(10)}}>Question :-</Text>
-      
-          <Text style={{color:'white'}}>{item.Questions} </Text>
+      <TouchableOpacity onPress={()=>this.updateValueById(item.ArticleID)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
+      <View style={{flex:3}}>      
+          <Text style={{color:'white'}}>{item.Title} </Text>
       </View>
+      <View style={{alignSelf:'center',flexDirection:'row',flex:1,justifyContent:'space-around'}}>
+      <TouchableOpacity 
+          style={{alignSelf:'center'}}
+          onPress={()=>this.props.navigation.navigate('AddEditArticle',{item:item,type:1})}
+          >
+        <MaterialCommunityIcons
+          name="pencil"
+          size={12}
+          color="white"
+          // style={styles.icon}
+        />
+    
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>this.deleteArticle(item.ArticleID)}
+          style={{alignSelf:'center'}}
+          >
+        <Icon1
+          name="delete"
+          size={12}
+          color="white"
+          // style={styles.icon}
+        />
+    
+      </TouchableOpacity>
       <View 
           style={{alignSelf:'center'}}
           >
-
-      <Icon1
+        <Icon1
           name={!item.iscollaps?"caretdown":"caretup"}
           size={12}
           color="white"
           // style={styles.icon}
         />
     
-        </View>
+      </View>
+      </View>
       </TouchableOpacity>
       {item.iscollaps?
-      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,padding:Scale(10)}}>
-          <Text style={{marginVertical:Scale(10),color:'#009AEE'}}>Answer :-</Text>
-      
-          <Text style={{color:'#009AEE'}}>{item.Answers} </Text>
+      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,flexDirection:'row'}}>
+        <View style={{backgroundColor:'#009AEE',padding:Scale(10)}}>
+          <Text style={{marginVertical:Scale(1),color:'white'}}>Date</Text>
+          <Text style={{marginVertical:Scale(1),color:'white'}}>PDF File</Text>
+          <Text style={{marginVertical:Scale(1),color:'white'}}>Description</Text>
+
+        </View >
+        <View style={{marginVertical:Scale(10),paddingLeft:Scale(5)}}>
+          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.Date} </Text>
+          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.PDFFile} </Text>
+          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.Description} </Text>
+
+          </View>
       </View>
       :
       null}
@@ -86,11 +118,6 @@ export default class FAQPage extends FAQPageController {
     )
   }
   // Customizable Area End
- 
- 
- 
-
-
 
 
   render() {
@@ -98,9 +125,9 @@ export default class FAQPage extends FAQPageController {
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
-       <CustomHeader backgroundColor={this.props.route.params.isfrom=="basic"?'#3F3F3F':"maroon"}  logout={this.props.route.params.isfrom=="basic"?false:true}/>
-          <View style={{backgroundColor:'blue'}}>
-            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>FAQs</Text>
+       <CustomHeader backgroundColor='maroon' logout={true}/>
+          <View style={{backgroundColor:'green'}}>
+            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>Articles</Text>
           </View>
         <View style={{marginTop:Scale(10),flex:1}}>
             <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
@@ -108,7 +135,7 @@ export default class FAQPage extends FAQPageController {
        
             <View>
                   <FlatList
-                    data={this.state.FAQsList}
+                    data={this.state.ArticleList}
                    
                     renderItem={({item, index})=> this.renderItemFAQs(item,index)}
                     // keyExtractor={(item) => item.id}
@@ -118,10 +145,15 @@ export default class FAQPage extends FAQPageController {
             
             
         </View>
-        <View style={{flex:0.07,padding:Scale(10),backgroundColor:'black'}}>
-            <Text style={{textAlign:'center',color:'white'}}>
-                Please Feel Free to Contanct us, if you dont find a Solution for your query. Click Here to Contact us.
-            </Text>
+        <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddEditArticle')} style={styles.plusIconContainer}>
+                <MaterialCommunityIcons
+                    name="plus"
+                    size={26}
+                    color="white"
+                    // style={styles.icon}
+                />
+            </TouchableOpacity>
      
         </View>
          

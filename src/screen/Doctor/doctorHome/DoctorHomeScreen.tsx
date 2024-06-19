@@ -91,7 +91,7 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
           </View>   
 
           <View style={{flexDirection:'row'}}>
-          <TouchableOpacity  style={[styles.iconSubConatiner,{flex:0.5, backgroundColor:'green',}]}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate('ArticlePage')}  style={[styles.iconSubConatiner,{flex:0.5, backgroundColor:'green',}]}>
            
                <MaterialIcons name="article" size={24} color="white"  />
               <Text style={{color:'white'}}>Articles</Text>
@@ -103,7 +103,7 @@ export default class DoctorHomeScreen extends DoctorHomeScreenController {
        <View style={{flex: texts[currentIndex].flex ,backgroundColor:'skyblue',padding:3}}> 
           <Text style={styles.bottomText}>{texts[currentIndex].text}</Text>
         </View>
-       
+         
       </SafeAreaView>
     );
   }
