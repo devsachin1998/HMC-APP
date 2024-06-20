@@ -377,8 +377,12 @@ PODS:
     - glog
   - react-native-date-picker (5.0.4):
     - React-Core
+  - react-native-document-picker (9.3.0):
+    - React-Core
   - react-native-image-picker (7.1.2):
     - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+  - react-native-pdf (6.7.5):
     - React-Core
   - react-native-render-html (6.3.4):
     - React-Core
@@ -572,7 +576,9 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
+  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
@@ -667,8 +673,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
+  react-native-document-picker:
+    :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-pdf:
+    :path: "../node_modules/react-native-pdf"
   react-native-render-html:
     :path: "../node_modules/react-native-render-html"
   react-native-safe-area-context:
@@ -765,7 +775,9 @@ SPEC CHECKSUMS:
   React-jsinspector: 194e32c6aab382d88713ad3dd0025c5f5c4ee072
   React-logger: cebf22b6cf43434e471dc561e5911b40ac01d289
   react-native-date-picker: 6891317e850deae5b53d51355226e07a495aba61
+  react-native-document-picker: 5b97e24a7f1a1e4a50a72c540a043f32d29a70a2
   react-native-image-picker: 51fdb07f7ef722988c8a219e1416153760a25e4d
+  react-native-pdf: 103940c90d62adfd259f63cca99c7c0c306b514c
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-safe-area-context: 399a5859f6acbdf67f671c69b53113f535f3b5b0
   React-NativeModulesApple: 02e35e9a51e10c6422f04f5e4076a7c02243fff2
@@ -801,4 +813,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 314673aad7f0ba79b4f27f368bd962f2fb08f508
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2

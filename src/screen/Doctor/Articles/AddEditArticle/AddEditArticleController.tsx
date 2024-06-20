@@ -1,6 +1,10 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../../../globalServices/utils';
 import {makeApiCallxml} from '../../../../globalServices/api';
+import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
+import moment from 'moment';
+
 
 export interface Props {
   navigation?: any;
@@ -97,7 +101,7 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
   async componentDidMount() {
     
     this.setState({isLoading:true})
-    this.getArticle();
+    // this.getArticle();
     this.interval = setInterval(() => {
       this.setState(prevState => ({
         currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
@@ -121,38 +125,20 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
       Description:table?.Description,
       ArticleID:table?.ArticleID,
       iscollaps:false
-      // Address:table?.Address,
-      // EmailId:table?.EmailId,
-      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-      // QualificationName:table?.QualificationName,
-      // DesignationName:table?.DesignationName,
     }))
     this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
 
   addArticle = async()=>{
-    console.log('logins???????');
-    const pdfFile= ""
+    this.setState({isLoading:true})
+    const pdfFile = ""
     const loginDetails= await getdata("loginDetails")
-    // console.log('loginDetails???????',loginDetails[0]?.CouncilMemberIDP)
-    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title==${this.state.articleName}&Date==${this.state.date1}&PDFDoc==${pdfFile}&Description==${this.state.desc}&RegistrationID==${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
+    const sDate=moment(this.state.date1).format('YYYY-MM-DD');
+
+    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title=${this.state.articleName}&Date1=${sDate}&PDFDoc=${pdfFile}&Description=${this.state.desc}&RegistrationID=${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
     console.log('responseData Articles::--->', responseData);
-    // const jsonData1 = {
-    //   Title: this.state.articleName,
-    //   Date: this.state.date1,
-    //   PDFFile:this.state.pdfFile,
-    //   Description:this.state.desc,
-    //   // regNo: this.state.
-    //   // ArticleID:table?.ArticleID,
-    //   // iscollaps:false
-    //   // Address:table?.Address,
-    //   // EmailId:table?.EmailId,
-    //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-    //   // QualificationName:table?.QualificationName,
-    //   // DesignationName:table?.DesignationName,
-    // }
-    // this.setState({ArticleList:jsonData1})
+
     this.setState({isLoading:false})
   }
 
@@ -170,6 +156,25 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
   
   
   }
+  handleDocumentPick = async () => {
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.pdf],
+        
+      });
+      // this.setState({ file: res });
+      console.log("sdsdsdf",res);
 
+      let resi=res[0].uri;
+      const fileBase64 = await RNFetchBlob.fs.readFile(resi, 'base64');
+      console.log("sdsdsdf",fileBase64);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('User canceled the picker');
+      } else {
+        throw err;
+      }
+    }
+  };
   // Customizable Area End
 }

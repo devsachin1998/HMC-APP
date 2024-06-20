@@ -54,7 +54,7 @@ export default class CouncilLogin extends CouncilLoginController {
     return `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`;
   };
   render() {
-    const { date, mode, isDatePickerVisible,open,date1,phoneNumber,Password } = this.state;
+    const { date, mode, isDatePickerVisible,open,date1,name,Password } = this.state;
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -114,12 +114,11 @@ export default class CouncilLogin extends CouncilLoginController {
                     }}
                   />
                   <TextInput
-                    placeholder="Mobile Number"
+                    placeholder="User Name"
                     returnKeyType="done"
                     style={[styles.input, { paddingStart: Scale(5) }]}
-                    keyboardType="numeric"
-                    value={phoneNumber}
-                    onChangeText={(e:number) => this.setState({ phoneNumber: e })}
+                    value={name}
+                    onChangeText={(e:number) => this.setState({ name: e })}
                   />
                 </View>
 

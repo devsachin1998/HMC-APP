@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
-import {View, ToastAndroid, Platform, AlertIOS} from 'react-native';
+import {View, ToastAndroid, Platform, AlertIOS, Alert} from 'react-native';
 // import Snackbar from 'react-native-snackbar';
 import * as ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
@@ -31,7 +31,11 @@ export const apiFunctions = {
   AttachmentViewType:'/AttachmentViewType',
   AttachmentGetAll:'/AttachmentGetAll',
   ArticleInsert:'/ArticleInsert',
-  ArticleDelete:'/ArticleDelete'
+  ArticleDelete:'/ArticleDelete',
+  QAnsSelectbyuserID:'/QAnsSelectbyuserID',
+  QAnsInsert:'/QAnsInsert',
+  UserLoginMaster:'/UserLoginMaster',
+  VBoxInsert:'/VBoxInsert'
 };
 export const storeData = async (key, value) => {
   try {
@@ -46,6 +50,13 @@ export const clearData = async () => {
     await AsyncStorage.clear();
   } catch (e) {
     // saving error
+  }
+};
+export const showToastOrAlert = (msg) => {
+  if (Platform.OS === 'android') {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+  } else {
+    Alert.alert(msg);
   }
 };
 export const getdata = async key => {

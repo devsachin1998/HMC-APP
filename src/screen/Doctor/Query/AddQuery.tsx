@@ -31,13 +31,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import QueryController, {Props} from './QueryController';
+import AddQueryController, {Props} from './AddQueryController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
+import Loader from '../../../componants/Loader';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class QueriesPage extends QueryController {
+export default class AddQuery extends AddQueryController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -57,7 +58,7 @@ export default class QueriesPage extends QueryController {
     const { addQuery } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-       
+       <Loader loading={this.state.isLoading} ></Loader>
        <CustomHeader backgroundColor='maroon' logout={true}/>
           <View style={{backgroundColor:'#ffaa11',flexDirection:'row',alignItems:'center',padding:Scale(10)}}>
             <MaterialCommunityIcons
@@ -69,9 +70,9 @@ export default class QueriesPage extends QueryController {
             <Text style={{color:'white',fontWeight:'bold',marginLeft:Scale(10),fontSize:Scale(20)}}>Add Query</Text>
           </View>
         <View style={[styles.shadowContainer,{paddingTop:Scale(10),flex:1}]}>
-            <TextInput placeholder='Query' placeholderTextColor="grey" style={{backgroundColor:"white",fontSize:Scale(18),margin:Scale(10),padding:Scale(10),borderRadius:Scale(5)}} value={addQuery} onChangeText={(e)=>this.setState({addQuery:e})}/>
+            <TextInput placeholder='Query' placeholderTextColor="grey" style={{backgroundColor:"white",fontSize:Scale(18),margin:Scale(10),padding:Scale(10),borderRadius:Scale(5)}}  onChangeText={(e)=>this.setState({addQuery:e})}/>
 
-            <TouchableOpacity style={styles.submitContainer} onPress={()=>this.props.navigation.navigate('QueriesPage')}>
+            <TouchableOpacity style={styles.submitContainer} onPress={()=>this.Addquery()}>
                 <Text style={{color:'white',fontSize:Scale(16),fontWeight:'700'}}>SUBMIT</Text>
             </TouchableOpacity>
         </View>

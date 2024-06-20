@@ -95,16 +95,16 @@ export default class EditArticle extends AddEditArticleController {
           <View style={{marginTop:Scale(10),flex:1,paddingHorizontal:Scale(10)}}>
             <View style={{paddingVertical:Scale(5)}}>
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Article Name</Text>
-            <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
-                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={this.state.articleName} onChangeText={(e)=>this.setState({articleName:e})}/>
-            </TouchableOpacity>
+            <View style={{borderWidth:1,borderColor:'green',paddingStart:Scale(5),borderRadius:Scale(5)}}>
+                <TextInput placeholder='Article Name' style={{fontSize:Scale(14),height:45}} value={this.state.articleName} onChangeText={(e)=>this.setState({articleName:e})}/>
+            </View>
             </View>
 
             <View style={{paddingVertical:Scale(5)}}>
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Date</Text>
-            <TouchableOpacity style={{borderWidth:1,borderColor:'green',padding:Scale(10),borderRadius:Scale(5)}}>
+            <TouchableOpacity style={{borderWidth:1,borderColor:'green',paddingStart:Scale(5),borderRadius:Scale(5)}}>
 
-                <TextInput placeholder='Article Name' placeholderTextColor="#009AEE" style={{fontSize:Scale(18)}} value={date1.toISOString().substr(0, 10) ==
+                <TextInput placeholder='Date' style={{fontSize:Scale(14),height:45}} value={date1.toISOString().substr(0, 10) ==
                   new Date().toISOString().substr(0, 10)
                     ? ''
                     : date1.toISOString().substr(0, 10)} onPressIn={()=>this.setState({open: true})}/>
@@ -127,27 +127,30 @@ export default class EditArticle extends AddEditArticleController {
             </TouchableOpacity>
             </View>
             
-            <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
-              <Text>Upload PDF</Text>
+            <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center',marginTop:20}}>
+              <Text style={{fontWeight:'bold',paddingStart:5}}>Upload PDF</Text>
               <TouchableOpacity 
-              // onPress= {()=>this.pickDocument()} 
+              onPress= {()=>this.handleDocumentPick()} 
               style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5)}}>
                 <Text  style={{color:'white',fontWeight:'bold'}}>CHOOSE FILE</Text>
               </TouchableOpacity>
               <Text>No File Choosen</Text>
             </View>
+            <View>
+            <Text style={{fontWeight:'bold',paddingStart:5,marginTop:15}}>Description</Text>
             <TextInput
               placeholder='Description'
               multiline={true}
-              style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10)}}
+              style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10),height:100}}
               value={this.state.desc}
               onChangeText={(e)=>this.setState({desc:e})}
             />
+            </View>
             <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}>
               <TouchableOpacity onPress={()=>this.addArticle()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'white',fontWeight:'bold'}}>SUBMIT</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={()=>this.props.navigation.goBack()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate("ArticlePage")} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text  style={{color:'white',fontWeight:'bold'}}>CANCEL</Text>
               </TouchableOpacity>
             </View>

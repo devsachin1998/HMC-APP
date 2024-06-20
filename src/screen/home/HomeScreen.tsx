@@ -189,7 +189,7 @@ export default class HomeScreen extends HomeScreenController {
           <Text style={{fontSize: 12, textAlign: 'center'}}>Registration</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => this.permissionFunc()}
+          onPress={() => this.props.navigation.navigate("Login")}
           style={styles.bottomview}>
           <View style={{alignItems: 'center'}}>
             <MaterialIcons name="logout" size={23} />

@@ -20,6 +20,7 @@ interface S {
   pageIndex: number;
   moreLoading: boolean;
   memberlist:any;
+  filterdata:any;
   // Customizable Area End
 }
 
@@ -51,6 +52,7 @@ export default class CouncilMemberScreenController extends Component<Props, S, S
       totalPage: 1,
       moreLoading: false,
       memberlist:[],
+      filterdata:[],
       // Customizable Area End
     };
 
@@ -63,10 +65,16 @@ export default class CouncilMemberScreenController extends Component<Props, S, S
   async componentDidMount() {
       this.setState({isLoading:true})
      this.getMembers();
-    // this.getAlldata();
   }
   
+  searchValueById = (Title: string) => {
+    let filteredData = this.state.memberlist.filter(item => item.FullName.toLowerCase().includes(Title.toLowerCase()));
 
+  
+  this.setState({ filterdata: filteredData }, () => {
+      console.log("Updated datalist:", this.state.filterdata);
+  });
+}
 
  
   getMembers = async () => {
@@ -81,7 +89,7 @@ export default class CouncilMemberScreenController extends Component<Props, S, S
     QualificationName:table?.QualificationName,
     DesignationName:table?.DesignationName,
   }))
-  this.setState({memberlist:jsonData1})
+  this.setState({memberlist:jsonData1,filterdata:jsonData1})
   this.setState({isLoading:false})
 
  console.log('responseData:::--->headline', this.state.memberlist);

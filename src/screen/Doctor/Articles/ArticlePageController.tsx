@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../../globalServices/utils';
 import {makeApiCallxml} from '../../../globalServices/api';
+import { Alert } from 'react-native';
 
 export interface Props {
   navigation?: any;
@@ -86,15 +87,10 @@ export default class ArticlePageController extends Component<Props, S, SS> {
     this.setState({isLoading:true})
     this.getArticle();
 
-    this.interval = setInterval(() => {
-      this.setState(prevState => ({
-        currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
-      }));
-    }, 3000);
+   
   }
   
   componentWillUnmount() {
-    clearInterval(this.interval);
   }
  
   getArticle = async()=>{
@@ -107,32 +103,11 @@ export default class ArticlePageController extends Component<Props, S, SS> {
       Description:table?.Description,
       ArticleID:table?.ArticleID,
       iscollaps:false
-      // Address:table?.Address,
-      // EmailId:table?.EmailId,
-      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-      // QualificationName:table?.QualificationName,
-      // DesignationName:table?.DesignationName,
     }))
     this.setState({ArticleList:jsonData1})
     this.setState({isLoading:false})
   }
-  insertArticle = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+"?UN1=1&PWD1=1", 'GET', "web");
-    console.log('responseData Articles::--->', responseData);
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      Answers: table?.Answer,
-      Questions:table?.Question,
-      FaqId:table?.FaqId,
-      iscollaps:false
-      // Address:table?.Address,
-      // EmailId:table?.EmailId,
-      // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-      // QualificationName:table?.QualificationName,
-      // DesignationName:table?.DesignationName,
-    }))
-    this.setState({ArticleList:jsonData1})
-    this.setState({isLoading:false})
-  }
+ 
 
   updateValueById = (ArticleID) => {
     let updatedDataList = this.state.ArticleList.map(article => {
@@ -147,27 +122,33 @@ export default class ArticlePageController extends Component<Props, S, SS> {
   });
   
   
-  }
+  } 
+  
+ showAlert = (ArticleID) => {
+    Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress:()=> this.deleteArticle(ArticleID) },
+      ],
+      { cancelable: false }
+    );
+  };
  
-  // deleteArticle = async(ArticleID)=>{
-  //   const responseData = await makeApiCallxml(apiFunctions.ArticleDelete+`?UN1=1&PWD1=1&ArticleID==${ArticleID}`, 'GET', "web");
-  //   console.log('responseData Articles oof delete::--->', responseData,ArticleID);
-  //   // const jsonData1 =  responseData.Table.map((table: any) => ({
-  //   //   Title: table?.Title,
-  //   //   Date: table?.Date,
-  //   //   PDFFile:table?.PDFFile,
-  //   //   Description:table?.Description,
-  //   //   ArticleID:table?.ArticleID,
-  //   //   iscollaps:false
-  //   //   // Address:table?.Address,
-  //   //   // EmailId:table?.EmailId,
-  //   //   // ProfileImage:apiFunctions.councilurl+table?.ProfileImage,
-  //   //   // QualificationName:table?.QualificationName,
-  //   //   // DesignationName:table?.DesignationName,
-  //   // }))
-  //   // this.setState({ArticleList:jsonData1})
-  //   // this.setState({isLoading:false})
-  // }
+  deleteArticle = async(ArticleID)=>{
+    const user = await getdata('loginDetails');
+    const id = user[0].CouncilMemberIDP;
+    const responseData = await makeApiCallxml(apiFunctions.ArticleDelete+`?UN1=1&PWD1=1&ArticleID=${ArticleID}&RegistrationID=${id}`, 'GET', "web");
+    console.log('responseData Articles oof delete::--->', responseData,ArticleID);
+  
+    this.getArticle()
+    //this.setState({isLoading:false})
+
+  }
   
   // Customizable Area End
 }

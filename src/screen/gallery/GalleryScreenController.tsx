@@ -21,6 +21,7 @@ interface S {
   pageIndex: number;
   moreLoading: boolean;
   datalist:any;
+  selectedTab:any;
   // Customizable Area End
 }
 
@@ -52,6 +53,7 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
       totalPage: 1,
       moreLoading: false,
       datalist:[],
+      selectedTab:'photos'
       // Customizable Area End
     };
 
@@ -68,6 +70,10 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
         this.getdata();
 
   }
+  handleTabPress = (tab:any)=>
+    {
+      this.setState({selectedTab:tab})
+    }
   
   updateValueById = (articleId) => {
     let updatedDataList = this.state.datalist.map(article => {

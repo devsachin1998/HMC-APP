@@ -76,7 +76,43 @@ export default class GalleryScreen extends GalleryScreenController {
       <SafeAreaView style={{flex: 1}}>
         <View style={{flex: 1,backgroundColor:'#fffbe7'}}>
           <CustomHeader />
+          
            <Loader loading={this.state.isLoading} />
+           <View style={{  height: 90, alignSelf: 'center', justifyContent: 'center', flexDirection: 'row' }}>
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          borderBottomWidth: this.state.selectedTab == 'photos'?8:3,
+          alignItems: 'center',
+          backgroundColor: this.state.selectedTab === 'photos' ? '#DEDEDE' : 'transparent',
+          justifyContent: 'center',
+          borderBottomColor:'skyblue',
+
+          flexDirection: 'row'
+        }}
+        onPress={() => this.handleTabPress('photos')}
+      >
+        <MaterialIcons name="photo-library" size={25}  />
+        <Text style={{  marginLeft: 5 }}>Photos</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          flex: 1,
+          backgroundColor: this.state.selectedTab === 'videos' ? '#DEDEDE' : 'white',
+
+          borderBottomWidth: this.state.selectedTab == 'videos'?8:3,
+          alignItems: 'center',
+          borderBottomColor:'skyblue',
+          justifyContent: 'center',
+          flexDirection: 'row'
+        }}
+        onPress={() => this.handleTabPress('videos')}
+      >
+        <MaterialIcons name="videocam" size={27}  />
+        <Text style={{  marginLeft: 5 }}>Videos</Text>
+      </TouchableOpacity>
+    
+          </View>
            {this.state.datalist.length>0?
            <FlatList
       

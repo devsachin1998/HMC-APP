@@ -20,7 +20,7 @@ import GlobalStyle from '../../../globalServices/globalStyle';
 import Icon from 'react-native-vector-icons/Entypo';
 
 import Icon1 from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -33,7 +33,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ArticlePageController, {Props} from './ArticlePageController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
-import { TextInput } from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-gesture-handler';
+import Loader from '../../../componants/Loader';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -46,122 +47,157 @@ export default class ArticlePage extends ArticlePageController {
 
   // Customizable Area Start
 
-  renderItemFAQs=(item:any,index:number)=>{
-    const { iconChange } = this.state;
-    
+  renderItemFAQs = (item: any, index: number) => {
+
     return (
-      <View style={{flexDirection:'column'}}>
-
-    
-      <View>
-      <TouchableOpacity onPress={()=>this.updateValueById(item.ArticleID)} style={{margin:Scale(10),backgroundColor:'#009AEE',padding:Scale(10),flexDirection:'row'}}>
-      <View style={{flex:3}}>      
-          <Text style={{color:'white'}}>{item.Title} </Text>
+      <View style={{flexDirection: 'column'}}>
+        <View>
+          <TouchableOpacity
+            onPress={() => this.updateValueById(item.ArticleID)}
+            style={{
+              margin: Scale(10),
+              backgroundColor: '#009AEE',
+              padding: Scale(10),
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 3}}>
+              <Text style={{color: 'white'}}>{item.Title} </Text>
+            </View>
+            <View
+              style={{
+                alignSelf: 'center',
+                flexDirection: 'row',
+                flex: 1,
+                justifyContent: 'space-around',
+              }}>
+              <TouchableOpacity
+                style={{alignSelf: 'center'}}
+                onPress={() =>
+                  this.props.navigation.navigate('AddEditArticle', {
+                    item: item,
+                    type: 1,
+                  })
+                }>
+                <MaterialCommunityIcons
+                  name="pencil"
+                  size={15}
+                  color="white"
+                  // style={styles.icon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.showAlert(item.ArticleID)}
+                style={{alignSelf: 'center'}}>
+                <Icon1
+                  name="delete"
+                  size={15}
+                  color="white"
+                  // style={styles.icon}
+                />
+              </TouchableOpacity>
+              <View style={{alignSelf: 'center'}}>
+                <Icon1
+                  name={!item.iscollaps ? 'caretdown' : 'caretup'}
+                  size={15}
+                  color="white"
+                  // style={styles.icon}
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+          {item.iscollaps ? (
+            <View
+              style={{
+                flex: 1,
+                borderColor: '#009AEE',
+                marginHorizontal: Scale(10),
+                borderWidth: 1,
+                flexDirection: 'row',
+              }}>
+              <View style={{backgroundColor: '#009AEE', padding: Scale(10)}}>
+                <Text style={{marginVertical: Scale(1), color: 'white'}}>
+                  Date
+                </Text>
+                <Text style={{marginVertical: Scale(1), color: 'white'}}>
+                  PDF File
+                </Text>
+                <Text style={{marginVertical: Scale(1), color: 'white'}}>
+                  Description
+                </Text>
+              </View>
+              <View style={{marginVertical: Scale(10), paddingLeft: Scale(5)}}>
+                <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+                  {item.Date}{' '}
+                </Text>
+                <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+                  {item.PDFFile}{' '}
+                </Text>
+                <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+                  {item.Description}{' '}
+                </Text>
+              </View>
+            </View>
+          ) : null}
+        </View>
       </View>
-      <View style={{alignSelf:'center',flexDirection:'row',flex:1,justifyContent:'space-around'}}>
-      <TouchableOpacity 
-          style={{alignSelf:'center'}}
-          onPress={()=>this.props.navigation.navigate('AddEditArticle',{item:item,type:1})}
-          >
-        <MaterialCommunityIcons
-          name="pencil"
-          size={12}
-          color="white"
-          // style={styles.icon}
-        />
-    
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=>this.deleteArticle(item.ArticleID)}
-          style={{alignSelf:'center'}}
-          >
-        <Icon1
-          name="delete"
-          size={12}
-          color="white"
-          // style={styles.icon}
-        />
-    
-      </TouchableOpacity>
-      <View 
-          style={{alignSelf:'center'}}
-          >
-        <Icon1
-          name={!item.iscollaps?"caretdown":"caretup"}
-          size={12}
-          color="white"
-          // style={styles.icon}
-        />
-    
-      </View>
-      </View>
-      </TouchableOpacity>
-      {item.iscollaps?
-      <View style={{flex:1,borderColor:'#009AEE',marginHorizontal:Scale(10),borderWidth:1,flexDirection:'row'}}>
-        <View style={{backgroundColor:'#009AEE',padding:Scale(10)}}>
-          <Text style={{marginVertical:Scale(1),color:'white'}}>Date</Text>
-          <Text style={{marginVertical:Scale(1),color:'white'}}>PDF File</Text>
-          <Text style={{marginVertical:Scale(1),color:'white'}}>Description</Text>
-
-        </View >
-        <View style={{marginVertical:Scale(10),paddingLeft:Scale(5)}}>
-          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.Date} </Text>
-          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.PDFFile} </Text>
-          <Text style={{marginVertical:Scale(1),color:'#009AEE'}}>{item.Description} </Text>
-
-          </View>
-      </View>
-      :
-      null}
-      </View>
-      
-      </View>
-    )
-  }
+    );
+  };
   // Customizable Area End
 
-
   render() {
-    const { searchVal,iconChange } = this.state;
+    const {searchVal, iconChange} = this.state;
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-       
-       <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={{backgroundColor:'green'}}>
-            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>Articles</Text>
+      <SafeAreaView style={{flex: 1}}>
+        <CustomHeader backgroundColor="maroon" logout={true} />
+        <Loader loading={this.state.isLoading}></Loader>
+        <View style={{backgroundColor: 'green'}}>
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+              padding: Scale(10),
+              fontSize: Scale(18),
+            }}>
+            Articles
+          </Text>
+        </View>
+        <View style={{marginTop: Scale(10), flex: 1}}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="#009AEE"
+            style={{
+              borderBottomWidth: 1,
+              borderColor: '#009AEE',
+              fontSize: Scale(18),
+            }}
+            value={searchVal}
+            onChangeText={e => this.setState({searchVal: e})}
+          />
+
+          <View>
+            <FlatList
+              data={this.state.ArticleList}
+              renderItem={({item, index}) => this.renderItemFAQs(item, index)}
+              // keyExtractor={(item) => item.id}
+            />
           </View>
-        <View style={{marginTop:Scale(10),flex:1}}>
-            <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
-
-       
-            <View>
-                  <FlatList
-                    data={this.state.ArticleList}
-                   
-                    renderItem={({item, index})=> this.renderItemFAQs(item,index)}
-                    // keyExtractor={(item) => item.id}
-                  />
-                  </View>
-
-            
-            
         </View>
-        <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddEditArticle')} style={styles.plusIconContainer}>
-                <MaterialCommunityIcons
-                    name="plus"
-                    size={26}
-                    color="white"
-                    // style={styles.icon}
-                />
-            </TouchableOpacity>
-     
+        <View style={{alignItems: 'flex-end', flex: 0.1, padding: Scale(20)}}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('AddEditArticle')}
+            style={styles.plusIconContainer}>
+            <MaterialCommunityIcons
+              name="plus"
+              size={26}
+              color="white"
+              // style={styles.icon}
+            />
+          </TouchableOpacity>
         </View>
-         
       </SafeAreaView>
     );
   }
 }
-
 
 // Customizable Area Start
 const styles = StyleSheet.create({
@@ -173,7 +209,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    justifyContent:'center',
+    justifyContent: 'center',
     // borderWidth:1,
     borderTopRightRadius: 35,
     borderTopLeftRadius: 35,
@@ -183,30 +219,29 @@ const styles = StyleSheet.create({
     // width: '50%',
     marginTop: Scale(10),
     marginBottom: Scale(5),
-
   },
   touchable: {
     // borderWidth: 1,
     // padding: Scale(20),
-    marginStart:Scale(55),
-    marginEnd:Scale(45),
+    marginStart: Scale(55),
+    marginEnd: Scale(45),
     alignItems: 'center',
     justifyContent: 'center',
-   // To equally divide the space between two touchable elements
+    // To equally divide the space between two touchable elements
   },
   iconContainer: {
     alignItems: 'center',
     flex: 0.25,
-    justifyContent:'center',
+    justifyContent: 'center',
     // padding:Scale(20),
-    borderRadius:Scale(10),
-    backgroundColor:'white'
+    borderRadius: Scale(10),
+    backgroundColor: 'white',
   },
   text: {
     fontSize: 14,
-    marginTop:Scale(8),
-    color:'white',
-    fontWeight:'700',
+    marginTop: Scale(8),
+    color: 'white',
+    fontWeight: '700',
     textAlign: 'center',
   },
   fixedView: {
@@ -334,21 +369,22 @@ const styles = StyleSheet.create({
     height: Scale(70),
     //width:Scale(100),
     borderRadius: Scale(20),
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bottomText: {
-    color:'maroon',
-    fontSize:Scale(16),
-    textAlign:'center',
-    fontWeight:'bold'
-},
-    plusIconContainer: {
-        backgroundColor:"#009AEE",
-        width:Scale(50),
-        height:Scale(50),
-        borderRadius:Scale(25),
-        justifyContent:'center',
-        alignItems:'center'}
+    color: 'maroon',
+    fontSize: Scale(16),
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  plusIconContainer: {
+    backgroundColor: '#009AEE',
+    width: Scale(50),
+    height: Scale(50),
+    borderRadius: Scale(25),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 // Customizable Area End

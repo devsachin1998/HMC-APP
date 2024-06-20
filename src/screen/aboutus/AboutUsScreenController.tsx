@@ -1,6 +1,6 @@
 import {Component} from 'react';
-import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
-import {makeApiCallxml} from '../../globalServices/api';
+import {apiFunctions, storeData, getdata, showToastOrAlert} from '../../globalServices/utils';
+import {makeApiCall, makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
 
 export interface Props {
@@ -15,13 +15,11 @@ interface S {
   isLoading: boolean;
   needRetakeToken: boolean;
   //   leaderboard: LeaderboardItem[];
-  token: string;
-  totalCount: number;
-  totalPage: number;
-  pageIndex: number;
-  moreLoading: boolean;
-  datalist:any;
-  filterdata:any;
+  fullName: any;
+  mobileNo: any;
+  email: any;
+  message: any;
+  selectedTab:any;
   // Customizable Area End
 }
 
@@ -46,14 +44,11 @@ export default class AboutUsScreenController extends Component<Props, S, SS> {
       // Customizable Area Start
       isLoading: false,
       needRetakeToken: true,
-      //   leaderboard: [],
-      token: '',
-      pageIndex: 0,
-      totalCount: 1,
-      totalPage: 1,
-      moreLoading: false,
-      datalist:[],
-      filterdata:[],
+      fullName: '',
+      mobileNo: '',
+      email: '',
+      message: '',
+      selectedTab:'1',
       // Customizable Area End
     };
 
@@ -69,7 +64,54 @@ export default class AboutUsScreenController extends Component<Props, S, SS> {
       
 
   }
+  handleTabPress = (tab:any)=>
+    {
+      this.setState({selectedTab:tab})
+    }
   
+    handleFullNameChange = (text) => {
+      this.setState({ fullName: text });
+    };
+  
+    handleMobileNoChange = (text) => {
+      this.setState({ mobileNo: text });
+    };
+  
+    handleEmailChange = (text) => {
+      this.setState({ email: text });
+    };
+  
+    handleMessageChange = (text) => {
+      this.setState({ message: text });
+    };
+    validateEmail = (email) => {
+      // Basic email validation regex
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+    addinquiry = async () => {
+      const { fullName, mobileNo, email, message } = this.state;
 
+      // Validate fields
+      if (!fullName || !email || !mobileNo || !message) {
+        showToastOrAlert("Please fill in all fields!!")
+        return;
+      }
+  
+      // Validate email format
+      if (!this.validateEmail(email)) {
+        showToastOrAlert('Please Enter a Valid Email Address!!');
+        return;
+      }
+        const responseData = 
+      await makeApiCall(apiFunctions.VBoxInsert+`?VisitorName=${this.state.fullName}&EmailID=${this.state.email}&PhoneNo=${this.state.mobileNo}&Comment=${this.state.message}`, 'GET',null);
+      if(responseData[0].Status=="done")
+        {
+          showToastOrAlert("Inquiry Submitted Successfully!!")
+          this.props.navigation.goBack();
+        }
+       
+      console.log('responseData:::--->headline',responseData[0].Status);
+  
+    }
   // Customizable Area End
 }

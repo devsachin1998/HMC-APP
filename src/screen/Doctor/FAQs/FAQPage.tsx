@@ -98,7 +98,7 @@ export default class FAQPage extends FAQPageController {
     return (
       <SafeAreaView style={{ flex: 1 }}>
        
-       <CustomHeader backgroundColor={this.props.route.params.isfrom=="basic"?'#3F3F3F':"maroon"}  logout={this.props.route.params.isfrom=="basic"?false:true}/>
+       <CustomHeader backgroundColor={this.props?.route?.params?.isfrom=="basic"?'#3F3F3F':"maroon"}  logout={this.props?.route?.params?.isfrom=="basic"?false:true}/>
           <View style={{backgroundColor:'blue'}}>
             <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>FAQs</Text>
           </View>

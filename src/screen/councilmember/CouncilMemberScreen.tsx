@@ -23,6 +23,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
+import Icon1 from 'react-native-vector-icons/Ionicons';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 // Merge Engine - import assets - Start
@@ -101,15 +102,55 @@ export default class CouncilMemberScreen extends CouncilMemberScreenController {
           <Loader loading={this.state.isLoading} />
 
           <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: '#0e2433',
+              padding: 10,
+            }}>
+            <TouchableOpacity
+              style={{flex: 0.1}}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name="chevron-small-left"
+                size={32}
+                color="white"
+                style={{width: Scale(30), height: Scale(30)}}
+              />
+            </TouchableOpacity>
+            <View style={{flex: 1, alignSelf: 'center'}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginStart: 5,
+                  marginTop: 1,
+                  fontSize: Scale(18),
+                }}>
+                {'COUNCIL MEMBERS'}
+              </Text>
+            </View>
+          
+          </View>
+          <View style={{flexDirection:'row',alignItems:'center',padding:5,backgroundColor:'white',borderRadius:8}}>
+          <Icon1
+          size={22}
+          color={"#009AEE"}
+            name={"search"}// Adjust path to your search icon image
+           style={{padding:10,marginTop:10}}
+          />
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
+underlineColorAndroid='red'
+autoCorrect={false}
               // value={this.state.firstName}
-              // onChangeText={(e)=>this.setState({firstName:e})}
+              onChangeText={(e)=>this.searchValueById(e)}
             />
+            </View>
             <View>
               <FlatList
-                data={this.state.memberlist}
+                data={this.state.filterdata}
                 renderItem={({item, index}) => this.renderItemAct(item, index)}
                 contentContainerStyle={{paddingBottom:150}}
                 // keyExtractor={(item) => item.id}
@@ -157,6 +198,7 @@ const styles = StyleSheet.create({
     marginTop: Scale(10),
     fontSize: 16,
     padding: 10,
+    flex:1,
     borderColor: 'skyblue',
     borderBottomWidth: 1,
     borderRadius: 5,

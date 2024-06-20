@@ -22,8 +22,8 @@ import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import {SliderBox} from 'react-native-image-slider-box';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
 // Merge Engine - Artboard Dimension  - Start
@@ -34,6 +34,7 @@ import QueryController, {Props} from './QueryController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 import { TextInput } from 'react-native-gesture-handler';
+import Loader from '../../../componants/Loader';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -50,7 +51,64 @@ export default class QueriesPage extends QueryController {
  
  
 
+  renderItemQue = (item: any, index: number) => {
 
+    return (
+      <View style={{flexDirection: 'column'}}>
+        <View>
+          <TouchableOpacity
+            onPress={() => this.updateValueById(item.QAnsID)}
+            style={{
+              margin: Scale(10),
+              marginBottom:Scale(2),
+              backgroundColor: '#009AEE',
+              padding: Scale(10),
+              flexDirection: 'row',
+            }}>
+            <View style={{flex:2}}>
+              <Text style={{color: 'white'}}>{item.Message} </Text>
+            </View>
+            <View
+              style={{
+                alignSelf: 'center',
+                flexDirection: 'row',
+              }}>
+             
+      
+              <View style={{alignSelf: 'center'}}>
+                <FontAwesome5
+            name={item.iscollaps ? 'caret-up' : 'caret-down'}
+            size={20}
+                  color="white"
+                />
+              </View>
+            </View>
+          </TouchableOpacity>
+          {item.iscollaps ? (
+            <View
+              style={{
+                // flex: 1,
+                borderColor: '#009AEE',
+                marginHorizontal: Scale(10),
+                borderWidth: 1,
+                flexDirection: 'row',
+              }}>
+              <View style={{backgroundColor: '#009AEE', padding: Scale(10)}}>
+                <Text style={{marginVertical: Scale(1), color: 'white'}}>
+                  Response
+                </Text>
+              </View>
+              <View style={{marginVertical: Scale(10), paddingLeft: Scale(5)}}>
+                <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+                  {item.InqRespnse}{' '}
+                </Text>
+              </View>
+            </View>
+          ) : null}
+        </View>
+      </View>
+    );
+  };
 
 
   render() {
@@ -59,19 +117,18 @@ export default class QueriesPage extends QueryController {
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
-          <View style={{backgroundColor:'#ffaa11'}}>
-            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10)}}>Queries</Text>
+       <Loader loading={this.state.isLoading}></Loader>
+          <View style={{backgroundColor:'#ffaa11',padding:5}}>
+            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:18}}>Queries</Text>
           </View>
-        <View style={{marginTop:Scale(10),flex:1}}>
-            <TextInput placeholder='Search' placeholderTextColor="#009AEE" style={{borderBottomWidth:1,borderColor:"#009AEE",fontSize:Scale(18)}} value={searchVal} onChangeText={(e)=>this.setState({searchVal:e})}/>
-            {/* {this.state.addQuery? */}
-            <Text style={{padding:Scale(10),backgroundColor:'#009AEE',color:'white',margin:Scale(20)}}>{}</Text>
-            {/* :
-            null
-            } */}
-            
-        </View>
-        <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20)}}>
+          <View>
+            <FlatList
+              data={this.state.datalist}
+              renderItem={({item, index}) => this.renderItemQue(item, index)}
+              // keyExtractor={(item) => item.id}
+            />
+          </View>
+        <View style={{alignItems:'flex-end',flex:0.1,padding:Scale(20),marginTop:'auto'}}>
             <TouchableOpacity onPress={()=>this.props.navigation.navigate('AddQuery')} style={styles.plusIconContainer}>
                 <MaterialCommunityIcons
                     name="plus"

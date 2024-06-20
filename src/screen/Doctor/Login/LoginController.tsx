@@ -1,7 +1,7 @@
 import {Component} from 'react';
 // import makeApiCall from '../../globalServices/api';
 // import {apiFunctions, showtoasterror} from '../../globalServices/utils';
-import {Keyboard} from 'react-native';
+import {Alert, Keyboard, Platform, ToastAndroid} from 'react-native';
 import {apiFunctions, storeData, getdata} from '../../../globalServices/utils';
 import {makeApiCall} from '../../../globalServices/api';
 import moment from 'moment';
@@ -13,7 +13,7 @@ export interface Props {
 }
 
 interface S {
-  phoneNumber: number;
+  phoneNumber: any;
   isDatePickerVisible:any;
   date: any;
   mode:any,
@@ -44,13 +44,38 @@ export default class LoginController extends Component<Props, S, SS> {
   }
 
   onClickDoctorLogin = async ()=>{
+    if(this.state.phoneNumber=="" && this.state.date1 )
+      {
+        let msg="Please Enter Phone Number and Date.."
+        if (Platform.OS === 'android') {
+          return  ToastAndroid.show(msg, ToastAndroid.SHORT)
+        } else {
+          return  Alert.alert(msg);
+        }
+      }
+      else
+      {
     const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
     const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
     console.log('responseData:::  LOGIn--->', responseData);
-   storeData("loginDetails",responseData)
+   if(responseData)
+    {
+      storeData("loginDetails",responseData)
 
-    this.props.navigation.navigate('DrawerNavigatorDoctor');
+      this.props.navigation.navigate('DrawerNavigatorDoctor');
+    }
+    else
+    {
+      let msg="Please Enter Valid Phone Number and Date.."
+
+      if (Platform.OS === 'android') {
+        return  ToastAndroid.show(msg, ToastAndroid.SHORT)
+      } else {
+        return  Alert.alert(msg);
+      }
+    }
+  }
     
   }
 //   async loginBtnClick() {

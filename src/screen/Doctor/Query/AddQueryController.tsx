@@ -35,7 +35,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class QueryController extends Component<Props, S, SS> {
+export default class AddQueryController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -61,6 +61,7 @@ export default class QueryController extends Component<Props, S, SS> {
       datalist:[],
       searchVal:'',
       addQuery: '',
+      texts:'',
       iconChange: false
       // Customizable Area End
     };
@@ -69,47 +70,32 @@ export default class QueryController extends Component<Props, S, SS> {
 
     // Customizable Area End
   }
-  updateValueById = (QAnsID) => {
-    let updatedDataList = this.state.datalist.map(queries => {
-      if (queries.QAnsID === QAnsID) {
-          return { ...queries, iscollaps: !queries.iscollaps };
-      }
-      return queries;
-  });
-  this.setState({ datalist: updatedDataList }, () => {
-});
+ 
 
 
-}
   // Customizable Area Start
   async componentDidMount() {
+   
+  }
+  Addquery = async () => {
     this.setState({isLoading:true})
 
     const user = await getdata('loginDetails');
-    // console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
     const id = user[0].CouncilMemberIDP;
-    this.getdata(id);
-  }
-  getdata = async (Id) => {
+    const responseData =  await makeApiCallxml(apiFunctions.QAnsInsert+`?UN1=2&PWD1=2&Message=${this.state.addQuery}&UserID=`+id, 'GET', "base");
+//     const tables = Array.isArray(responseData.Table) ? responseData.Table : [responseData.Table];
 
-    const responseData =  await makeApiCallxml(apiFunctions.QAnsSelectbyuserID+"?UN1=2&PWD1=2&RegistrationID="+Id, 'GET', "base");
-    const tables = Array.isArray(responseData?.Table) ? responseData?.Table : [responseData?.Table];
-    console.log("Dsad",responseData)
-    if(tables.length>0)
-      {
-
+//       const jsonData1 =  tables.map((table: any) => ({
+//       QAnsID:table?.QAnsID,
+//       Message:table?.Message, 
+//       InqRespnse:table?.InqRespnse||"",
+//       iscollaps:false
       
-      const jsonData1 =  tables.map((table: any) => ({
-      QAnsID:table?.QAnsID,
-      Message:table?.Message, 
-      InqRespnse:table?.InqRespnse||"",
-      iscollaps:false
-      
-  }))
-  this.setState({datalist:jsonData1})
-}
+//   }))
+//   this.setState({datalist:jsonData1})
   this.setState({isLoading:false})
-
+  this.props.navigation.navigate('QueriesPage')
+ console.log('responseData:::--->headline',responseData);
 
   }
   

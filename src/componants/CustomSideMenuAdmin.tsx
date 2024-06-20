@@ -15,12 +15,14 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {clearData} from '../globalServices/utils';
 import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from'react-native-vector-icons/MaterialCommunityIcons';
+
+import FontAwesome6 from'react-native-vector-icons/FontAwesome6';
 
 import FontAwesome5 from'react-native-vector-icons/FontAwesome5';
 
 
-
-class CustomSideMenuDoctor extends Component {
+class CustomSideMenuAdmin extends Component {
   constructor(props) {
     super(props);
   }
@@ -68,50 +70,88 @@ class CustomSideMenuDoctor extends Component {
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
               </TouchableOpacity>
-             
-            
               <TouchableOpacity
-                style={styles.mainview}
-                
+        style={styles.mainview}
+      >
+        <FontAwesome6 name="user-doctor" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Doctors</Text>
+      </TouchableOpacity>
 
-                >
-               <Icon name="user" size={20} color="white"  />
-                <Text style={styles.textstyle}>Profile</Text>
-              </TouchableOpacity>
-           
-  
-              <TouchableOpacity
-                style={styles.mainview}
-                
-                onPress={()=>this.props.navigation.navigate("ArticlePage")}
-                >
-               <MaterialIcons name="article" size={20} color="white"  />
-                <Text style={styles.textstyle}>Articles</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.mainview}
-                
-                onPress={()=>this.props.navigation.navigate("QueriesPage")}
-                >
-               <MaterialIcons name="progress-question" size={20} color="white"  />
-                <Text style={styles.textstyle}>Queries</Text>
-              </TouchableOpacity>
-             
-              <TouchableOpacity
-                style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("FAQPage")}
-                >
-               <MaterialIcons name="frequently-asked-questions" size={20} color="white"  />
-                <Text style={styles.textstyle}>FAQs</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.mainview}
-                onPress={()=>this.logout()}
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+         <FontAwesome5 name="school"size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>College</Text>
+      </TouchableOpacity>
 
-                >
-               <MaterialIcons name="logout" size={20} color="white"  />
-                <Text style={styles.textstyle}>Log Out</Text>
-              </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <Icon name="graduation-cap" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>University</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <Icon name="image" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Gallery</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <Icon name="image" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Gallery Details</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <Icon name="users" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Council Members</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <Icon name="user" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Council User</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+  <MaterialCommunityIcons name="frequently-asked-questions" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>FAQs</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+      >
+        <MaterialIcons name="newspaper" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>News Feeds</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mainview}
+    
+      >
+           <MaterialCommunityIcons
+                name="advertisements" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Ads</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.mainview} 
+   >
+        <FontAwesome5 name="database" size={Scale(20)} color="white" />
+        <Text style={styles.textstyle}>Maintenance</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.mainview} onPress={() =>this.logout()}>
+        <MaterialIcons name="logout" size={20} color="white" />
+        <Text style={styles.textstyle}>Log Out</Text>
+      </TouchableOpacity>
               
             </ScrollView>
             <Text style={[styles.textstyle,{paddingStart:0,fontSize:12,textAlign:'center',marginTop:10}]}>{"Copyright © . All rights reserved. \n| Designed by C.S.Comsoft Pvt. Ltd."}</Text>
@@ -149,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomSideMenuDoctor;
+export default CustomSideMenuAdmin;

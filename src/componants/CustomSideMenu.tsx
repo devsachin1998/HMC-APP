@@ -153,6 +153,7 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=> this.props.navigation.navigate("ContactUsScreen")}
 
                 
                 >

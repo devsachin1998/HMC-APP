@@ -27,6 +27,10 @@ import AboutUsScreen from '../screen/aboutus/AboutUsScreen';
 
 import ArticlePage from '../screen/Doctor/Articles/ArticlePage';
 import AddEditArticle from '../screen/Doctor/Articles/AddEditArticle/AddEditArticle'
+import ContactUsScreen from '../screen/aboutus/ContactUsScreen';
+import CustomSideMenuAdmin from './CustomSideMenuAdmin';
+import AdminHome from '../screen/Admin/AdminHome';
+import Maintenance from '../screen/Admin/maintenance/Maintenance';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -73,6 +77,11 @@ const AppNavigator = () => (
   <Stack.Screen
         name="DrawerNavigatorDoctor"
         component={DrawerNavigatorDoctor}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="DrawerNavigatorAdmin"
+        component={DrawerNavigatorAdmin}
         options={{headerShown: false}}
       />
   <Stack.Screen
@@ -176,22 +185,40 @@ const DrawerNavigator = ({navigation}) => {
         component={AboutUsScreen}
         options={{headerShown: false}}
       />
+       <Stack.Screen
+        name="ContactUsScreen"
+        component={ContactUsScreen}
+        options={{headerShown: false}}
+      />
+      
     </Drawer.Navigator>
   );
 };
 
 const DrawerNavigatorDoctor = ({navigation}) => {
-  
+  const [username, setusername] = useState('');
+  // const [userprofile, setuserprofile] = useState('');
+
+  (async () => {
+    const user = await getdata('loginDetails');
+    // console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
+    const username = user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName;
+    // const userprofile = user.profile_pic;
+    // setuserprofile(userprofile);
+    setusername(username);
+  })();
   return (
     <Drawer.Navigator
       initialRouteName="CustomSideMenuDoctor"
       screenOptions={{
         headerShown: false,
+        unmountOnBlur:true,
+
       }}
       drawerContent={props => (
         <CustomSideMenuDoctor
           data={{
-            name: '',
+            name: username,
             profile_pic: '',
           }}
           {...props}
@@ -233,39 +260,43 @@ const DrawerNavigatorDoctor = ({navigation}) => {
     </Drawer.Navigator>
   );
 };
-// const DrawerNavigatorAdmin = () => {
-//   const [username, setusername] = useState('');
-//   const [userprofile, setuserprofile] = useState('');
+const DrawerNavigatorAdmin = () => {
+  const [username, setusername] = useState('');
 
-//   (async () => {
-//     const user = await getdata('userdetails');
-//     console.log('dasdasdasdsa', user);
-//     const username = user.first_name + ' ' + user.last_name;
-//     const userprofile = user.profile_pic;
-//     setuserprofile(userprofile);
-//     setusername(username);
-//   })();
-//   return (
-//     <Drawer.Navigator
-//       initialRouteName="CustomSidebarMenuAdmin"
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//       drawerContent={props => (
-//         <CustomSidebarMenuAdmin
-//           data={{
-//             name: username,
-//             profile_pic: userprofile,
-//           }}
-//           {...props}
-//         />
-//       )}>
-//       <Drawer.Screen
-//         name="Main"
-//         component={TabNavigatorAdmin}
-//         options={{headerShown: false}}
-//       />
-//     </Drawer.Navigator>
-//   );
-// };
+  (async () => {
+    const user = await getdata('loginDetails');
+    const username = user.UserName;
+    setusername(username);
+  })();
+  return (
+    <Drawer.Navigator
+      initialRouteName="CustomSideMenuAdmin"
+      screenOptions={{
+        headerShown: false,
+        unmountOnBlur:true,
+
+      }}
+      drawerContent={props => (
+        <CustomSideMenuAdmin
+          data={{
+            name: username,
+          }}
+          {...props}
+        />
+      )}>
+      <Drawer.Screen
+        name="AdminHomeScreen"
+        component={AdminHome}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="Maintenance"
+        component={Maintenance}
+        options={{headerShown: false}}
+      />
+      
+     
+    </Drawer.Navigator>
+  );
+};
 export default AppNavigator;
