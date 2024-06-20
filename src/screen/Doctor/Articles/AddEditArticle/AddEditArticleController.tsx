@@ -101,14 +101,7 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
   async componentDidMount() {
     
     this.setState({isLoading:true})
-    // this.getArticle();
-    this.interval = setInterval(() => {
-      this.setState(prevState => ({
-        currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
-      }));
-    }, 3000);
-  
-    
+   this.getArticle();
   }
   
   componentWillUnmount() {
@@ -138,7 +131,6 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
 
     const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title=${this.state.articleName}&Date1=${sDate}&PDFDoc=${pdfFile}&Description=${this.state.desc}&RegistrationID=${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
     console.log('responseData Articles::--->', responseData);
-
     this.setState({isLoading:false})
   }
 

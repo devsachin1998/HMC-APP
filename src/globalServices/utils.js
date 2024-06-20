@@ -35,7 +35,8 @@ export const apiFunctions = {
   QAnsSelectbyuserID:'/QAnsSelectbyuserID',
   QAnsInsert:'/QAnsInsert',
   UserLoginMaster:'/UserLoginMaster',
-  VBoxInsert:'/VBoxInsert'
+  VBoxInsert:'/VBoxInsert',
+  TermsAndCondition:'/TandC'
 };
 export const storeData = async (key, value) => {
   try {
