@@ -27,6 +27,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
 
 import Icon from 'react-native-vector-icons/Entypo';
+import { CustomHeader } from '../../componants/CustomHeader';
 export default class Registration extends RegistrationController {
     constructor(props: Props) {
       super(props);
@@ -95,7 +96,9 @@ render() {
           behavior={Platform.OS === 'ios' ? 'padding' : null}
           // keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         >
-          <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <CustomHeader menu={false} />
+
+          <ScrollView>
             <View style={{flex: 1}}>
               <View
                 style={{
@@ -255,7 +258,9 @@ render() {
                   <Text
                     style={{
                       color: 'black',
-                      fontSize: 18,
+                      fontSize: 20,
+                      padding:10,
+                      backgroundColor:'green',
                       marginTop: Scale(15),
                     }}>
                     Residential
@@ -406,7 +411,9 @@ render() {
                   <Text
                     style={{
                       color: 'black',
-                      fontSize: 18,
+                      fontSize: 20,
+                      padding:10,
+                      backgroundColor:'green',
                       marginTop: Scale(15),
                     }}>
                     Professional
@@ -585,6 +592,7 @@ render() {
                     style={{
                       color: 'black',
                       fontSize: 16,
+                      fontWeight:'600',
                       marginTop: Scale(10),
                     }}>
                     Qualification of Examination Passed *
@@ -638,7 +646,7 @@ render() {
                     />
                   </View>
 
-                  <Text style={{color: 'black', fontSize: 16}}>
+                  <Text style={{color: 'black', fontSize: 16, fontWeight:'600',}}>
                     Date on which the qualification was obtained *
                   </Text>
 
@@ -712,7 +720,7 @@ render() {
                     }}
                   />
 
-                  <Text style={{color: 'black', fontSize: 16}}>
+                  <Text style={{color: 'black', fontSize: 16, fontWeight:'600',}}>
                     Institution from which appeared for the Examination and
                     number at the Examination (College Name) *
                   </Text>
