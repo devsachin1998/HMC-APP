@@ -5,6 +5,7 @@ import {Alert, Keyboard, Platform, ToastAndroid} from 'react-native';
 import {apiFunctions, storeData, getdata} from '../../../globalServices/utils';
 import {makeApiCall,makeApiCallxml} from '../../../globalServices/api';
 import moment from 'moment';
+import xml2js from 'react-native-xml2js';
 
 // import messaging from '@react-native-firebase/messaging';
 
@@ -20,7 +21,7 @@ interface S {
   mode:any,
   open: boolean,
   date1: any,
-  termsAndConditions: string,
+  termsAndConditions:any,
 }
 
 interface SS {
@@ -47,31 +48,73 @@ export default class LoginController extends Component<Props, S, SS> {
   }
 
   getTermsCondition = async ()=>{
-    const responseData = await makeApiCallxml(apiFunctions.TermsAndCondition+"?UN1=1&PWD1=1",'GET',"web");
-    console.log('responseData:::  get Terms & condition--->', responseData);
-    // const xml2js = require('xml2js');
-    // const he = require('he');
-    // xml2js.parseString(responseData, (err, result) => {
-    // if (err) {
-    //   throw err;
+    // const responseData = await makeApiCallxml(apiFunctions.TermsAndCondition+"?UN1=1&PWD1=1",'GET',"web");
+    // console.log('responseData:::  get Terms & condition--->', responseData);
+    // function xmlToJson(xmlString) {
+    //   // Parse the XML string
+    //   const parser = new parser();
+    //   const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+    
+    //   // Get the text content inside <string> element
+    //   const jsonString = xmlDoc.querySelector('string').textContent;
+    
+    //   // Return the parsed JSON object
+    //   return jsonString;
     // }
-    // console.log('responseData:::  get Terms & condition---1111>', responseData);
-    // // Extract the content of the <string> element
-    // const encodedHtml = result.string._;
+    
+    let apiUrl = `${apiFunctions.urlweb}${apiFunctions.TermsAndCondition}?UN1=1&PWD1=1`;
+   
+  
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+    };
+    const options = {
+      method: "GET",
+      // headers: headers,
+    };
+    
+    console.log("apiUrl:::::11", apiUrl);
 
-    // // Decode the HTML entities
-    // const decodedHtml = he.decode(encodedHtml);
+    try {
+      const response = await fetch(apiUrl, options);
+      const responseData = await response.text();
+      // console.log("dsddsfdd", responseData);
+      console.log("tables:::::11", responseData);
+      // this.setState({termsAndConditions: responseData})
 
-    // // Output the JSON format
-    // const jsonResult = {
-    //   termsAndConditions: decodedHtml,
-    // };
-    // console.log('responseData:::  get Terms & condition--222->', jsonResult);
-    // console.log(JSON.stringify(jsonResult, null, 2));
-    // })
+      // Parse XML data
+      const parsedData = await new Promise((resolve, reject) => {
+        xml2js.parseString(responseData, { explicitArray: false, explicitRoot: false }, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            const tables =result
+            console.log("tables:::::11", tables._);
+            this.setState({termsAndConditions: tables._})
+            resolve(tables);
+          }
+        });
+      });
+  
+    } catch (error) {
+      console.error(error);
+      return null; // Handle error appropriately
     }
-
-
+    }
+     convertXmlToHtml(xmlString) {
+      // Extract content inside <string> tag
+      const startIndex = xmlString.indexOf('>') + 1;
+      const endIndex = xmlString.lastIndexOf('<');
+      const encodedHtml = xmlString.substring(startIndex, endIndex);
+    
+      // Decode HTML entities
+      const textarea = document.createElement('textarea');
+      textarea.innerHTML = encodedHtml;
+      const decodedHtml = textarea.value;
+    
+      return decodedHtml;
+    }
+ 
   onClickDoctorLogin = async ()=>{
     if(this.state.phoneNumber=="" && this.state.date1 )
       {

@@ -201,7 +201,7 @@ const DrawerNavigatorDoctor = ({navigation}) => {
 
   (async () => {
     const user = await getdata('loginDetails');
-    // console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
+    console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
     const username = user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName;
     // const userprofile = user.profile_pic;
     // setuserprofile(userprofile);
