@@ -36,7 +36,17 @@ export const apiFunctions = {
   QAnsInsert:'/QAnsInsert',
   UserLoginMaster:'/UserLoginMaster',
   VBoxInsert:'/VBoxInsert',
-  TermsAndCondition:'/TandC'
+  TermsAndCondition:'/TandC',
+  CollegeSelect:'/CollegeSelect',
+  UniversitySelect:'/UniversitySelect',
+  CountrySelect:'/CountrySelect',
+  StateSelectByCountryID:'/StateSelectByCountryID',
+  StateSelect:'/StateSelect',
+  DistrictSelectByStateID:'/DistrictSelectByStateID',
+  TalukaSelectByDistrictID:'/TalukaSelectByDistrictID',
+  QualificationSelect:'/QualificationSelect',
+  DesignationSelect:'/DesignationSelect',
+
 };
 export const storeData = async (key, value) => {
   try {
