@@ -48,24 +48,8 @@ export default class LoginController extends Component<Props, S, SS> {
   }
 
   getTermsCondition = async ()=>{
-    // const responseData = await makeApiCallxml(apiFunctions.TermsAndCondition+"?UN1=1&PWD1=1",'GET',"web");
-    // console.log('responseData:::  get Terms & condition--->', responseData);
-    // function xmlToJson(xmlString) {
-    //   // Parse the XML string
-    //   const parser = new parser();
-    //   const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
-    
-    //   // Get the text content inside <string> element
-    //   const jsonString = xmlDoc.querySelector('string').textContent;
-    
-    //   // Return the parsed JSON object
-    //   return jsonString;
-    // }
-    
     let apiUrl = `${apiFunctions.urlweb}${apiFunctions.TermsAndCondition}?UN1=1&PWD1=1`;
-   
-  
-    const headers = {
+     const headers = {
       'Content-Type': 'multipart/form-data',
     };
     const options = {

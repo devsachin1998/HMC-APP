@@ -32,40 +32,105 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 // Merge Engine - Artboard Dimension  - End
 // import dayjs from "dayjs";
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
-import {CustomHeader} from '../../componants/CustomHeader';
-import Scale from '../../globalServices/Scale';
+import {CustomHeader} from '../../../componants/CustomHeader';
+import Scale from '../../../globalServices/Scale';
 
-import Loader from '../../componants/Loader';
-import AboutUsScreenController, {Props} from './AboutUsScreenController';
+import Loader from '../../../componants/Loader';
+import AddCollegeAdminController, {Props} from './AddCollegeAdminController';
+import { Dropdown } from 'react-native-element-dropdown';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class ContactUsScreen extends AboutUsScreenController {
+export default class AddCollegeAdmin extends AddCollegeAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
     // Customizable Area End
   }
-  renderinc = ()=>
-    {
-      return(
-        
-        <ScrollView  >
+
+
+  render() {
+    return (
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
+          <CustomHeader />
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: 'purple',
+              padding: 10,
+            }}>
+            <TouchableOpacity
+              style={{flex: 0.1}}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon
+                name="chevron-small-left"
+                size={32}
+                color="white"
+                style={{width: Scale(30), height: Scale(30)}}
+              />
+            </TouchableOpacity>
+            <View style={{flex: 1, alignSelf: 'center'}}>
+              <Text
+                style={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  marginStart: 5,
+                  marginTop: 1,
+                  fontSize: Scale(18),
+                }}>
+                {'Add College'}
+              </Text>
+            </View>
+          
+          </View>
+          <ScrollView  >
         <View style={styles.container}>
-          <Text style={{fontSize:20,fontWeight:'700',color:'skyblue'}}>* ADD INQUIRY *</Text>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Full Name</Text>
+          <Text style={styles.label}>College Name</Text>
           <TextInput
             placeholder='Name'
             style={styles.input}
             onChangeText={(e)=>this.handleFullNameChange(e)}
           />
         </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>University</Text>
+          <Dropdown
+placeholderStyle={{color:'grey',fontSize:14}}
+                    style={styles.dropDownContainer}
+                    placeholder="--Select University--"
+                    data={[
+                        { label: 'India', value: '1' },
+                        { label: 'Australia', value: '2' },
+                        { label: 'Japan', value: '3' },
+                      ]}
+                    labelField="label"
+                    valueField="value"
+                    maxHeight={210}
+                    selectedTextStyle={{paddingStart:60}}
+
+                    // value={value}
+                    onChange={item => {
+                      console.log('itemmmm', item);
+                      this.setState({selectedQualification: item.label});
+                    }}
+                  />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Address</Text>
+          <TextInput
+            placeholder='Address'
+            style={styles.input}
+            onChangeText={(e)=>this.handleFullNameChange(e)}
+          />
+        </View>
+     
 
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Mobile No</Text>
+          <Text style={styles.label}>Phone No</Text>
           <TextInput
-            placeholder='Mobile No'
+            placeholder='Phone No'
             style={styles.input}
             keyboardType='numeric'
             onChangeText={(e)=>this.handleMobileNoChange(e)}
@@ -80,98 +145,21 @@ export default class ContactUsScreen extends AboutUsScreenController {
             onChangeText={(e)=>this.handleEmailChange(e)}
           />
         </View>
-
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Message</Text>
+          <Text style={styles.label}>Website</Text>
           <TextInput
-            placeholder='Description'
-            multiline={true}
-            style={[styles.input, { height: 100 }]}
-            onChangeText={(e)=>this.handleMessageChange(e)}
+            placeholder='Website'
+            style={styles.input}
+            onChangeText={(e)=>this.handleEmailChange(e)}
           />
         </View>
+
         <TouchableOpacity style={styles.button} onPress={()=>this.addinquiry()}>
         <Text style={{fontSize:20,fontWeight:'700',color:'white'}}>Submit</Text>
         </TouchableOpacity>
       </View>
-      </ScrollView>
-      )
-    }
-rendermap =()=>
-  {
-    return (
-    <View style={{ flexDirection: 'column', flex: 3 }}>
-    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Map</Text>
-    </View>
-    <View style={{ backgroundColor: 'skyblue', flex: 1,  }}>
-    <View style={styles.line}>
-      <FontAwesome5 name="map" size={25} color="black" />
-      <Text style={styles.text}>Council of Homoeopathic System of Medicine Gujarat State</Text>
-    </View>
-    <View style={[styles.line,{marginStart:20}]}>
-      <Text style={styles.text}>"COUNCIL HOUSE" OPP. M.P. SHAH CANCER HOSPITAL,GATE NO.6, NEW CIVIL HOSPITAL,ASARWA,AHMEDABAD - 380016</Text>
-    </View>
-    <View style={styles.line}>
-      <FontAwesome5 name="phone" size={25} color="black" />
-      <Text style={styles.text}>PHONE NO : 07922681377</Text>
-    </View>
-    <View style={styles.line}>
-      <FontAwesome5 name="envelope" size={25} color="black" />
-      <Text style={styles.text}>EMAIL : gujhmc@gmail.com</Text>
-    </View>
-  </View>
-  
-  </View>
-    )
-  }
-
-  render() {
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
-          <CustomHeader />
-
-      
-          <View
-            style={{
-              height: 90,
-              alignSelf: 'center',
-              justifyContent: 'center',
-              flexDirection: 'row',
-            }}>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                borderBottomWidth: this.state.selectedTab == '1' ? 8 : 3,
-                alignItems: 'center',
-                backgroundColor:
-                  this.state.selectedTab === '1' ? '#DEDEDE' : 'transparent',
-                justifyContent: 'center',
-                borderBottomColor: 'skyblue',
-              }}
-              onPress={() => this.handleTabPress('1')}>
-              <MaterialIcons name="location-on" size={25} />
-              <Text style={{marginLeft: 5}}>Reach us At</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                backgroundColor:
-                  this.state.selectedTab === '2' ? '#DEDEDE' : 'white',
-
-                borderBottomWidth: this.state.selectedTab == '2' ? 8 : 3,
-                alignItems: 'center',
-                borderBottomColor: 'skyblue',
-                justifyContent: 'center',
-              }}
-              onPress={() => this.handleTabPress('2')}>
-              <MaterialIcons name="help-outline" size={27} />
-              <Text style={{marginLeft: 5}}>Inquiry</Text>
-            </TouchableOpacity>
-          </View>
-        {this.state.selectedTab=='1'?this.rendermap():this.renderinc()}
-        </View>
+      </ScrollView>   
+      </View>  
       </SafeAreaView>
     );
   }
@@ -207,6 +195,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     elevation: 3,
   },
+  dropDownContainer: {
+    //  backgroundColor:'green',
+      borderWidth: 1,
+      borderColor: 'skyblue',
+      //   padding: Scale(10),
+    paddingStart:10,
+    height: 45,
+      borderRadius: Scale(5),
+      marginVertical: Scale(5)
+    },
   image: {
     width: Dimensions.get('window').width / 2 - 20,
     height: 120,

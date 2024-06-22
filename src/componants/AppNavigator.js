@@ -31,6 +31,8 @@ import ContactUsScreen from '../screen/aboutus/ContactUsScreen';
 import CustomSideMenuAdmin from './CustomSideMenuAdmin';
 import AdminHome from '../screen/Admin/AdminHome';
 import Maintenance from '../screen/Admin/maintenance/Maintenance';
+import CollegeScreenAdmin from '../screen/Admin/colleges/CollegeScreenAdmin';
+import AddCollegeAdmin from '../screen/Admin/colleges/AddCollegeAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -39,7 +41,13 @@ const AppNavigator = () => (
   <NavigationContainer>
 
     <Stack.Navigator initialRouteName="SplashScreen">
-  
+    <Stack.Screen
+        name="AddCollegeAdmin"
+        component={AddCollegeAdmin}
+        options={{headerShown: false}}
+      />
+      
+     
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -292,6 +300,16 @@ const DrawerNavigatorAdmin = () => {
        <Stack.Screen
         name="Maintenance"
         component={Maintenance}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="CollegeScreenAdmin"
+        component={CollegeScreenAdmin}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="AddCollegeAdmin"
+        component={AddCollegeAdmin}
         options={{headerShown: false}}
       />
       

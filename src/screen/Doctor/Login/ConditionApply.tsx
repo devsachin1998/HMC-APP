@@ -12,6 +12,7 @@ import {
 import LoginController, {Props} from './LoginController';
 import HTML from 'react-native-render-html';
 import { ScrollView } from 'react-native-gesture-handler';
+import Loader from '../../../componants/Loader';
 
 export default class ConditionApply extends LoginController {
   constructor(props: Props) {

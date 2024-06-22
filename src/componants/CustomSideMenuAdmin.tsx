@@ -79,6 +79,7 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>this.props.navigation.navigate("CollegeScreenAdmin")}
       >
          <FontAwesome5 name="school"size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>College</Text>
