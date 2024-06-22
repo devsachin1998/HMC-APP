@@ -90,9 +90,11 @@ renderLabel() {
     });
   }
 render() {
+  
     const { value, selectedDate ,date1,open, bloodGroups ,month,year,country,States,District,stateRegNo,
-      Qualification,passingMonth,passingYear,InternshipStarting,InternshipTo} = this.state;
-  return (
+      Qualification,passingMonth,passingYear,InternshipStarting,InternshipTo,colledges,University,Talukas,countryProfessional,TalukasProfessional,DistrictProfessional,StatesProfessional,QualificationState} = this.state;
+      // const countryArray = Object.values(country); 
+      return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={{flex: 1}}>
         <KeyboardAvoidingView
@@ -126,6 +128,8 @@ render() {
                   <Text style={{color: 'black', fontSize: 20, fontWeight: 600}}>
                     Step 1
                   </Text>
+
+                  <View>
                   <TextInput
                     label="First Name"
                     style={styles.input}
@@ -244,21 +248,14 @@ render() {
                       valueField="value"
                       maxHeight={210}
                       value={value}
-                      // renderItem={(item)=>{
-                      //   console.log('itemmmm11',item,selectedBloodGroup)
-                      //   return(
-                      //     <View style={{borderRadius: Scale(5)}}>
-                      //       <Text style={[styles.dropDownText]}> {item}</Text>
-                      //     </View>
-                      //   )
-                      // }}
                       onChange={item => {
-                    
                         this.setState({selectedBloodGroup: item.label});
                       }}
                     />
                   </View>
-
+                  </View>
+                  
+                  <View>
                   <Text
                     style={{
                       color: 'black',
@@ -291,13 +288,21 @@ render() {
                       style={styles.dropDownContainer}
                       placeholder=" Country"
                       data={country}
-                      labelField="label"
-                      valueField="value"
+                      labelField="CountryName"
+                      valueField="CountryName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedCountry}
                       onChange={item => {
-                        this.setState({selectedCountry: item.label});
+                        this.setState({selectedCountry: item.CountryName},()=>this.StateSelectByCountryID(item.CountryID));
+                        
                       }}
+                       renderItem={(item)=>{
+                          return(
+                            <View style={{borderRadius: Scale(5)}}>
+                              <Text style={[styles.dropDownText]}>{item.CountryName}</Text>
+                            </View>
+                          )
+                        }}
                     />
                   </View>
 
@@ -314,14 +319,21 @@ render() {
                       style={styles.dropDownContainer}
                       placeholder=" State"
                       data={States}
-                      labelField="label"
-                      valueField="value"
+                      labelField="StateName"
+                      valueField="StateName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedState}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedState: item.label});
+                        this.setState({selectedState: item.StateName}
+                          ,()=>this.DistrictSelectByStateID(item.StateID));
                       }}
+                      renderItem={(item)=>{
+                      return(
+                            <View style={{borderRadius: Scale(5)}}>
+                              <Text style={[styles.dropDownText]}>{item.StateName}</Text>
+                            </View>
+                          )
+                        }}
                     />
                   </View>
 
@@ -338,14 +350,22 @@ render() {
                       style={styles.dropDownContainer}
                       placeholder=" District"
                       data={District}
-                      labelField="label"
-                      valueField="value"
+                      labelField="DistrictName"
+                      valueField="DistrictName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedDistrict}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedDistrict: item.label});
+                    
+                        this.setState({selectedDistrict: item.DistrictName}
+                        ,()=>this.TalukaSelectByDistrictID(item.DistrictID))
                       }}
+                      renderItem={(item)=>{
+                        return(
+                              <View style={{borderRadius: Scale(5)}}>
+                                <Text style={[styles.dropDownText]}>{item.DistrictName}</Text>
+                              </View>
+                            )
+                          }}
                     />
                   </View>
 
@@ -361,15 +381,21 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Taluka"
-                      data={District}
-                      labelField="label"
-                      valueField="value"
+                      data={Talukas}
+                      labelField="TalukaName"
+                      valueField="TalukaName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedTaluka}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedDistrict: item.label});
+                        this.setState({selectedTaluka: item.TalukaName});
                       }}
+                      renderItem={(item)=>{
+                        return(
+                              <View style={{borderRadius: Scale(5)}}>
+                                <Text style={[styles.dropDownText]}>{item.TalukaName}</Text>
+                              </View>
+                            )
+                          }}
                     />
                   </View>
 
@@ -410,7 +436,9 @@ render() {
                     value={this.state.phoneNumber}
                     onChangeText={e => this.setState({phoneNumber: e})}
                   />
+                </View>
 
+                <View>
                   <Text
                     style={{
                       color: 'black',
@@ -425,9 +453,9 @@ render() {
                   <TextInput
                     label="Address"
                     style={styles.input}
-                    value={this.state.address}
+                    value={this.state.addressProfessional}
                     multiline={true}
-                    onChangeText={e => this.setState({address: e})}
+                    onChangeText={e => this.setState({addressProfessional: e})}
                   />
 
                   <View>
@@ -442,15 +470,22 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Country"
-                      data={country}
-                      labelField="label"
-                      valueField="value"
+                      data={countryProfessional}
+                      labelField="CountryName"
+                      valueField="CountryName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedCountry}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedCountry: item.label});
+                        this.setState({selectedCountry: item.CountryName},()=>this.StateSelectByCountryID(item.CountryID));
+                        
                       }}
+                       renderItem={(item)=>{
+                          return(
+                            <View style={{borderRadius: Scale(5)}}>
+                              <Text style={[styles.dropDownText]}>{item.CountryName}</Text>
+                            </View>
+                          )
+                        }}
                     />
                   </View>
 
@@ -466,15 +501,22 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" State"
-                      data={States}
-                      labelField="label"
-                      valueField="value"
+                      data={StatesProfessional}
+                      labelField="StateName"
+                      valueField="StateName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedState}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedState: item.label});
+                        this.setState({selectedState: item.StateName}
+                          ,()=>this.DistrictSelectByStateID(item.StateID));
                       }}
+                      renderItem={(item)=>{
+                      return(
+                            <View style={{borderRadius: Scale(5)}}>
+                              <Text style={[styles.dropDownText]}>{item.StateName}</Text>
+                            </View>
+                          )
+                        }}
                     />
                   </View>
 
@@ -490,15 +532,23 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" District"
-                      data={District}
-                      labelField="label"
-                      valueField="value"
+                      data={DistrictProfessional}
+                      labelField="DistrictName"
+                      valueField="DistrictName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedDistrict}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedDistrict: item.label});
+                    
+                        this.setState({selectedDistrict: item.DistrictName}
+                        ,()=>this.TalukaSelectByDistrictID(item.DistrictID))
                       }}
+                      renderItem={(item)=>{
+                        return(
+                              <View style={{borderRadius: Scale(5)}}>
+                                <Text style={[styles.dropDownText]}>{item.DistrictName}</Text>
+                              </View>
+                            )
+                          }}
                     />
                   </View>
 
@@ -514,15 +564,21 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Taluka"
-                      data={District}
-                      labelField="label"
-                      valueField="value"
+                      data={TalukasProfessional}
+                      labelField="TalukaName"
+                      valueField="TalukaName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedTaluka}
                       onChange={item => {
-                        console.log('itemmmm', item);
-                        this.setState({selectedDistrict: item.label});
+                        this.setState({selectedTaluka: item.TalukaName});
                       }}
+                      renderItem={(item)=>{
+                        return(
+                              <View style={{borderRadius: Scale(5)}}>
+                                <Text style={[styles.dropDownText]}>{item.TalukaName}</Text>
+                              </View>
+                            )
+                          }}
                     />
                   </View>
 
@@ -542,7 +598,7 @@ render() {
                       labelField="label"
                       valueField="value"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedDistrict}
                       onChange={item => {
                         console.log('itemmmm', item);
                         this.setState({selectedDistrict: item.label});
@@ -553,22 +609,22 @@ render() {
                   <TextInput
                     placeholder="Pin Code"
                     style={styles.input}
-                    value={this.state.pinCode}
-                    onChangeText={e => this.setState({pinCode: e})}
+                    value={this.state.pinCodeProfessional}
+                    onChangeText={e => this.setState({pinCodeProfessional: e})}
                   />
 
                   <TextInput
                     placeholder="Phone"
                     style={styles.input}
-                    value={this.state.phoneNumber}
-                    onChangeText={e => this.setState({phoneNumber: e})}
+                    value={this.state.phoneNumberProfessional}
+                    onChangeText={e => this.setState({phoneNumberProfessional: e})}
                   />
 
                   <TextInput
                     placeholder="Mobile"
                     style={styles.input}
-                    value={this.state.phoneNumber}
-                    onChangeText={e => this.setState({phoneNumber: e})}
+                    value={this.state.mobileNo}
+                    onChangeText={e => this.setState({mobileNo: e})}
                   />
 
                   <TextInput
@@ -614,13 +670,20 @@ render() {
                       style={styles.dropDownContainer}
                       placeholder=" Select Qualification "
                       data={Qualification}
-                      labelField="label"
-                      valueField="value"
+                      labelField="QualificationName"
+                      valueField="QualificationName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedQualification}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedQualification: item.label});
+                        this.setState({selectedQualification: item.QualificationName});
+                      }}
+                      renderItem={(item)=>{
+                        return(
+                          <View style={{borderRadius: Scale(5)}}>
+                            <Text style={[styles.dropDownText]}> {item.QualificationName}</Text>
+                          </View>
+                        )
                       }}
                     />
                   </View>
@@ -637,14 +700,21 @@ render() {
                     <Dropdown
                       style={styles.dropDownContainer}
                       placeholder=" Select Qualification State"
-                      data={States}
-                      labelField="label"
-                      valueField="value"
+                      data={QualificationState}
+                      labelField="StateName"
+                      valueField="StateName"
                       maxHeight={210}
-                      value={value}
+                      value={this.state.selectedState}
                       onChange={item => {
                         console.log('itemmmm', item);
-                        this.setState({selectedState: item.label});
+                        this.setState({selectedState: item.StateName});
+                      }}
+                      renderItem={(item)=>{
+                        return(
+                          <View style={{borderRadius: Scale(5)}}>
+                            <Text style={[styles.dropDownText]}> {item.StateName}</Text>
+                          </View>
+                        )
                       }}
                     />
                   </View>
@@ -730,16 +800,25 @@ render() {
 
                   <Dropdown
                     style={styles.dropDownContainer}
-                    placeholder=" College Name"
-                    data={Qualification}
-                    labelField="label"
-                    valueField="value"
+                    placeholder="College Name"
+                    data={colledges}
+                    value={this.state.selectedCollege}
+                    labelField="CollegeName"
+                    valueField="CollegeName"
                     maxHeight={210}
-                    value={value}
                     onChange={item => {
-                      console.log('itemmmm', item);
-                      this.setState({selectedQualification: item.label});
+                      // console.log('selectedCollege colleges', item);
+                      this.setState({selectedCollege: item.CollegeName});
                     }}
+                     renderItem={(item)=>{
+                        return(
+                          <View style={{borderRadius: Scale(5)}}>
+                            <Text style={[styles.dropDownText]}> {item.CollegeName}</Text>
+                          </View>
+                        )
+                      }}
+                  
+
                   />
 
                   <Text style={{color: 'black', fontSize: 16}}>
@@ -749,15 +828,22 @@ render() {
                   <Dropdown
                     style={styles.dropDownContainer}
                     placeholder="University"
-                    data={Qualification}
-                    labelField="label"
-                    valueField="value"
+                    data={University}
+                    labelField="UniversityName"
+                    valueField="UniversityName"
                     maxHeight={210}
-                    value={value}
+                    value={this.state.selectedUniversity}
+
                     onChange={item => {
-                      console.log('itemmmm', item);
-                      this.setState({selectedQualification: item.label});
+                      this.setState({selectedUniversity: item.UniversityName});
                     }}
+                     renderItem={(item)=>{
+                        return(
+                          <View style={{borderRadius: Scale(5)}}>
+                            <Text style={[styles.dropDownText]}> {item.UniversityName}</Text>
+                          </View>
+                        )
+                      }}
                   />
 
                   <View>
@@ -1369,7 +1455,7 @@ render() {
                     value={this.state.remark}
                     onChangeText={e => this.setState({remark: e})}
                   />
-
+                </View>
                   <TouchableOpacity style={styles.RegisterBtn}>
                     <Text style={styles.registerText}>REGISTER</Text>
                   </TouchableOpacity>
@@ -1427,7 +1513,6 @@ render() {
       fontSize: Scale(20),
     },
     dropDownText: {
-      // backgroundColor: 'yellow',
       padding: 10,
       borderColor: 'grey',
       borderBottomWidth: 1

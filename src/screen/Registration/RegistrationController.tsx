@@ -1,6 +1,6 @@
 import {Component} from 'react';
-// import makeApiCall from '../../globalServices/api';
-// import {apiFunctions, showtoasterror} from '../../globalServices/utils';
+import {makeApiCall,makeApiCallxml} from '../../globalServices/api';
+import {apiFunctions, showtoasterror} from '../../globalServices/utils';
 import {Keyboard} from 'react-native';
 // import messaging from '@react-native-firebase/messaging';
 
@@ -33,6 +33,16 @@ interface S {
   selectedState: string,
   District: any,
   selectedDistrict: string,
+  Talukas: any,
+  selectedTaluka:string,
+  countryProfessional: any,
+  selectedCountryProfessional: string,
+  StatesProfessional: any,
+  selectedStateProfessional: string,
+  DistrictProfessional: any,
+  selectedDistrictProfessional: string,
+  TalukasProfessional: any,
+  selectedTalukaProfessional:string,
   pinCode: number,
   aadharNo: number,
   email: any,
@@ -56,7 +66,16 @@ interface S {
   ImgDesc: string,
   place: string,
   remark: string,
-  currentSelection: any
+  currentSelection: any,
+  colledges: any,
+  selectedCollege:string,
+  University: any,
+  selectedUniversity: string,
+  addressProfessional:any,
+  pinCodeProfessional: number,
+  phoneNumberProfessional: string,
+  mobileNo:string,
+  QualificationState:any
 }
 
 interface SS {
@@ -93,17 +112,9 @@ export default class RegistrationController extends Component<Props, S, SS> {
       isImage:'',
       selectedDate: false,
       address: '',
-      country: [
-        { label: 'India', value: '1' },
-        { label: 'Australia', value: '2' },
-        { label: 'Japan', value: '3' },
-      ],
+      country: [],
       selectedCountry:'',
-      States: [
-        { label: 'Gujarat', value: '1' },
-        { label: 'Maharashtra', value: '2' },
-        { label: 'Kerela', value: '3' },
-      ],
+      States: [],
       selectedState: '',
       District: [
         { label: 'Vadodara', value: '1' },
@@ -115,16 +126,7 @@ export default class RegistrationController extends Component<Props, S, SS> {
       aadharNo: 0,
       email: '',
       stateRegNo: '',
-      Qualification: [
-        { label: '10th', value: '1' },
-        { label: '12th', value: '2' },
-        { label: 'BCOM', value: '3' },
-        { label: 'BE', value: '4' },
-        { label:  'BCA', value: '5' },
-        { label: 'BSC', value: '6' },
-        { label: 'BA', value: '7' },
-        { label: 'BBA', value: '8' },
-      ],
+      Qualification: [],
       selectedQualification: '',
       passingMonth: false,
       passingYear: false,
@@ -144,15 +146,101 @@ export default class RegistrationController extends Component<Props, S, SS> {
       place: '',
       remark: '',
       currentSelection: null,
-
+      colledges:[],
+      selectedCollege:'',
+      University: [],
+      selectedUniversity: '',
+      Talukas: [],
+      selectedTaluka:'',
+      addressProfessional: '',
+      countryProfessional: [],
+      selectedCountryProfessional: '',
+      StatesProfessional: [],
+      selectedStateProfessional: '',
+      DistrictProfessional: [],
+      selectedDistrictProfessional: '',
+      TalukasProfessional: [],
+      selectedTalukaProfessional:'',
+      pinCodeProfessional:0,
+      phoneNumberProfessional:'',
+      mobileNo:'',
+      QualificationState:[]
     };
   }
 
   async componentDidMount() {
-
+    this.getCountry()
+    this.getColleges()
+  
 // this.getFcmToken()
   }
 
+  getCountry =async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.CountrySelect+"?UN1=1&PWD1=1",'GET',"web");
+    // console.log('responseData::: Country--->', responseData.Table);
+    const tables = Array.isArray(responseData?.Table) ? responseData?.Table : [responseData?.Table];
+    
+    this.setState({country:tables,countryProfessional:tables})
+    // this.StateSelectByCountryID(id)
+  }
+  StateSelectByCountryID =async(id)=>{
+    const responseData = await makeApiCallxml(apiFunctions.StateSelectByCountryID+`?UN1=1&PWD1=1&CountryID=${id}`,'GET',"web");
+    // console.log('responseData::: STates- by country id-->', responseData);
+  
+    this.setState({States:responseData.Table,StatesProfessional:responseData.Table})
+  //  this.getState()
+  
+  }
+
+  DistrictSelectByStateID =async(id)=>{
+    const responseData = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=${id}`,'GET',"web");
+    // console.log('responseData::: Distict- by id-->', responseData);
+  
+    this.setState({District:responseData.Table,DistrictProfessional:responseData.Table})
+
+  
+  }
+
+  TalukaSelectByDistrictID =async(id)=>{
+    const responseData = await makeApiCallxml(apiFunctions.TalukaSelectByDistrictID+`?UN1=1&PWD1=1&DistrictID=${id}`,'GET',"web");
+    // console.log('responseData::: Taluka- by id-->', responseData);
+  
+    this.setState({Talukas:responseData.Table,TalukasProfessional:responseData.Table})
+
+  
+  }
+
+  getColleges = async()=>{
+     const responseData = await makeApiCallxml(apiFunctions.CollegeSelect+"?UN1=1&PWD1=1",'GET',"web");
+    //  console.log('responseData::: collegessss--->', responseData.Table);
+     this.setState({colledges:responseData.Table})
+     this.getUniversity()
+  }
+
+  getUniversity =async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.UniversitySelect+"?UN1=1&PWD1=1",'GET',"web");
+    // console.log('responseData::: University--->', responseData.Table);
+    this.setState({University:responseData.Table})
+    this.getQualification()
+ }
+
+
+getQualification =async()=>{
+  const responseData = await makeApiCallxml(apiFunctions.QualificationSelect+"?UN1=1&PWD1=1",'GET',"web");
+
+  // console.log('responseData::: Qualification--->', responseData.Table);
+  this.setState({Qualification:responseData.Table})
+  this.getState()
+}
+
+  getState =async()=>{
+    const responseData = await makeApiCallxml(apiFunctions.StateSelect+"?UN1=1&PWD1=1",'GET',"web");
+    console.log('responseData::: STates--->', responseData);
+    // const tables = Array.isArray(responseData?.Table) ? responseData?.Table : [responseData?.Table];
+  
+    this.setState({QualificationState:responseData.Table})
+  }
+  
 //   async loginBtnClick() {
 //     Keyboard.dismiss();
 //     if (!this.state.phoneNumber || this.state.phoneNumber.length != 10) {
