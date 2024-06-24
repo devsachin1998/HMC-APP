@@ -27,8 +27,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {SliderBox} from 'react-native-image-slider-box';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
@@ -44,6 +43,7 @@ import CollegesGalleryScreenController, {
   Props,
 } from './CollegesGalleryScreenController';
 import ViewImage from '../../componants/ViewImage';
+import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -72,7 +72,29 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
             defaultSource={require('../../images/logo.png')}
             style={styles.image}
           />
+          
         </TouchableOpacity>
+      {this.state.edit?
+        <View style={{backgroundColor:'skyblue',flexDirection:'row',alignSelf:'center',marginEnd:10,flex:0.4}}>
+        <TouchableOpacity  style={{flex:1,alignItems:'center'}} 
+           onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:true,item:item})}}>
+          <FontAwesome5
+            name={'pencil'}
+            size={25}
+            color="white"
+            style={{padding: 5, marginEnd: 1, marginTop:6}}
+          />
+           </TouchableOpacity>
+           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.CollegeID)}>
+           <FontAwesome5
+            name={'trash'}
+            size={25}
+            color="white"
+            style={{padding: 5, marginEnd: 5, marginTop:6}}
+          />
+          </TouchableOpacity >
+        </View>
+:null}
       </View>
     );
   };
@@ -126,6 +148,14 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
         ) : (
           this.renderEmptyListComponent()
         )}
+          {this.state.edit?
+         <FAB
+          style={styles.fab}
+          small
+          color='white'
+          icon="plus"
+          onPress={() => this.uploadimages()}
+        />:null}
       </SafeAreaView>
     );
   }
@@ -138,8 +168,15 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: '#f0f0f0',
   },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#009AEE', // Adjust as per your design
+  },
   itemContainer: {
-    flex: 1,
+    flex: 0.5,
     margin: 5,
     // backgroundColor: '#fff',
     // borderRadius: 8,

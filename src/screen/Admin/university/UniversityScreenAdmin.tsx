@@ -37,12 +37,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import CollegeScreenAdminController, {Props} from './CollegeScreenAdminController';
+import UniversityScreenAdminController, {Props} from './UniversityScreenAdminController';
 import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class CollegeScreenAdmin extends CollegeScreenAdminController {
+export default class UniversityScreenAdmin extends UniversityScreenAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,11 +61,11 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
             borderRadius: 5,
             backgroundColor: '#009AEE',
           }}
-          onPress={() => this.updateValueById(item.CollegeID)}>
+          onPress={() => this.updateValueById(item.UniversityID)}>
           <View style={{padding: 10, flex: 1}}>
-            <Text style={{color: 'white'}}>{item.CollegeName}</Text>
+            <Text style={{color: 'white'}}>{item.UniversityName}</Text>
           </View>
-          <TouchableOpacity           onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:true,item:item})}}>
+          <TouchableOpacity           onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={20}
@@ -73,7 +73,7 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>this.showAlert(item.CollegeID)}>
+           <TouchableOpacity onPress={()=>this.showAlert(item.UniversityID)}>
            <FontAwesome5
             name={'trash'}
             size={20}
@@ -104,85 +104,13 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
                   padding: 5,
                   color: 'white',
                 }}>
-                Address
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.Address}
-              </Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                University
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.UniversityName}
-              </Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
                 District
               </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
+              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE',alignSelf:'center'}}>
                 {item.DistrictName}
               </Text>
             </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                Phone
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.PhoneNo}
-              </Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                Email
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
-                {item.Email}
-              </Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                Website
-              </Text>
-              <TouchableOpacity style={{flex: 1, paddingStart: 10, }} 
-              onPress={()=>Linking.openURL(item.Website)}>
-              <Text style={{color: 'red',textDecorationLine:'underline'}}>
-                {item.Website}
-              </Text>
-              </TouchableOpacity>
-            </View>
+
           </View>
         ) : null}
       </View>
@@ -194,7 +122,35 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
         <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
           <CustomHeader />
           <Loader loading={this.state.isLoading} />
-
+          <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: 'green',
+                padding: 10,
+              }}>
+              <TouchableOpacity
+                style={{flex: 0.1,alignSelf:'center',marginTop:5}}
+                onPress={() => this.props.navigation.goBack()}>
+                <Icon
+                  name="chevron-back-sharp"
+                  size={25}
+                  color="white"
+                  style={{width: Scale(30), height: Scale(30),}}
+                />
+              </TouchableOpacity>
+              <View style={{flex: 1, alignSelf: 'center'}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    marginStart: 5,
+                    marginTop: 1,
+                    fontSize: Scale(18),
+                  }}>
+                  {'University'}
+                </Text>
+              </View>
+            </View>
           <View>
           <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',padding:5,backgroundColor:'white',borderRadius:8}}>
           <Icon
@@ -227,7 +183,7 @@ autoCorrect={false}
           small
           color='white'
           icon="plus"
-          onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:false})
+          onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:false})
           }}
         />
         </View>

@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
+import {apiFunctions, storeData, getdata, launchGallary} from '../../globalServices/utils';
 import {makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
 
@@ -22,6 +22,7 @@ interface S {
   visible:boolean;
   datalist:any;
   modal:any;
+  edit:false;
   // Customizable Area End
 }
 
@@ -53,7 +54,8 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
       totalPage: 1,
       moreLoading: false,
       datalist:[],
-      visible:false
+      visible:false,
+      edit:false,
       // Customizable Area End
     };
 
@@ -75,6 +77,9 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
 
         }else
         {
+          let ID = this.props.route.params?.Id;
+          let edit=this.props.route.params?.edit;
+          this.setState({edit:edit})
           this.getdata(ID);
 
         }
@@ -116,6 +121,30 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
  console.log('responseData:::--->headline', jsonData1);
 
   }
+  uploadimages =()=>
+    {
+      launchGallary((response: string) => {
+        const data = JSON.parse(response);
+        // console.log("dsad",data)
+        const selectedImage = data.assets[0].base64;
+        this.addimages(selectedImage);
+    })  }
 
+  addimages = async (selectedImage) => {
+    this.setState({isLoading:true})
+
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    let collegeid = this.props.route.params?.Id;
+    let CollegeName = this.props.route.params.CollegeName;
+    const responseData = 
+    await makeApiCallxml(apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`, 'GET', "admin`");
+    console.log('responseData:::--->headline', responseData);
+
+  // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+  this.setState({isLoading:false})
+  
+  
+  }
   // Customizable Area End
 }

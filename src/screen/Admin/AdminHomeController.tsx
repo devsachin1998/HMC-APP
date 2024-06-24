@@ -54,17 +54,17 @@ export default class AdminHomeController extends Component<Props, S, SS> {
             moreLoading: false,
             datalist: [],
 homeBlocks : [
-    { label: "Doctors", bgColor: "red", iconName:"user-doctor" },
-    { label: "Colleges", bgColor: "blue", iconName:"landmark" },
-    { label: "University", bgColor: "green", iconName:"building-un"},
-    { label: "Gallary", bgColor: "darkorchid",iconName: "panorama"  },
-    { label: "Gallary details", bgColor: "orange",iconName: "clapperboard"  },
-    { label: "Council Members", bgColor: "purple",iconName: "people-line" },
-    { label: "Council Users", bgColor: "darkkhaki", iconName:"people-roof" },
-    { label: "FAQs", bgColor: "brown",iconName: "clipboard-question"  },
-    { label: "Advt.s", bgColor: "darkslateblue",iconName: "rectangle-ad"  },
-    { label: "News", bgColor: "darkcyan",iconName: "newspaper" },
-    { label: "Maintenance", bgColor: "gray",iconName: "gears"  }
+    { label: "Doctors", bgColor: "red", iconName:"user-doctor",pagename:'' },
+    { label: "Colleges", bgColor: "blue", iconName:"landmark",pagename:'CollegeScreenAdmin' },
+    { label: "University", bgColor: "green", iconName:"building-un",pagename:'UniversityScreenAdmin'},
+    { label: "Gallary", bgColor: "darkorchid",iconName: "panorama" ,pagename:'GalleryScreen' },
+    { label: "Gallary details", bgColor: "orange",iconName: "clapperboard" ,pagename:'CollegeScreenAdmin' },
+    { label: "Council Members", bgColor: "purple",iconName: "people-line",pagename:'CollegeScreenAdmin' },
+    { label: "Council Users", bgColor: "darkkhaki", iconName:"people-roof",pagename:'CollegeScreenAdmin' },
+    { label: "FAQs", bgColor: "brown",iconName: "clipboard-question" ,pagename:'CollegeScreenAdmin' },
+    { label: "Advt.s", bgColor: "darkslateblue",iconName: "rectangle-ad" ,pagename:'CollegeScreenAdmin'},
+    { label: "News", bgColor: "darkcyan",iconName: "newspaper" ,pagename:'CollegeScreenAdmin'},
+    { label: "Maintenance", bgColor: "gray",iconName: "gears" ,pagename:'Maintenance' }
 ]
 
             // Customizable Area End

@@ -187,7 +187,8 @@ export default class CollegeScreen extends CollegeScreenController {
                     flex: 1,
                     alignItems:'center',
                     margin: 5,
-                  }} onPress={()=>this.setState({modal:false},()=>this.props.navigation.navigate("CollegesGalleryScreen",{Id:item.CollegeID,CollegeName:item.CollegeName,type:""}))}>
+                  }} 
+                  onPress={()=>this.setState({modal:false},()=>this.props.navigation.navigate("CollegesGalleryScreen",{Id:item.CollegeID,CollegeName:item.CollegeName,type:""}))}>
                   <MaterialIcons name="photo-library"
                     size={22}
                     color="white"

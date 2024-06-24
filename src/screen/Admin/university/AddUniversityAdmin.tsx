@@ -36,12 +36,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import AddCollegeAdminController, {Props} from './AddCollegeAdminController';
+import AddUniversityAdminController, {Props} from './AddUniversityAdminController';
 import {Dropdown} from 'react-native-element-dropdown';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class AddCollegeAdmin extends AddCollegeAdminController {
+export default class AddUniversityAdmin extends AddUniversityAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,12 +61,12 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
             <View
               style={{
                 flexDirection: 'row',
-                backgroundColor: 'purple',
+                backgroundColor: 'green',
                 padding: 10,
               }}>
               <TouchableOpacity
                 style={{flex: 0.1}}
-                onPress={() => this.props.navigation.navigate("CollegeScreenAdmin")}>
+                onPress={() => this.props.navigation.navigate("UniversityScreenAdmin")}>
                 <Icon
                   name="chevron-small-left"
                   size={32}
@@ -83,14 +83,14 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'Add College'}
+                  {'Add University'}
                 </Text>
               </View>
             </View>
             <ScrollView>
               <View style={styles.container}>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>College Name</Text>
+                  <Text style={styles.label}>University Name</Text>
                   <TextInput
                     placeholder="Name"
                     style={styles.input}
@@ -98,33 +98,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     onChangeText={e => this.setState({name: e})}
                   />
                 </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>University</Text>
-                  <Dropdown
-                    placeholderStyle={{color: 'grey', fontSize: 14}}
-                    style={styles.dropDownContainer}
-                    placeholder="--Select University--"
-                    data={this.state.University}
-                    labelField="UniversityName"
-                    valueField="UniversityName"
-                    maxHeight={210}
-                    selectedTextStyle={{paddingStart: 5}}
-                    value={this.state.university}
-                    onChange={item => {
-                      console.log('itemmmm', item);
-                      this.setState({university: item.label});
-                    }}
-                  />
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Address</Text>
-                  <TextInput
-                    placeholder="Address"
-                    style={styles.input}
-                    value={this.state.address}
-                    onChangeText={e => this.setState({address: e})}
-                  />
-                </View>
+   
                 <View style={styles.inputContainer}>
                   <Text style={styles.label}>District</Text>
                   <Dropdown
@@ -138,90 +112,12 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     selectedTextStyle={{paddingStart: 5}}
                     value={this.state.district}
                     onChange={item => {
-                      this.setState({district: item.label});
+                      this.setState({district: item.label,DistrictID:item.DistrictID});
                     }}
                   />
                 </View>
 
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Phone No</Text>
-                  <TextInput
-                    placeholder="Phone No"
-                    style={styles.input}
-                    keyboardType="numeric"
-                    value={this.state.phone}
-                    onChangeText={e => this.setState({phone: e})}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Email</Text>
-                  <TextInput
-                    placeholder="Email"
-                    style={styles.input}
-                    value={this.state.email}
-                    onChangeText={e => this.setState({email: e})}
-                  />
-                </View>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Website</Text>
-                  <TextInput
-                    placeholder="Website"
-                    style={styles.input}
-                    value={this.state.website}
-                    onChangeText={e => this.setState({website: e})}
-                  />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 2,
-                  }}>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.uploadpdf()}>
-                    <Text
-                      style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
-                      Upload PDF
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={() =>
-                      this.props.navigation.navigate('CollegesGalleryScreen', {
-                        Id: this.props.route.params.item.CollegeID,
-                        CollegeName: this.props.route.params.item.CollegeName,
-                        type: '',
-                        edit: true,
-                      })
-                    }>
-                    <Text
-                      style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
-                      Upload Images
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={{
-                    margin: 5,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{fontSize: 16, fontWeight: '700'}}>
-                    {this.state.filename == ''
-                      ? 'No File Choosen'
-                      : this.state.filename}
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => {
-                      this.setState({file: [], filename: ''});
-                    }}>
-                    <Icon name="cross" color="red" size={45} />
-                  </TouchableOpacity>
-                </View>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.route.params.edit ?this.updateuniversity():this.adduniversity()}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                     {this.props.route.params.edit ? 'Update' : 'Submit'}

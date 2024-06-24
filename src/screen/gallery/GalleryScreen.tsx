@@ -37,6 +37,7 @@ import Scale from '../../globalServices/Scale';
 
 import Loader from '../../componants/Loader';
 import GalleryScreenController, { Props } from './GalleryScreenController';
+import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -57,10 +58,30 @@ export default class GalleryScreen extends GalleryScreenController {
        defaultSource={require('../../images/logo.png')}
         style={styles.image} />
         <Text style={{textAlign:'center',padding:10,fontWeight:"800"}}>{item.Title}</Text>
-       <TouchableOpacity onPress={()=>this.props.navigation.navigate("CollegesGalleryScreen",{Id:item.GalleryID,type:'home'})}>
-        <Text style={{backgroundColor:"skyblue",padding:10,fontWeight:"800",textAlign:'center',fontSize:16}}>Open</Text>
-        </TouchableOpacity>
-        
+
+         {this.props.route.params?.isedit?
+        <View style={{backgroundColor:'skyblue',flexDirection:'row',alignSelf:'center',flex:0.4}}>
+        <TouchableOpacity  style={{flex:1,alignItems:'center'}} 
+           onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:true,item:item})}}>
+          <FontAwesome5
+            name={'pencil'}
+            size={25}
+            color="white"
+            style={{padding: 5, marginEnd: 1, marginTop:6}}
+          />
+           </TouchableOpacity>
+           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.CollegeID)}>
+           <FontAwesome5
+            name={'trash'}
+            size={25}
+            color="white"
+            style={{padding: 5, marginEnd: 5, marginTop:6}}
+          />
+          </TouchableOpacity >
+        </View>
+:<TouchableOpacity onPress={()=>this.props.navigation.navigate("CollegesGalleryScreen",{Id:item.GalleryID,type:'home'})}>
+<Text style={{backgroundColor:"skyblue",padding:10,fontWeight:"800",textAlign:'center',fontSize:16}}>Open</Text>
+</TouchableOpacity> }
     </View>
     );
   };
@@ -122,7 +143,18 @@ export default class GalleryScreen extends GalleryScreenController {
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
       />:this.renderEmptyListComponent()}
+      
         </View>
+        {this.props.route.params?.isedit?
+
+        <FAB
+          style={styles.fab}
+          small
+          color='white'
+          icon="plus"
+          onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:false})
+          }}
+        />:null}
       </SafeAreaView>
     );
   }
@@ -134,6 +166,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     // backgroundColor: '#f0f0f0',
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 25,
+    backgroundColor: '#009AEE', // Adjust as per your design
   },
   itemContainer: {
     flex: 0.5,

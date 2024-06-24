@@ -60,7 +60,7 @@ export default class AdminHome extends AdminHomeController {
                      showsVerticalScrollIndicator={false}
                      contentContainerStyle={{paddingBottom:Scale(15) }}
                      renderItem={({item})=>(
-                        <TouchableOpacity onPress={()=>this.props.navigation.navigate("Maintenance")} style={{height:Scale(170),borderRadius:Scale(10),width:"29%",marginLeft:"3.3%",marginTop:Scale(15), justifyContent:"center", backgroundColor:item.bgColor}}>
+                        <TouchableOpacity onPress={()=>{item.pagename=="GalleryScreen"?this.props.navigation.navigate("GalleryScreen",{isedit:true}):this.props.navigation.navigate(item.pagename)}} style={{height:Scale(170),borderRadius:Scale(10),width:"29%",marginLeft:"3.3%",marginTop:Scale(15), justifyContent:"center", backgroundColor:item.bgColor}}>
                             <Icon style={{color: "white", fontSize: Scale(20), textAlign:"center"}} name = {item.iconName}></Icon>
                             <Text style={{color:"white", textAlign:"center",fontSize: Scale(16)}}>{item.label}</Text>
                         </TouchableOpacity>

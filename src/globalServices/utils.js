@@ -5,7 +5,8 @@ import {View, ToastAndroid, Platform, AlertIOS, Alert} from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
 import Scale from './Scale';
-
+import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 export const apiFunctions = {
   url: 'http://api.gujarathmc.org/WebService/HomoeoCouncil.asmx', //staging server
   urlbasic:'http://hmc.Khedutmitra.com/hm_web/hmbasic.asmx',
@@ -37,7 +38,6 @@ export const apiFunctions = {
   UserLoginMaster:'/UserLoginMaster',
   VBoxInsert:'/VBoxInsert',
   TermsAndCondition:'/TandC',
-  CollegeSelect:'/CollegeSelect',
   UniversitySelect:'/UniversitySelect',
   CountrySelect:'/CountrySelect',
   StateSelectByCountryID:'/StateSelectByCountryID',
@@ -46,6 +46,10 @@ export const apiFunctions = {
   TalukaSelectByDistrictID:'/TalukaSelectByDistrictID',
   QualificationSelect:'/QualificationSelect',
   DesignationSelect:'/DesignationSelect',
+  CollegeGalleryInsert:'/CollegeGalleryInsert',
+  UniversityInsert:'/UniversityInsert',
+  UniversityUpdate:'/UniversityUpdate',
+  UniversityDelete:'/UniversityDelete'
 
 };
 export const storeData = async (key, value) => {
@@ -150,6 +154,23 @@ export function launchGallary(callback) {
     }
   });
 }
+export async function selectdocument(callback) {
+
+  try {
+    const response = await DocumentPicker.pick({
+      type: [DocumentPicker.types.pdf],
+      
+    });
+    callback(JSON.stringify(response));
+
+  } catch (err) {
+    if (DocumentPicker.isCancel(err)) {
+      console.log('User canceled the picker');
+    } else {
+      throw err;
+    }
+  }
+};
 export function getTimeIn24Hrs(d) {
   var time = moment(d, 'YYYY-MM-DD HH:mm:ss').format('HH:mm');
   // console.log('getDateYYYYMMDD date', currentDate);

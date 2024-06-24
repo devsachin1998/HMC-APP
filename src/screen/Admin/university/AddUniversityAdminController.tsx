@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {apiFunctions, storeData, getdata, selectdocument} from '../../../globalServices/utils';
+import {apiFunctions, storeData, getdata, selectdocument, showToastOrAlert} from '../../../globalServices/utils';
 import {makeApiCallxml} from '../../../globalServices/api';
 import moment from 'moment';
 import { Alert } from 'react-native';
@@ -15,12 +15,11 @@ export interface Props {
 interface S {
   // Customizable Area Start
   isLoading: boolean;
-  needRetakeToken: boolean;
+  userid: string;
   //   leaderboard: LeaderboardItem[];
-  token: string;
+  universityId: string;
   totalCount: number;
   totalPage: number;
-  pageIndex: number;
   moreLoading: boolean;
   datalist:any;
   university:any;
@@ -28,7 +27,7 @@ interface S {
   filterdata:any;
   district:any;
   name:any;
-  address:any;
+  DistrictID:any;
   phone:any;
   email:any;
   website:any;
@@ -44,7 +43,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class AddCollegeAdminController extends Component<Props, S, SS> {
+export default class AddUniversityAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -58,10 +57,9 @@ export default class AddCollegeAdminController extends Component<Props, S, SS> {
     this.state = {
       // Customizable Area Start
       isLoading: false,
-      needRetakeToken: true,
       //   leaderboard: [],
-      token: '',
-      pageIndex: 0,
+      universityId: '',
+      userid: '',
       totalCount: 1,
       totalPage: 1,
       moreLoading: false,
@@ -71,7 +69,7 @@ export default class AddCollegeAdminController extends Component<Props, S, SS> {
       University:[],
       file:[],
       name:'',
-      address:'',
+      DistrictID:'',
       phone:'',
       email:'',
       website:'',
@@ -95,11 +93,10 @@ export default class AddCollegeAdminController extends Component<Props, S, SS> {
       if(data)
       {
         let itemdata=this.props.route.params.item;
-        this.setState({name:itemdata.CollegeName,university:itemdata.UniversityName,
-          address:itemdata.Address,district:itemdata.DistrictName,phone:itemdata.PhoneNo,
-          email:itemdata.Email,website:itemdata.Website,
-          filename:itemdata.PDFFile
-        })
+        const loginDetails= await getdata("loginDetails");
+        let ID =  loginDetails.UserID;
+        this.setState({name:itemdata.UniversityName,district:itemdata.DistrictName,
+          DistrictID:itemdata.DistrictID1,userid:ID,universityId:itemdata.UniversityID})
 
       }
      this.getdata()
@@ -135,14 +132,36 @@ export default class AddCollegeAdminController extends Component<Props, S, SS> {
 
 
 getdata = async () => {
-  const responseData = await makeApiCallxml(apiFunctions.UniversitySelect+"?UN1=1&PWD1=1",'GET',"web");
-  this.setState({University:responseData.Table})
   const districtlist = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=1`,'GET',"web");
-  this.setState({University:responseData.Table,District:districtlist.Table})
+  this.setState({District:districtlist.Table})
  this.setState({isLoading:false})
 
-console.log('responseData:::--->headline', responseData.Table);
 
 }
+adduniversity = async () => {
+  this.setState({isLoading:true})
+ 
+
+  const res = await makeApiCallxml(apiFunctions.UniversityInsert+`?UN1=1&PWD1=1&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
+ console.log("dsadasd0",res)
+ 
+  this.setState({isLoading:false})
+  this.props.navigation.navigate("UniversityScreenAdmin");
+
+
+
+}
+updateuniversity = async () => {
+  this.setState({isLoading:true})
+  
+
+  const res = await makeApiCallxml(apiFunctions.UniversityUpdate+`?UN1=1&PWD1=1&UniversityID=${this.state.universityId}&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
+ console.log("dsadasd0",res)
+  this.setState({isLoading:false})
+  this.props.navigation.navigate("UniversityScreenAdmin");
+
+}
+
+
   // Customizable Area End
 }

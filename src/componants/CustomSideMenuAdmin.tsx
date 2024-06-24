@@ -65,7 +65,7 @@ class CustomSideMenuAdmin extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("DoctorHomeScreen")}
+                onPress={()=>this.props.navigation.navigate("AdminHomeScreen")}
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
@@ -87,6 +87,8 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>this.props.navigation.navigate("UniversityScreenAdmin")}
+
       >
         <Icon name="graduation-cap" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>University</Text>
@@ -94,6 +96,7 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>this.props.navigation.navigate("GalleryScreen",{isedit:true})}
       >
         <Icon name="image" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Gallery</Text>

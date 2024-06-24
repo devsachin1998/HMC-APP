@@ -33,6 +33,8 @@ import AdminHome from '../screen/Admin/AdminHome';
 import Maintenance from '../screen/Admin/maintenance/Maintenance';
 import CollegeScreenAdmin from '../screen/Admin/colleges/CollegeScreenAdmin';
 import AddCollegeAdmin from '../screen/Admin/colleges/AddCollegeAdmin';
+import AddUniversityAdmin from '../screen/Admin/university/AddUniversityAdmin';
+import UniversityScreenAdmin from '../screen/Admin/university/UniversityScreenAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -41,13 +43,7 @@ const AppNavigator = () => (
   <NavigationContainer>
 
     <Stack.Navigator initialRouteName="SplashScreen">
-    <Stack.Screen
-        name="AddCollegeAdmin"
-        component={AddCollegeAdmin}
-        options={{headerShown: false}}
-      />
-      
-     
+
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -137,6 +133,11 @@ const DrawerNavigator = ({navigation}) => {
        <Stack.Screen
         name="DoctorHomeScreen"
         component={DoctorHomeScreen}
+        options={{headerShown: false}}
+      />
+       <Drawer.Screen
+        name="AdminHomeScreen"
+        component={AdminHome}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -297,6 +298,11 @@ const DrawerNavigatorAdmin = () => {
         component={AdminHome}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="GalleryScreen"
+        component={GalleryScreen}
+        options={{headerShown: false}}
+      />
        <Stack.Screen
         name="Maintenance"
         component={Maintenance}
@@ -312,8 +318,16 @@ const DrawerNavigatorAdmin = () => {
         component={AddCollegeAdmin}
         options={{headerShown: false}}
       />
-      
-     
+       <Stack.Screen
+        name="AddUniversityAdmin"
+        component={AddUniversityAdmin}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="UniversityScreenAdmin"
+        component={UniversityScreenAdmin}
+        options={{headerShown: false}}
+      />
     </Drawer.Navigator>
   );
 };
