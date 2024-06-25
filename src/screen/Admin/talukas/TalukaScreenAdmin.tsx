@@ -37,12 +37,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import StatesScreenAdminController, {Props} from './StatesScreenAdminController';
+import TalukaScreenAdminController, {Props} from './TalukaScreenAdminController';
 import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class StatesScreenAdmin extends StatesScreenAdminController {
+export default class TalukaScreenAdmin extends TalukaScreenAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,11 +61,11 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             borderRadius: 5,
             backgroundColor: '#009AEE',
           }}
-          onPress={() => this.updateValueById(item.StateID)}>
+          onPress={() => this.updateValueById(item.TalukaID)}>
           <View style={{padding: 10, flex: 1}}>
-            <Text style={{color: 'white'}}>{item.StateName}</Text>
+            <Text style={{color: 'white'}}>{item.TalukaName}</Text>
           </View>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddStatesAdmin',{edit:true,item:item})}}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddTalukaAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={20}
@@ -73,7 +73,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>this.showAlert(item.StateID)}>
+           <TouchableOpacity onPress={()=>this.showAlert(item.TalukaID)}>
            <FontAwesome5
             name={'trash'}
             size={20}
@@ -104,10 +104,10 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
                   padding: 5,
                   color: 'white',
                 }}>
-                Country Name
+                District Name
               </Text>
               <Text style={{flex: 1, paddingStart: 10, color: '#009AEE',alignSelf:'center'}}>
-                {item.CountryName}
+                {item.DistrictName}
               </Text>
             </View>
 
@@ -147,7 +147,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'States'}
+                  {'Talukas'}
                 </Text>
               </View>
             </View>
@@ -183,7 +183,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
           small
           color='white'
           icon="plus"
-          onPress={() => { this.props.navigation.navigate('AddStatesAdmin',{edit:false})
+          onPress={() => { this.props.navigation.navigate('AddTalukaAdmin',{edit:false})
           }}
         />
         </View>

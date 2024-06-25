@@ -54,9 +54,9 @@ export default class MaintenanceController extends Component<Props, S, SS> {
 homeBlocks : [
     { label: "Countries", bgColor: "red", iconName:"user-doctor",pagename:'CountryScreenAdmin' },
     { label: "States", bgColor: "blue", iconName:"landmark",pagename:'StatesScreenAdmin' },
-    { label: "Districts", bgColor: "green", iconName:"building-un"},
-    { label: "Talukas", bgColor: "darkorchid",iconName: "panorama"  },
-    { label: "Cities", bgColor: "orange",iconName: "clapperboard"  },
+    { label: "Districts", bgColor: "green", iconName:"building-un",pagename:'DistrictScreenAdmin'},
+    { label: "Talukas", bgColor: "darkorchid",iconName: "panorama",pagename:'TalukaScreenAdmin' },
+    { label: "Cities", bgColor: "orange",iconName: "clapperboard",pagename:'CityScreenAdmin'  },
     { label: "Designations", bgColor: "purple",iconName: "people-line" },
     { label: "UserTypes", bgColor: "darkkhaki", iconName:"people-roof" },
     { label: "Qualification", bgColor: "brown",iconName: "clipboard-question"  },

@@ -37,12 +37,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import StatesScreenAdminController, {Props} from './StatesScreenAdminController';
+import CityScreenAdminController, {Props} from './CityScreenAdminController';
 import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class StatesScreenAdmin extends StatesScreenAdminController {
+export default class CityScreenAdmin extends CityScreenAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,11 +61,11 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             borderRadius: 5,
             backgroundColor: '#009AEE',
           }}
-          onPress={() => this.updateValueById(item.StateID)}>
+          onPress={() => this.updateValueById(item.CityId)}>
           <View style={{padding: 10, flex: 1}}>
-            <Text style={{color: 'white'}}>{item.StateName}</Text>
+            <Text style={{color: 'white'}}>{item.CityName}</Text>
           </View>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddStatesAdmin',{edit:true,item:item})}}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddCityAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={20}
@@ -73,7 +73,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>this.showAlert(item.StateID)}>
+           <TouchableOpacity onPress={()=>this.showAlert(item.CityId)}>
            <FontAwesome5
             name={'trash'}
             size={20}
@@ -81,38 +81,9 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             style={{padding: 5, marginEnd: 5, marginTop:6}}
           />
           </TouchableOpacity >
-          <FontAwesome5
-            name={item.iscollaps ? 'caret-up' : 'caret-down'}
-            size={28}
-            color="white"
-            style={{padding: 5, marginEnd: 10}}
-          />
+       
         </TouchableOpacity>
-        {item.iscollaps ? (
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: '#009AEE',
-              borderRadius: 5,
-              marginTop: 3,
-            }}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.4,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                Country Name
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE',alignSelf:'center'}}>
-                {item.CountryName}
-              </Text>
-            </View>
-
-          </View>
-        ) : null}
+    
       </View>
     );
   };
@@ -147,7 +118,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'States'}
+                  {'Cities'}
                 </Text>
               </View>
             </View>
@@ -162,8 +133,8 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-              underlineColorAndroid='red'
-              autoCorrect={false}
+underlineColorAndroid='red'
+autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.searchValueById(e)}
             />
@@ -183,7 +154,7 @@ export default class StatesScreenAdmin extends StatesScreenAdminController {
           small
           color='white'
           icon="plus"
-          onPress={() => { this.props.navigation.navigate('AddStatesAdmin',{edit:false})
+          onPress={() => { this.props.navigation.navigate('AddCityAdmin',{edit:false})
           }}
         />
         </View>

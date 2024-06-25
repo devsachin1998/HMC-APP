@@ -57,6 +57,18 @@ export const apiFunctions = {
   StateInsert: '/StateInsert',
   StateUpdate: '/StateUpdate',
   StateDelete: '/StateDelete',
+  DistrictSelect:'/DistrictSelect',
+  DistrictInsert:'/DistrictInsert',
+  DistrictUpdate:'/DistrictUpdate',
+  DistrictDelete:'/DistrictDelete',
+  TalukaSelect:'/TalukaSelect',
+  TalukaInsert:'/TalukaInsert',
+  TalukaUpdate:'/TalukaUpdate',
+  TalukaDelete:'/TalukaDelete',
+  CitySelect:'/CitySelect',
+  CityInsert:'/CityInsert',
+  CityUpdate:'/CityUpdate',
+  CityDelete:'/CityDelete'
 };
 export const storeData = async (key, value) => {
   try {

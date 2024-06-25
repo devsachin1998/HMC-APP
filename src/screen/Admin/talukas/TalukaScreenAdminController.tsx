@@ -32,7 +32,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class StatesScreenAdminController extends Component<Props, S, SS> {
+export default class TalukaScreenAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -71,7 +71,7 @@ export default class StatesScreenAdminController extends Component<Props, S, SS>
       this.getdata()
 
   }
-  showAlert = (StateID) => {
+  showAlert = (TalukaID) => {
     Alert.alert(
       'Delete Confirmation',
       'Are you sure you want to delete this item?',
@@ -80,7 +80,7 @@ export default class StatesScreenAdminController extends Component<Props, S, SS>
           text: 'No',
           style: 'cancel',
         },
-        { text: 'Yes', onPress:()=> this.deleteStates(StateID) },
+        { text: 'Yes', onPress:()=> this.deleteTaluka(TalukaID) },
       ],
       { cancelable: false }
     );
@@ -88,7 +88,7 @@ export default class StatesScreenAdminController extends Component<Props, S, SS>
  
   updateValueById = (articleId) => {
     let updatedDataList = this.state.filterdata.map(article => {
-      if (article.StateID === articleId) {
+      if (article.TalukaID === articleId) {
         return { ...article, iscollaps: !article.iscollaps };
       } else {
         return { ...article, iscollaps: false };
@@ -96,14 +96,14 @@ export default class StatesScreenAdminController extends Component<Props, S, SS>
     });
   
     this.setState({ filterdata: updatedDataList }, () => {
-      // console.log("Updated datalist:", this.state.filterdata);
+      console.log("Updated datalist:", this.state.filterdata);
     });
   }
   
   
 
   searchValueById = (Title: string) => {
-    let filteredData = this.state.datalist.filter(item => item.StateName.toLowerCase().includes(Title.toLowerCase()));
+    let filteredData = this.state.datalist.filter(item => item.TalukaName.toLowerCase().includes(Title.toLowerCase()));
 
   
   this.setState({ filterdata: filteredData }, () => {
@@ -112,8 +112,9 @@ export default class StatesScreenAdminController extends Component<Props, S, SS>
 }
 getdata = async () => {
 
-  const responseData = await makeApiCallxml(apiFunctions.StateSelect+"?UN1=2&PWD1=2",'GET',"base");
-  // console.log('responseData::: STates--->', responseData);
+  const responseData = await makeApiCallxml(apiFunctions.TalukaSelect+"?UN1=2&PWD1=2",'GET',"base");
+  console.log('responseData::: Taluka- by id-->', responseData);
+
   const updatedTable = responseData.Table.map(item => ({
     ...item,
     iscollaps: false  // Setting the initial value of iscollaps to false
@@ -121,16 +122,16 @@ getdata = async () => {
 this.setState({datalist:updatedTable,filterdata:updatedTable})
 this.setState({isLoading:false})
 
-// console.log('responseData:::--->headline', responseData);
+console.log('responseData:::--->headline', responseData);
 
 }
-deleteStates = async (StateID) => {
+deleteTaluka = async (TalukaID) => {
   this.setState({isLoading:true})
  
   const loginDetails= await getdata("loginDetails");
   let ID =  loginDetails.UserID;
-  const res = await makeApiCallxml(apiFunctions.StateDelete+`?UN1=2&PWD1=2&StateID=${StateID}&UserID=${ID}`,'GET',"base");
-//  console.log("dsadasd0",res)
+  const res = await makeApiCallxml(apiFunctions.TalukaDelete+`?UN1=2&PWD1=2&TalukaID=${TalukaID}&UserID=${ID}`,'GET',"base");
+ console.log("dsadasd0",res)
  
   this.setState({isLoading:false})
   this.getdata()

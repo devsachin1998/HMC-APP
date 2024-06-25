@@ -39,6 +39,12 @@ import CountryScreenAdmin from '../screen/Admin/countries/CountryScreenAdmin';
 import AddCountryAdmin from '../screen/Admin/countries/AddCountryAdmin';
 import StatesScreenAdmin from '../screen/Admin/states/StatesScreenAdmin';
 import AddStatesAdmin from '../screen/Admin/states/AddStatesAdmin';
+import DistrictScreenAdmin from '../screen/Admin/districts/DistrictScreenAdmin';
+import AddDistrictsAdmin from '../screen/Admin/districts/AddDistrictsAdmin';
+import TalukaScreenAdmin from '../screen/Admin/talukas/TalukaScreenAdmin';
+import AddTalukaAdmin from '../screen/Admin/talukas/AddTalukaAdmin';
+import CityScreenAdmin from '../screen/Admin/cities/CityScreenAdmin';
+import AddCityAdmin from '../screen/Admin/cities/AddCityAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -350,6 +356,37 @@ const DrawerNavigatorAdmin = () => {
         <Stack.Screen
         name="AddStatesAdmin"
         component={AddStatesAdmin}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="DistrictScreenAdmin"
+        component={DistrictScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddDistrictsAdmin"
+        component={AddDistrictsAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="TalukaScreenAdmin"
+        component={TalukaScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddTalukaAdmin"
+        component={AddTalukaAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="CityScreenAdmin"
+        component={CityScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddCityAdmin"
+        component={AddCityAdmin}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>
