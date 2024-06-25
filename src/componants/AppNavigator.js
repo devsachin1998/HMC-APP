@@ -35,6 +35,10 @@ import CollegeScreenAdmin from '../screen/Admin/colleges/CollegeScreenAdmin';
 import AddCollegeAdmin from '../screen/Admin/colleges/AddCollegeAdmin';
 import AddUniversityAdmin from '../screen/Admin/university/AddUniversityAdmin';
 import UniversityScreenAdmin from '../screen/Admin/university/UniversityScreenAdmin';
+import CountryScreenAdmin from '../screen/Admin/countries/CountryScreenAdmin';
+import AddCountryAdmin from '../screen/Admin/countries/AddCountryAdmin';
+import StatesScreenAdmin from '../screen/Admin/states/StatesScreenAdmin';
+import AddStatesAdmin from '../screen/Admin/states/AddStatesAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -326,6 +330,26 @@ const DrawerNavigatorAdmin = () => {
        <Stack.Screen
         name="UniversityScreenAdmin"
         component={UniversityScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="CountryScreenAdmin"
+        component={CountryScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddCountryAdmin"
+        component={AddCountryAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="StatesScreenAdmin"
+        component={StatesScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddStatesAdmin"
+        component={AddStatesAdmin}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

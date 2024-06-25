@@ -17,7 +17,7 @@ interface S {
   isLoading: boolean;
   userid: string;
   //   leaderboard: LeaderboardItem[];
-  universityId: string;
+  CountryID: string;
   totalCount: number;
   totalPage: number;
   moreLoading: boolean;
@@ -43,7 +43,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class AddUniversityAdminController extends Component<Props, S, SS> {
+export default class AddCountryAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -58,7 +58,7 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
       // Customizable Area Start
       isLoading: false,
       //   leaderboard: [],
-      universityId: '',
+      CountryID: '',
       userid: '',
       totalCount: 1,
       totalPage: 1,
@@ -89,36 +89,36 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
 
      this.setState({ isLoading: true }); 
      let data=this.props.route.params.edit;
-     console.log("Dsadasdas",this.props.route.params)
+     console.log("component Data",this.props.route.params)
       if(data)
       {
         let itemdata=this.props.route.params.item;
         const loginDetails= await getdata("loginDetails");
-        this.setState({name:itemdata.UniversityName,district:itemdata.DistrictName,
-          DistrictID:itemdata.DistrictID1,universityId:itemdata.UniversityID})
+        this.setState({name:itemdata.CountryName,
+          CountryID:itemdata.CountryID})
 
       }
       const loginDetails= await getdata("loginDetails");
       let ID =  loginDetails.UserID;
       this.setState({userid:ID})
 
-     this.getdata()
+    //  this.getdata()
 
   }
-  showAlert = (ArticleID) => {
-    Alert.alert(
-      'Delete Confirmation',
-      'Are you sure you want to delete this item?',
-      [
-        {
-          text: 'No',
-          style: 'cancel',
-        },
-        { text: 'Yes', onPress:()=> {} },
-      ],
-      { cancelable: false }
-    );
-  };
+  // showAlert = (ArticleID) => {
+  //   Alert.alert(
+  //     'Delete Confirmation',
+  //     'Are you sure you want to delete this item?',
+  //     [
+  //       {
+  //         text: 'No',
+  //         style: 'cancel',
+  //       },
+  //       { text: 'Yes', onPress:()=> {} },
+  //     ],
+  //     { cancelable: false }
+  //   );
+  // };
  
  
   
@@ -134,34 +134,25 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
     })  }
 
 
-getdata = async () => {
-  const districtlist = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=1`,'GET',"web");
-  this.setState({District:districtlist.Table})
- this.setState({isLoading:false})
-
-
-}
-adduniversity = async () => {
+addCountry = async () => {
   this.setState({isLoading:true})
  
 
-  const res = await makeApiCallxml(apiFunctions.UniversityInsert+`?UN1=1&PWD1=1&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
- console.log("dsadasd0",res)
+  const res = await makeApiCallxml(apiFunctions.CountryInsert+`?UN1=2&PWD1=2&CountryName=${this.state.name}&UserID=${this.state.userid}`,'GET',"base");
+ console.log("add  country...",res)
  
   this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
+  this.props.navigation.navigate("CountryScreenAdmin");
 
 
 
 }
-updateuniversity = async () => {
+updateCountry = async () => {
   this.setState({isLoading:true})
-  
-
-  const res = await makeApiCallxml(apiFunctions.UniversityUpdate+`?UN1=1&PWD1=1&UniversityID=${this.state.universityId}&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
- console.log("dsadasd0",res)
+  const res = await makeApiCallxml(apiFunctions.CountryUpdate+`?UN1=2&PWD1=2&CountryId=${this.state.CountryID}&CountryName=${this.state.name}&UserID=${this.state.userid}`,'GET',"base");
+ console.log("update country",res)
   this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
+  this.props.navigation.navigate("CountryScreenAdmin");
 
 }
 

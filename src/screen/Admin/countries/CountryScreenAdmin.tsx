@@ -37,12 +37,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import UniversityScreenAdminController, {Props} from './UniversityScreenAdminController';
+import CountryScreenAdminController, {Props} from './CountryScreenAdminController';
 import { FAB } from 'react-native-paper';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class UniversityScreenAdmin extends UniversityScreenAdminController {
+export default class CountryScreenAdmin extends CountryScreenAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,11 +61,11 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
             borderRadius: 5,
             backgroundColor: '#009AEE',
           }}
-          onPress={() => this.updateValueById(item.UniversityID)}>
+          onPress={() => this.updateValueById(item.CountryID)}>
           <View style={{padding: 10, flex: 1}}>
-            <Text style={{color: 'white'}}>{item.UniversityName}</Text>
+            <Text style={{color: 'white'}}>{item.CountryName}</Text>
           </View>
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:true,item:item})}}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddCountryAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={20}
@@ -73,7 +73,7 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity onPress={()=>this.showAlert(item.UniversityID)}>
+           <TouchableOpacity onPress={()=>this.showAlert(item.CountryID)}>
            <FontAwesome5
             name={'trash'}
             size={20}
@@ -81,38 +81,9 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
             style={{padding: 5, marginEnd: 5, marginTop:6}}
           />
           </TouchableOpacity >
-          <FontAwesome5
-            name={item.iscollaps ? 'caret-up' : 'caret-down'}
-            size={28}
-            color="white"
-            style={{padding: 5, marginEnd: 10}}
-          />
+       
         </TouchableOpacity>
-        {item.iscollaps ? (
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: '#009AEE',
-              borderRadius: 5,
-              marginTop: 3,
-            }}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
-              <Text
-                style={{
-                  flex: 0.3,
-                  backgroundColor: '#009AEE',
-                  padding: 5,
-                  color: 'white',
-                }}>
-                District
-              </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE',alignSelf:'center'}}>
-                {item.DistrictName}
-              </Text>
-            </View>
-
-          </View>
-        ) : null}
+    
       </View>
     );
   };
@@ -125,7 +96,7 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
           <View
               style={{
                 flexDirection: 'row',
-                backgroundColor: 'green',
+                backgroundColor: '#151B54',
                 padding: 10,
               }}>
               <TouchableOpacity
@@ -147,7 +118,7 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'University'}
+                  {'Countries'}
                 </Text>
               </View>
             </View>
@@ -183,7 +154,7 @@ autoCorrect={false}
           small
           color='white'
           icon="plus"
-          onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:false})
+          onPress={() => { this.props.navigation.navigate('AddCountryAdmin',{edit:false})
           }}
         />
         </View>

@@ -86,8 +86,8 @@ export default class CouncilLogin extends CouncilLoginController {
                   style={styles.icon}
                 />
               </TouchableOpacity>
-
-              <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+              <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.logoContainer}>
                   <Image
                     resizeMode="cover"
@@ -162,6 +162,7 @@ export default class CouncilLogin extends CouncilLoginController {
                     LOGIN
                   </Text>
                 </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate('Login')}
                   style={{
@@ -176,7 +177,9 @@ export default class CouncilLogin extends CouncilLoginController {
                     Doctor Login ?
                   </Text>
                 </TouchableOpacity>
-              </View>
+                </View>
+               
+          
               <View style={{ justifyContent: 'flex-end', flex: 0.1 }}>
                 <Text style={{
                   paddingStart: 0,

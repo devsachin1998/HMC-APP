@@ -49,8 +49,14 @@ export const apiFunctions = {
   CollegeGalleryInsert:'/CollegeGalleryInsert',
   UniversityInsert:'/UniversityInsert',
   UniversityUpdate:'/UniversityUpdate',
-  UniversityDelete:'/UniversityDelete'
-
+  UniversityDelete:'/UniversityDelete',
+  CountryInsert:'/CountryInsert',
+  CountryUpdate:'/CountryUpdate',
+  CountryDelete:'/CountryDelete',
+  CountrySelectByCountryIDSP: '/CountrySelectByCountryIDSP',
+  StateInsert: '/StateInsert',
+  StateUpdate: '/StateUpdate',
+  StateDelete: '/StateDelete',
 };
 export const storeData = async (key, value) => {
   try {
