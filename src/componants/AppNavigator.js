@@ -62,8 +62,8 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
 
-    <Stack.Navigator initialRouteName="ActsToNotificatioScreenAdmin">
-      <Stack.Screen
+    <Stack.Navigator initialRouteName="SplashScreen">
+      {/* <Stack.Screen
         name="ActsToNotificationScreenAdmin"
         component={ActsToNotificationScreenAdmin}
         options={{headerShown: false}}
@@ -72,7 +72,7 @@ const AppNavigator = () => (
         name="AddactsToNotificationAdmin"
         component={AddactsToNotificationAdmin}
         options={{headerShown: false}}
-      />
+      /> */}
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
