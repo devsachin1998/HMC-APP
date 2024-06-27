@@ -57,14 +57,14 @@ homeBlocks : [
     { label: "Districts", bgColor: "green", iconName:"building-un",pagename:'DistrictScreenAdmin'},
     { label: "Talukas", bgColor: "darkorchid",iconName: "panorama",pagename:'TalukaScreenAdmin' },
     { label: "Cities", bgColor: "orange",iconName: "clapperboard",pagename:'CityScreenAdmin'  },
-    { label: "Designations", bgColor: "purple",iconName: "people-line" },
-    { label: "UserTypes", bgColor: "darkkhaki", iconName:"people-roof" },
-    { label: "Qualification", bgColor: "brown",iconName: "clipboard-question"  },
+    { label: "Designations", bgColor: "purple",iconName: "people-line",pagename:'DesignationScreenAdmin' },
+    { label: "UserTypes", bgColor: "darkkhaki", iconName:"people-roof",pagename:"UserTypesScreenAdmin" },
+    { label: "Qualification", bgColor: "brown",iconName: "clipboard-question",pagename:'QualificationScreenAdmin'  },
     { label: "Downloads", bgColor: "darkslateblue",iconName: "rectangle-ad"  },
-    { label: "Act.to Notifications", bgColor: "darkcyan",iconName: "newspaper" },
+    { label: "Act.to Notifications", bgColor: "darkcyan",iconName: "newspaper",pagename:'ActsToNotificationScreenAdmin' },
     { label: "Inquiries", bgColor: "gray",iconName: "gears"  },
     { label: "Articles", bgColor: "gray",iconName: "gears"  },
-    { label: "Queries", bgColor: "gray",iconName: "gears"  }
+    { label: "Queries", bgColor: "gray",iconName: "gears",pagename:'QueriesPageScreen'  }
 
 ]
 

@@ -68,7 +68,23 @@ export const apiFunctions = {
   CitySelect:'/CitySelect',
   CityInsert:'/CityInsert',
   CityUpdate:'/CityUpdate',
-  CityDelete:'/CityDelete'
+  CityDelete:'/CityDelete',
+  DesignationSelect:'/DesignationSelect',
+  DesignationInsert:'/DesignationInsert',
+  DesignationUpdate:'/DesignationUpdate',
+  DesignationDelete:'/DesignationDelete',
+  UserTypeSelect:'/UserTypeSelect',
+  UserTypeInsert:'/UserTypeInsert',
+  UserTypeUpdate:'/UserTypeUpdate',
+  UserTypeDelete:'/UserTypeDelete',
+  QualificationSelect:'/QualificationSelect',
+  QualificationInsert:'/QualificationInsert',
+  QualificationUpdate:'/QualificationUpdate',
+  QualificationDelete:'/QualificationDelete',
+  NotificationSelect:'/NotificationSelect',
+  NotificationInsert:'/NotificationInsert',
+  NotificationUpdate:'/NotificationUpdate',
+  NotificationDelete:'/NotificationDelete'
 };
 export const storeData = async (key, value) => {
   try {

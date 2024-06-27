@@ -45,6 +45,16 @@ import TalukaScreenAdmin from '../screen/Admin/talukas/TalukaScreenAdmin';
 import AddTalukaAdmin from '../screen/Admin/talukas/AddTalukaAdmin';
 import CityScreenAdmin from '../screen/Admin/cities/CityScreenAdmin';
 import AddCityAdmin from '../screen/Admin/cities/AddCityAdmin';
+import DesignationScreenAdmin from '../screen/Admin/designations/DesignationScreenAdmin';
+import AddDesignationAdmin from '../screen/Admin/designations/AddDesignationAdmin';
+import UserTypesScreenAdmin from '../screen/Admin/userType/UserTypesScreenAdmin';
+import AddUserTypesAdmin from '../screen/Admin/userType/AddUserTypesAdmin';
+import QueriesPageScreen from '../screen/Admin/queries/QueriesPageScreen';
+import AddQueryScreen from '../screen/Admin/queries/AddQueryScreen';
+import QualificationScreenAdmin from '../screen/Admin/qualifications/QualificationScreenAdmin';
+import AddQualificationAdmin from '../screen/Admin/qualifications/AddQualificationAdmin';
+import AddactsToNotificationAdmin from '../screen/Admin/actsToNotification/AddactsToNotificationAdmin';
+import ActsToNotificationScreenAdmin from '../screen/Admin/actsToNotification/ActsToNotificationScreenAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -52,8 +62,17 @@ const Stack = createStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
 
-    <Stack.Navigator initialRouteName="SplashScreen">
-
+    <Stack.Navigator initialRouteName="ActsToNotificatioScreenAdmin">
+      <Stack.Screen
+        name="ActsToNotificationScreenAdmin"
+        component={ActsToNotificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddactsToNotificationAdmin"
+        component={AddactsToNotificationAdmin}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -387,6 +406,58 @@ const DrawerNavigatorAdmin = () => {
         <Stack.Screen
         name="AddCityAdmin"
         component={AddCityAdmin}
+        options={{headerShown: false}}
+      />
+          <Stack.Screen
+        name="DesignationScreenAdmin"
+        component={DesignationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddDesignationAdmin"
+        component={AddDesignationAdmin}
+        options={{headerShown: false}}
+      />
+
+    <Stack.Screen
+        name="UserTypesScreenAdmin"
+        component={UserTypesScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddUserTypesAdmin"
+        component={AddUserTypesAdmin}
+        options={{headerShown: false}}
+      />
+
+    <Stack.Screen
+        name="QueriesPageScreen"
+        component={QueriesPageScreen}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddQueryScreen"
+        component={AddQueryScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="QualificationScreenAdmin"
+        component={QualificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddQualificationAdmin"
+        component={AddQualificationAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="ActsToNotificationScreenAdmin"
+        component={ActsToNotificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddactsToNotificationAdmin"
+        component={AddactsToNotificationAdmin}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>
