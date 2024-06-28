@@ -80,7 +80,7 @@ export default class ActsToNotificationScreenAdminController extends Component<P
           text: 'No',
           style: 'cancel',
         },
-        { text: 'Yes', onPress:()=> this.deleteTaluka(NotificationID) },
+        { text: 'Yes', onPress:()=> this.deleteNotification(NotificationID) },
       ],
       { cancelable: false }
     );
@@ -113,7 +113,7 @@ export default class ActsToNotificationScreenAdminController extends Component<P
 getdata = async () => {
 
   const responseData = await makeApiCallxml(apiFunctions.NotificationSelect+"?UN1=2&PWD1=2",'GET',"base");
-  console.log('responseData::: Taluka- by id-->', responseData);
+  console.log('responseData:::Notification- by id-->', responseData);
 
   const updatedTable = responseData.Table.map(item => ({
     ...item,
@@ -125,12 +125,12 @@ this.setState({isLoading:false})
 console.log('responseData:::--->headline', responseData);
 
 }
-deleteTaluka = async (NotificationID) => {
+deleteNotification = async (NotificationID) => {
   this.setState({isLoading:true})
  
   const loginDetails= await getdata("loginDetails");
   let ID =  loginDetails.UserID;
-  const res = await makeApiCallxml(apiFunctions.TalukaDelete+`?UN1=2&PWD1=2&NotificationID=${NotificationID}&UserID=${ID}`,'GET',"base");
+  const res = await makeApiCallxml(apiFunctions.NotificationDelete+`?UN1=2&PWD1=2&NotificationID=${NotificationID}&UserID=${ID}`,'GET',"base");
  console.log("dsadasd0",res)
  
   this.setState({isLoading:false})

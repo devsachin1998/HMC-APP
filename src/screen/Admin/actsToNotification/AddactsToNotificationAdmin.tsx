@@ -95,8 +95,8 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                   <TextInput
                     placeholder="Act. Title"
                     style={styles.input}
-                    value={this.state.name}
-                    onChangeText={e => this.setState({name: e})}
+                    value={this.state.Title}
+                    onChangeText={e => this.setState({Title:e})}
                   />
                 </View>
    
@@ -106,8 +106,8 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                   <TextInput
                     placeholder="Act. File Name"
                     style={styles.input}
-                    value={this.state.name}
-                    onChangeText={e => this.setState({name: e})}
+                    value={this.state.FileName}
+                    onChangeText={e => this.setState({FileName:e})}
                   />
                 </View>
                 <View>
@@ -116,7 +116,7 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                   <TouchableOpacity  style={[styles.input,{flex:1,alignItems:'center'}]}>
                     <Text>CHOOSE FILE</Text>
                   </TouchableOpacity>
-                  <Text style={{flex:1,alignSelf:'center',marginLeft:'5'}}>No File Choosen</Text>
+                  <Text style={{flex:1,alignSelf:'center',marginLeft:Scale(10)}}>No File Choosen</Text>
                 </View>
                 </View>
 
@@ -126,13 +126,13 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                   <TextInput
                     placeholder="Notification Act. Description"
                     style={styles.input}
-                    value={this.state.name}
-                    onChangeText={e => this.setState({name: e})}
+                    value={this.state.Description}
+                    onChangeText={e => this.setState({Description:e})}
                   />
                 </View>
 
                 <TouchableOpacity style={styles.button}
-                 onPress={() => this.props.route.params.edit ?this.updateTaluka():this.addTaluka()}
+                 onPress={() => this.props.route.params.edit ?this.updateNotification():this.addNotification()}
                  >
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>

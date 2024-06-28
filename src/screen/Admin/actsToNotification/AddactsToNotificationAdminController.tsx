@@ -33,9 +33,12 @@ interface S {
   website:any;
   file:any;
   states:any;
-  filename:any;
+  FileName:any;
   selectedCountry:string;
   NotificationID:any;
+  Title:string;
+  Description:string;
+  FileType:string
   // Customizable Area End
 }
 
@@ -77,9 +80,12 @@ export default class AddactsToNotificationAdmin extends Component<Props, S, SS> 
       website:'',
       district:[],
       states:[],
-      filename:'',
+      FileName:'',
       selectedCountry:'',
-      NotificationID:''
+      NotificationID:'',
+      Title:'',
+      Description:'',
+      FileType:''
       // Customizable Area End
     };
 
@@ -99,8 +105,8 @@ export default class AddactsToNotificationAdmin extends Component<Props, S, SS> 
         let itemdata=this.props.route.params.item;
         console.log("?????????11111",itemdata)
         const loginDetails= await getdata("loginDetails");
-        this.setState({name:itemdata.TalukaName,
-          DistrictID:itemdata.DistrictID,NotificationID:itemdata.NotificationID})
+        this.setState({Title:itemdata.Title,FileName:itemdata.FileName,FileType:itemdata.FileType,
+          Description:itemdata.Description,NotificationID:itemdata.NotificationID})
 
       }
       const loginDetails= await getdata("loginDetails");
@@ -129,8 +135,8 @@ export default class AddactsToNotificationAdmin extends Component<Props, S, SS> 
 
 getdata = async () => {
 
-  const responseData = await makeApiCallxml(apiFunctions.DistrictSelect+"?UN1=2&PWD1=2",'GET',"base");
-  console.log('responseData::: Distict- by id-->', responseData);
+  const responseData = await makeApiCallxml(apiFunctions.NotificationSelect+"?UN1=2&PWD1=2",'GET',"base");
+  console.log('responseData::: - by id-->', responseData);
 const tables = Array.isArray(responseData?.Table) ? responseData?.Table : [responseData?.Table];
 
 const updatedTable = tables.map(item => ({
@@ -147,29 +153,29 @@ this.setState({isLoading:false})
       selectdocument((response: string) => {
         const data = JSON.parse(response);
         console.log("dsad",data)
-        this.setState({file:data,filename:data[0].name})
+        this.setState({file:data,FileName:data[0].name})
         // const data1 = a RNFetchBlob.fs.readFile(data[0].uri, 'base64');
         // console.log("dsad11",data1)
 
     })  }
 
 
-    addTaluka = async () => {
+    addNotification = async () => {
   this.setState({isLoading:true})
  
 
-  const res = await makeApiCallxml(apiFunctions.TalukaInsert+`?UN1=2&PWD1=2&TalukaName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"base");
- console.log("add District.",res)
+  const res = await makeApiCallxml(apiFunctions.NotificationInsert+`?UN1=2&PWD1=2&Title=${this.state.Title}&FileName=${this.state.FileName}&FileType=pdf&Description=${this.state.Description}&UserID=${this.state.userid}`,'GET',"base");
+ console.log("add Notification.",res)
  
   this.setState({isLoading:false})
   this.props.navigation.navigate("ActsToNotificationScreenAdmin");
 
 }
 
-updateTaluka = async () => {
+updateNotification = async () => {
   this.setState({isLoading:true})
-  const res = await makeApiCallxml(apiFunctions.TalukaUpdate+`?UN1=2&PWD1=2&NotificationID=${this.state.NotificationID}&TalukaName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"base");
- console.log("update states",res)
+  const res = await makeApiCallxml(apiFunctions.NotificationUpdate+`?UN1=2&PWD1=2&NotificationID=${this.state.NotificationID}&Title=${this.state.Title}&Description=${this.state.Description}&FileName=${this.state.FileName}&FileType=pdf&UserID=${this.state.userid}`,'GET',"base");
+ console.log("update Notification",res)
   this.setState({isLoading:false})
   this.props.navigation.navigate("ActsToNotificationScreenAdmin");
 
