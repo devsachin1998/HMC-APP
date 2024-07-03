@@ -27,6 +27,7 @@ interface S {
   filterdata:any;
   district:any;
   name:any;
+  desc:any;
   DistrictID:any;
   phone:any;
   email:any;
@@ -43,7 +44,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class AddUniversityAdminController extends Component<Props, S, SS> {
+export default class AddNewsAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -76,6 +77,7 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
       district:[],
       District:[],
       filename:'',
+      desc:''
       // Customizable Area End
     };
 
@@ -93,74 +95,40 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
       if(data)
       {
         let itemdata=this.props.route.params.item;
-      
-        this.setState({name:itemdata.UniversityName,district:itemdata.DistrictName,
-          DistrictID:itemdata.DistrictID1,userid:ID,universityId:itemdata.UniversityID})
+        this.setState({name:itemdata.NewsLine,desc:itemdata.Description,universityId:itemdata.ScrollNewsId})
 
       }
-     this.getdata()
-     const loginDetails= await getdata("loginDetails");
-     let ID =  loginDetails.UserID;
-     this.setState({userid:ID})
+      const loginDetails= await getdata("loginDetails");
+      let ID =  loginDetails.UserID;
+      this.setState({userid:ID})
+
 
   }
-  showAlert = (ArticleID) => {
-    Alert.alert(
-      'Delete Confirmation',
-      'Are you sure you want to delete this item?',
-      [
-        {
-          text: 'No',
-          style: 'cancel',
-        },
-        { text: 'Yes', onPress:()=> {} },
-      ],
-      { cancelable: false }
-    );
-  };
  
- 
-  
-  uploadpdf =()=>
-    {
-      selectdocument((response: string) => {
-        const data = JSON.parse(response);
-        console.log("dsad",data)
-        this.setState({file:data,filename:data[0].name})
-        // const data1 = a RNFetchBlob.fs.readFile(data[0].uri, 'base64');
-        // console.log("dsad11",data1)
-
-    })  }
 
 
-getdata = async () => {
-  const districtlist = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=1`,'GET',"web");
-  this.setState({District:districtlist.Table})
- this.setState({isLoading:false})
 
-
-}
-adduniversity = async () => {
+addnews = async () => {
   this.setState({isLoading:true})
  
 
-  const res = await makeApiCallxml(apiFunctions.UniversityInsert+`?UN1=1&PWD1=1&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
+  const res = await makeApiCallxml(apiFunctions.ScrollNewsInsert+`?UN1=1&PWD1=1&NewsLine=${this.state.name}&Description=${this.state.desc}&UserID=${this.state.userid}`,'GET',"admin");
  console.log("dsadasd0",res)
  
   this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
+  this.props.navigation.navigate("NewsScreenAdmin");
 
 
 
 }
-updateuniversity = async () => {
+updatenews = async () => {
   this.setState({isLoading:true})
   
 
-  const res = await makeApiCallxml(apiFunctions.UniversityUpdate+`?UN1=1&PWD1=1&UniversityID=${this.state.universityId}&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
+  const res = await makeApiCallxml(apiFunctions.ScrollNewsUpdate+`?UN1=1&PWD1=1&ScrollNewsID=${this.state.universityId}&NewsLine=${this.state.name}&Description=${this.state.desc}&UserID=${this.state.userid}`,'GET',"admin");
  console.log("dsadasd0",res)
   this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
+  this.props.navigation.navigate("NewsScreenAdmin");
 
 }
 

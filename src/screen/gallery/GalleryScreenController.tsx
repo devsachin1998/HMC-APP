@@ -2,6 +2,7 @@ import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
 import {makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
+import { Alert } from 'react-native';
 
 export interface Props {
   navigation?: any;
@@ -89,7 +90,20 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
   
   
   }
-
+  showAlert = (UniversityID) => {
+    Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress:()=> {} },
+      ],
+      { cancelable: false }
+    );
+  };
  
   getdata = async () => {
     const responseData =  await makeApiCallxml(apiFunctions.GallerySelect+"?UN1=1&PWD1=1", 'GET', "admin");
@@ -98,13 +112,14 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
       const jsonData1 =  tables.map((table: any) => ({
       GalleryID:table?.GalleryID, 
       Title:table?.Title,
-      Image:apiFunctions.bannerurl+"img/Gallery/"+table?.GalImage
-      
+      Image:apiFunctions.bannerurl+"img/Gallery/"+table?.GalImage,
+      CreatedDate:table?.CreatedDate,
+      UpdatedDate:table?.UpdatedDate,
   }))
   this.setState({datalist:jsonData1})
   this.setState({isLoading:false})
 
- console.log('responseData:::--->headline', jsonData1);
+ console.log('responseData:::--->headline', tables);
 
   }
  

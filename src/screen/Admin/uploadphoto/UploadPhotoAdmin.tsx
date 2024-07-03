@@ -24,7 +24,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
-
+import DatePicker from 'react-native-date-picker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 // Merge Engine - import assets - Start
 // Merge Engine - import assets - End
@@ -36,12 +36,13 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import AddUniversityAdminController, {Props} from './AddUniversityAdminController';
+import UploadPhotoAdminController, {Props} from './UploadPhotoAdminController';
 import {Dropdown} from 'react-native-element-dropdown';
+import moment from 'moment';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class AddUniversityAdmin extends AddUniversityAdminController {
+export default class UploadPhotoAdmin extends UploadPhotoAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -61,12 +62,12 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
             <View
               style={{
                 flexDirection: 'row',
-                backgroundColor: 'green',
+                backgroundColor: 'red',
                 padding: 10,
               }}>
               <TouchableOpacity
                 style={{flex: 0.1}}
-                onPress={() => this.props.navigation.navigate("UniversityScreenAdmin")}>
+                onPress={() => this.props.navigation.navigate("GalleryScreen",{isedit:true})}>
                 <Icon
                   name="chevron-small-left"
                   size={32}
@@ -83,41 +84,72 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'Add University'}
+                  {'Upload Photo'}
                 </Text>
               </View>
             </View>
             <ScrollView>
               <View style={styles.container}>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>University Name</Text>
+                  <Text style={styles.label}>Title</Text>
                   <TextInput
-                    placeholder="Name"
                     style={styles.input}
                     value={this.state.name}
                     onChangeText={e => this.setState({name: e})}
                   />
                 </View>
-   
+              
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>District</Text>
-                  <Dropdown
-                    placeholderStyle={{color: 'grey', fontSize: 14}}
-                    style={styles.dropDownContainer}
-                    placeholder="--Select District--"
-                    data={this.state.District}
-                    labelField="DistrictName"
-                    valueField="DistrictName"
-                    maxHeight={210}
-                    selectedTextStyle={{paddingStart: 5}}
-                    value={this.state.district}
-                    onChange={item => {
-                      this.setState({district: item.label,DistrictID:item.DistrictID});
+                  <Text style={styles.label}>Date</Text>
+                  <TouchableOpacity onPress={()=>this.setState({open:true})}>
+                  <View style={styles.input}>
+
+                  <Text>{this.state.date?moment(this.state.date).format("DD/MM/YYYY"):''}</Text>
+</View>
+                  
+                  </TouchableOpacity>
+
+                  <DatePicker
+                    modal
+                    open={this.state.open}
+                    date={new Date()}
+                    mode="date"
+                    onConfirm={selectedDate => {
+                      console.log(
+                        'Selected Date:',
+                        moment(selectedDate).format('YYYY-MM-DD'),
+                      );
+                      this.setState({open: false, date: selectedDate});
+                    }}
+                    onCancel={() => {
+                      this.setState({open: false});
                     }}
                   />
-                </View>
 
-                <TouchableOpacity style={styles.button} onPress={() => this.props.route.params.edit ?this.updatenews():this.addnews()}>
+                </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Image</Text>
+                  <TouchableOpacity onPress={()=>this.uploadimage()}>
+                        {this.state.imguri ? (
+                          <Image
+                            source={{uri: this.state.imguri}}
+                            style={styles.imgBox}
+                          />
+                        ) : (
+                          <View style={styles.imgBox}>
+                            <Icon
+                              name="image"
+                              size={30}
+                              color="grey"
+                              style={styles.icon}
+                            />
+                          </View>
+                        )}
+                      </TouchableOpacity>
+              
+                </View>
+              
+                <TouchableOpacity style={styles.button} onPress={() => {}}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                     {this.props.route.params.edit ? 'Update' : 'Submit'}
@@ -139,6 +171,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
+  imgBox: {
+    flex:1,
+    width: Scale(180),
+    height:Scale(180),
+    backgroundColor:'rgba(189,195,199,1)',
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop: Scale(5)
+  },
+  icon: {
+    
+    display:'flex'
+   },
   text: {
     fontSize: 18,
     paddingLeft: 10, // Add padding to align text after the icon

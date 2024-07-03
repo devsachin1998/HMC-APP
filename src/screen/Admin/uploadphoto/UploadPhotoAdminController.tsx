@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {apiFunctions, storeData, getdata, selectdocument, showToastOrAlert} from '../../../globalServices/utils';
+import {apiFunctions, storeData, getdata, selectdocument, launchGallary} from '../../../globalServices/utils';
 import {makeApiCallxml} from '../../../globalServices/api';
 import moment from 'moment';
 import { Alert } from 'react-native';
@@ -15,11 +15,12 @@ export interface Props {
 interface S {
   // Customizable Area Start
   isLoading: boolean;
-  userid: string;
+  open: boolean;
   //   leaderboard: LeaderboardItem[];
-  universityId: string;
+  token: string;
   totalCount: number;
   totalPage: number;
+  pageIndex: number;
   moreLoading: boolean;
   datalist:any;
   university:any;
@@ -27,13 +28,14 @@ interface S {
   filterdata:any;
   district:any;
   name:any;
-  DistrictID:any;
+  date:any;
   phone:any;
   email:any;
   website:any;
   file:any;
   District:any;
   filename:any;
+  imguri:any;
   // Customizable Area End
 }
 
@@ -43,7 +45,7 @@ interface SS {
   // Customizable Area End
 }
 
-export default class AddUniversityAdminController extends Component<Props, S, SS> {
+export default class UploadPhotoAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   //   unsubscribe: object;
   //   loginApiCallId: string;
@@ -57,9 +59,10 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
     this.state = {
       // Customizable Area Start
       isLoading: false,
+      open: false,
       //   leaderboard: [],
-      universityId: '',
-      userid: '',
+      token: '',
+      pageIndex: 0,
       totalCount: 1,
       totalPage: 1,
       moreLoading: false,
@@ -69,12 +72,13 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
       University:[],
       file:[],
       name:'',
-      DistrictID:'',
+      date:'',
       phone:'',
       email:'',
       website:'',
       district:[],
       District:[],
+      imguri:'',
       filename:'',
       // Customizable Area End
     };
@@ -93,15 +97,11 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
       if(data)
       {
         let itemdata=this.props.route.params.item;
-      
-        this.setState({name:itemdata.UniversityName,district:itemdata.DistrictName,
-          DistrictID:itemdata.DistrictID1,userid:ID,universityId:itemdata.UniversityID})
+        this.setState({name:itemdata.Title,date:itemdata.UpdatedDate,
+          imguri:itemdata.Image,
+        })
 
       }
-     this.getdata()
-     const loginDetails= await getdata("loginDetails");
-     let ID =  loginDetails.UserID;
-     this.setState({userid:ID})
 
   }
   showAlert = (ArticleID) => {
@@ -121,48 +121,17 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
  
  
   
-  uploadpdf =()=>
+  uploadimage =()=>
     {
-      selectdocument((response: string) => {
+      launchGallary((response: string) => {
         const data = JSON.parse(response);
         console.log("dsad",data)
-        this.setState({file:data,filename:data[0].name})
+        this.setState({imguri:data.assets[0].uri})
         // const data1 = a RNFetchBlob.fs.readFile(data[0].uri, 'base64');
         // console.log("dsad11",data1)
 
     })  }
 
-
-getdata = async () => {
-  const districtlist = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=1`,'GET',"web");
-  this.setState({District:districtlist.Table})
- this.setState({isLoading:false})
-
-
-}
-adduniversity = async () => {
-  this.setState({isLoading:true})
- 
-
-  const res = await makeApiCallxml(apiFunctions.UniversityInsert+`?UN1=1&PWD1=1&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
- console.log("dsadasd0",res)
- 
-  this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
-
-
-
-}
-updateuniversity = async () => {
-  this.setState({isLoading:true})
-  
-
-  const res = await makeApiCallxml(apiFunctions.UniversityUpdate+`?UN1=1&PWD1=1&UniversityID=${this.state.universityId}&UniversityName=${this.state.name}&DistrictID=${this.state.DistrictID}&UserID=${this.state.userid}`,'GET',"admin");
- console.log("dsadasd0",res)
-  this.setState({isLoading:false})
-  this.props.navigation.navigate("UniversityScreenAdmin");
-
-}
 
 
   // Customizable Area End

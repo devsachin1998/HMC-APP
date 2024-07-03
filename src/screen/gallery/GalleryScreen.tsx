@@ -62,7 +62,8 @@ export default class GalleryScreen extends GalleryScreenController {
          {this.props.route.params?.isedit?
         <View style={{backgroundColor:'skyblue',flexDirection:'row',alignSelf:'center',flex:0.4}}>
         <TouchableOpacity  style={{flex:1,alignItems:'center'}} 
-           onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:true,item:item})}}>
+        
+           onPress={() => { this.props.navigation.navigate('UploadPhotoAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={25}
@@ -70,7 +71,7 @@ export default class GalleryScreen extends GalleryScreenController {
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.CollegeID)}>
+           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.GalleryID)}>
            <FontAwesome5
             name={'trash'}
             size={25}
@@ -152,7 +153,7 @@ export default class GalleryScreen extends GalleryScreenController {
           small
           color='white'
           icon="plus"
-          onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:false})
+          onPress={() => { this.props.navigation.navigate('UploadPhotoAdmin',{edit:false})
           }}
         />:null}
       </SafeAreaView>

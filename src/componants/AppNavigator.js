@@ -35,6 +35,9 @@ import CollegeScreenAdmin from '../screen/Admin/colleges/CollegeScreenAdmin';
 import AddCollegeAdmin from '../screen/Admin/colleges/AddCollegeAdmin';
 import AddUniversityAdmin from '../screen/Admin/university/AddUniversityAdmin';
 import UniversityScreenAdmin from '../screen/Admin/university/UniversityScreenAdmin';
+import UploadPhotoAdmin from '../screen/Admin/uploadphoto/UploadPhotoAdmin';
+import NewsScreenAdmin from '../screen/Admin/news/NewsScreenAdmin';
+import AddNewsAdmin from '../screen/Admin/news/AddNewsAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -210,6 +213,8 @@ const DrawerNavigatorDoctor = ({navigation}) => {
 
   (async () => {
     const user = await getdata('loginDetails');
+    console.log("dasdasdasdsa",user)
+
     console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
     const username = user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName;
     // const userprofile = user.profile_pic;
@@ -326,6 +331,21 @@ const DrawerNavigatorAdmin = () => {
        <Stack.Screen
         name="UniversityScreenAdmin"
         component={UniversityScreenAdmin}
+        options={{headerShown: false}}
+      />
+             <Stack.Screen
+        name="UploadPhotoAdmin"
+        component={UploadPhotoAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddNewsAdmin"
+        component={AddNewsAdmin}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="NewsScreenAdmin"
+        component={NewsScreenAdmin}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

@@ -36,12 +36,12 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 
 import Loader from '../../../componants/Loader';
-import AddUniversityAdminController, {Props} from './AddUniversityAdminController';
+import AddNewsAdminController, {Props} from './AddNewsAdminController';
 import {Dropdown} from 'react-native-element-dropdown';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
-export default class AddUniversityAdmin extends AddUniversityAdminController {
+export default class AddNewsAdmin extends AddNewsAdminController {
   constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -66,7 +66,7 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
               }}>
               <TouchableOpacity
                 style={{flex: 0.1}}
-                onPress={() => this.props.navigation.navigate("UniversityScreenAdmin")}>
+                onPress={() => this.props.navigation.navigate("NewsScreenAdmin")}>
                 <Icon
                   name="chevron-small-left"
                   size={32}
@@ -83,40 +83,32 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
                     marginTop: 1,
                     fontSize: Scale(18),
                   }}>
-                  {'Add University'}
+                  {'Add News'}
                 </Text>
               </View>
             </View>
             <ScrollView>
               <View style={styles.container}>
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>University Name</Text>
+                  <Text style={styles.label}>NewsLine</Text>
                   <TextInput
-                    placeholder="Name"
+                    placeholder="NewsLine"
                     style={styles.input}
                     value={this.state.name}
                     onChangeText={e => this.setState({name: e})}
                   />
                 </View>
-   
                 <View style={styles.inputContainer}>
-                  <Text style={styles.label}>District</Text>
-                  <Dropdown
-                    placeholderStyle={{color: 'grey', fontSize: 14}}
-                    style={styles.dropDownContainer}
-                    placeholder="--Select District--"
-                    data={this.state.District}
-                    labelField="DistrictName"
-                    valueField="DistrictName"
-                    maxHeight={210}
-                    selectedTextStyle={{paddingStart: 5}}
-                    value={this.state.district}
-                    onChange={item => {
-                      this.setState({district: item.label,DistrictID:item.DistrictID});
-                    }}
+                  <Text style={styles.label}>Discription</Text>
+                  <TextInput
+                    placeholder="Discription"
+                    style={styles.input}
+                    value={this.state.desc}
+                    onChangeText={e => this.setState({desc: e})}
                   />
                 </View>
-
+   
+             
                 <TouchableOpacity style={styles.button} onPress={() => this.props.route.params.edit ?this.updatenews():this.addnews()}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>

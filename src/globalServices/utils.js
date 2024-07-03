@@ -49,7 +49,10 @@ export const apiFunctions = {
   CollegeGalleryInsert:'/CollegeGalleryInsert',
   UniversityInsert:'/UniversityInsert',
   UniversityUpdate:'/UniversityUpdate',
-  UniversityDelete:'/UniversityDelete'
+  UniversityDelete:'/UniversityDelete',
+  ScrollNewsInsert:'/ScrollNewsInsert',
+  ScrollNewsUpdate:'/ScrollNewsUpdate',
+  ScrollNewsDelete:'/ScrollNewsDelete',
 
 };
 export const storeData = async (key, value) => {
