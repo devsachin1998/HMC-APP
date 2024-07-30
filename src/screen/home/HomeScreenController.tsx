@@ -154,20 +154,22 @@ export default class HomeScreenController extends Component<Props, S, SS> {
   getAlldata = async () => {
     const responseData = 
     await makeApiCallxml(apiFunctions.HomeSelectSP+"?UN1=2&PWD1=2", 'GET');
-  // console.log('responseData:::--->', responseData);
   // const jsonData1 =  [{"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}]
   const jsonData1 =  responseData.Table.map((table: any) => ({
     GalleryID: table?.GalleryID,
     Url: apiFunctions.bannerurl+"img/Gallery/"+table?.GalImage,
     Title:table?.Title
   }))
+
   const jsonData2 =  responseData.Table2.map((table: any) => ({
     Title: table?.Title,
-    FileName: apiFunctions.bannerurl+"Article/"+table?.FileName,
+    FileName: apiFunctions.bannerurl+"Notification/"+table?.FileName,
   }))
+  console.log('responseData:::--->', responseData.Table1);
+
   const jsonData3 =  responseData.Table1.map((table: any) => ({
     Title: table?.Title,
-    FileName: apiFunctions.bannerurl+"Notification/"+table?.FileName,
+    FileName: apiFunctions.bannerurl+"Article/"+table?.PDFFile,
   }))
   this.setState({gallaryimages:jsonData1,actlist:jsonData2,articleslist:jsonData3})
 

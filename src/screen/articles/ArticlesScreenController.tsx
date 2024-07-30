@@ -111,6 +111,7 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       Title:table?.Title,
       Date:moment(table?.Date).format("DD/MM/YYYY"),
       PDFFile:table?.PDFFile,
+      PDFFilelink:apiFunctions.bannerurl+"Article/"+table?.PDFFile,
       Description:table?.Description,
       iscollaps:false
   }))
@@ -128,6 +129,7 @@ export default class ArticlesScreenController extends Component<Props, S, SS> {
       Title:table?.Title,
       Date:moment(table?.UpdatedDate).format("DD/MM/YYYY"),
       PDFFile:table?.FileName,
+      PDFFilelink:apiFunctions.bannerurl+"Notification/"+table?.FileName,
       Description:table?.Description,
       iscollaps:false
   }))

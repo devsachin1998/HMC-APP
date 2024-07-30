@@ -95,9 +95,10 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
         let itemdata=this.props.route.params.item;
       
         this.setState({name:itemdata.UniversityName,district:itemdata.DistrictName,
-          DistrictID:itemdata.DistrictID1,userid:ID,universityId:itemdata.UniversityID})
+          DistrictID:itemdata.DistrictID1,universityId:itemdata.UniversityID})
 
       }
+
      this.getdata()
      const loginDetails= await getdata("loginDetails");
      let ID =  loginDetails.UserID;

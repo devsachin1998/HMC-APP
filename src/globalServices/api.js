@@ -52,9 +52,10 @@ export const makeApiCallxml  = async (endpoint, method, url = "base") => {
   };
   
   try {
+    console.log("Api:::::", options,apiUrl);
+
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
-    // console.log("dsddsfdd", responseData);
 
     // Parse XML data
     const parsedData = await new Promise((resolve, reject) => {

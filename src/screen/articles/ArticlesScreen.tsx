@@ -38,6 +38,7 @@ import Scale from '../../globalServices/Scale';
 
 import Loader from '../../componants/Loader';
 import ArticlesScreenController, {Props} from './ArticlesScreenController';
+import { apiFunctions } from '../../globalServices/utils';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -103,9 +104,11 @@ export default class ArticlesScreen extends ArticlesScreenController {
                 }}>
                 PDF File
               </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
+              <TouchableOpacity style={{flex: 1, paddingStart: 10,}} onPress={()=> Linking.openURL(item.PDFFilelink)}>
+              <Text style={{flex: 1,color: '#009AEE',textDecorationLine:'underline'}}>
                 {item.PDFFile}
               </Text>
+              </TouchableOpacity>
             </View>
             <View style={{flex: 1, flexDirection: 'row'}}>
               <Text

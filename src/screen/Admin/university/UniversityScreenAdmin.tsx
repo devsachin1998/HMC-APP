@@ -65,7 +65,7 @@ export default class UniversityScreenAdmin extends UniversityScreenAdminControll
           <View style={{padding: 10, flex: 1}}>
             <Text style={{color: 'white'}}>{item.UniversityName}</Text>
           </View>
-          <TouchableOpacity           onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:true,item:item})}}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddUniversityAdmin',{edit:true,item:item})}}>
           <FontAwesome5
             name={'pencil'}
             size={20}

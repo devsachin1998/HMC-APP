@@ -15,6 +15,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {clearData} from '../globalServices/utils';
 import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from'react-native-vector-icons/MaterialIcons';
+import { DrawerActions } from '@react-navigation/native';
 
 import FontAwesome5 from'react-native-vector-icons/FontAwesome5';
 
@@ -58,13 +59,25 @@ class CustomSidebarMenu extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("HomeScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('HomeScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
+          
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('Registration'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <FontAwesome5 name="user-edit" size={Scale(20)}  color="white"  />
                 <Text style={styles.textstyle}>Registration</Text>
@@ -80,15 +93,24 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("AboutUsScreen")}
-
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('AboutUsScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <MaterialIcons name="info" size={20} color="white"  />
                 <Text style={styles.textstyle}>About</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("CouncilMemberScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('CouncilMemberScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <FontAwesome5 name="users" size={20} color="white"  />
                 <Text style={styles.textstyle}>Council Members</Text>
@@ -96,23 +118,36 @@ class CustomSidebarMenu extends Component {
             
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("HomoepathsMemberScreen")}>
-
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('HomoepathsMemberScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
+                >
                <FontAwesome5 name="users" size={20} color="white"  />
                 <Text style={styles.textstyle}>Registered Homoeopaths</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("GalleryScreen")}
-
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('GalleryScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <MaterialIcons name="photo-library" size={20} color="white"  />
                 <Text style={styles.textstyle}>Gallary</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                
-                onPress={()=> this.props.navigation.navigate("CollegeScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('CollegeScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
 
                 >
                <FontAwesome5 name="school" size={20} color="white"  />
@@ -120,8 +155,12 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                
-                onPress={()=> this.props.navigation.navigate("ArticlesScreen1",{type:1})}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('ArticlesScreen1',{type:1}); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
 
                 >
                <MaterialIcons name="article" size={20} color="white"  />
@@ -129,7 +168,12 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("DownloadScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('DownloadScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
 
                 >
                <Icon name="download" size={20} color="white"  />
@@ -137,7 +181,12 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("FAQPage",{isfrom:"basic"})}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate("FAQPage",{isfrom:"basic"}); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
 
                 >
                <MaterialIcons name="photo-library" size={20} color="white"  />
@@ -145,7 +194,12 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("ArticlesScreen",{type:2})}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate("ArticlesScreen",{type:2}); // Navigate to the AboutUsScreen after a short delay
+                  }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
 
                 >
                <MaterialIcons name="notifications" size={20} color="white"  />
@@ -153,8 +207,11 @@ class CustomSidebarMenu extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=> this.props.navigation.navigate("ContactUsScreen")}
-
+                onPress={()=>   {  this.props.navigation.closeDrawer(); // Close the drawer first
+                setTimeout(() => {
+                  this.props.navigation.navigate("ContactUsScreen"); // Navigate to the AboutUsScreen after a short delay
+                }, 200); // Adjust the delay as needed to ensure the drawer animation completes
+              }}
                 
                 >
                <MaterialIcons name="contact-phone" size={20} color="white"  />

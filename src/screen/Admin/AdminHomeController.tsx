@@ -59,7 +59,7 @@ homeBlocks : [
     { label: "University", bgColor: "green", iconName:"building-un",pagename:'UniversityScreenAdmin'},
     { label: "Gallary", bgColor: "darkorchid",iconName: "panorama" ,pagename:'GalleryScreen' },
     { label: "Gallary details", bgColor: "orange",iconName: "clapperboard" ,pagename:'CollegeScreenAdmin' },
-    { label: "Council Members", bgColor: "purple",iconName: "people-line",pagename:'CollegeScreenAdmin' },
+    { label: "Council Members", bgColor: "purple",iconName: "people-line",pagename:'CouncilMemberAdmin' },
     { label: "Council Users", bgColor: "darkkhaki", iconName:"people-roof",pagename:'CollegeScreenAdmin' },
     { label: "FAQs", bgColor: "brown",iconName: "clipboard-question" ,pagename:'CollegeScreenAdmin' },
     { label: "Advt.s", bgColor: "darkslateblue",iconName: "rectangle-ad" ,pagename:'CollegeScreenAdmin'},

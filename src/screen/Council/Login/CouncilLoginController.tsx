@@ -20,6 +20,7 @@ interface S {
   mode:any,
   open: boolean,
   date1: any,
+  isLoading:any,
   Password:any;
 }
 
@@ -31,13 +32,14 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      name: '',
+      name: 'Admin',
       isDatePickerVisible: false,
       date: new Date(1598051730000),
       mode: 'date',
       open: false,
       date1: new Date(),
-      Password:''
+      Password:'7710',
+      isLoading:false
     };
   }
 
@@ -48,26 +50,31 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
 
   onClickCouncilLogin =async ()=>{
     // const sDate=moment(this.state.date1).format('YYYY-MM-DD');
-
+    this.setState({isLoading:true})
     const responseData = await makeApiCallxml(apiFunctions.UserLoginMaster+`?UN1=1&PWD1=1&Username=${this.state.name}&Password=${this.state.Password}`, 'GET','admin');
     const result = responseData.Table;
     if(this.state.Password=="" && this.state.name=="")
       {
+        this.setState({isLoading:false})
+
         return showToastOrAlert('Please Enter Username and Password!!');
 
       }
     if(result.Result==-1)
       {
+        this.setState({isLoading:false})
         showToastOrAlert('User Not Found!!');
 
       }
      else if(result.Result==0)
       {
+        this.setState({isLoading:false})
         showToastOrAlert('Enter Valid Username and Password!! ');
 
      }
      else
      {
+      this.setState({isLoading:false})
       storeData("loginDetails",result)
       this.props.navigation.navigate('DrawerNavigatorAdmin');
 

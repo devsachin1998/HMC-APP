@@ -65,13 +65,21 @@ class CustomSideMenuAdmin extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("AdminHomeScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('AdminHomeScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
               </TouchableOpacity>
               <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+        }}
       >
         <FontAwesome6 name="user-doctor" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Doctors</Text>
@@ -79,7 +87,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
-        onPress={()=>this.props.navigation.navigate("CollegeScreenAdmin")}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('CollegeScreenAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
          <FontAwesome5 name="school"size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>College</Text>
@@ -87,7 +100,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
-        onPress={()=>this.props.navigation.navigate("UniversityScreenAdmin")}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('UniversityScreenAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
 
       >
         <Icon name="graduation-cap" size={Scale(20)} color="white" />
@@ -96,7 +114,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
-        onPress={()=>this.props.navigation.navigate("GalleryScreen",{isedit:true})}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate("GalleryScreen",{isedit:true})// Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
         <Icon name="image" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Gallery</Text>
@@ -104,6 +127,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('UniversityScreenAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
         <Icon name="image" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Gallery Details</Text>
@@ -132,6 +161,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('NewsScreenAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
         <MaterialIcons name="newspaper" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>News Feeds</Text>
@@ -147,6 +182,13 @@ class CustomSideMenuAdmin extends Component {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.mainview} 
+       onPress={()=>   {
+        this.props.navigation.closeDrawer(); // Close the drawer first
+        setTimeout(() => {
+          this.props.navigation.navigate('Maintenance'); // Navigate to the AboutUsScreen after a short delay
+        }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+      }}
+      
    >
         <FontAwesome5 name="database" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Maintenance</Text>

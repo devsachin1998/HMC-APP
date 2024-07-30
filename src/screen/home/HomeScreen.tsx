@@ -48,7 +48,8 @@ export default class HomeScreen extends HomeScreenController {
   // Customizable Area End
   renderItemAct = (item: any, index) => {
     return (
-      <View
+      <TouchableOpacity onPress={()=> Linking.openURL(item.FileName)}
+
         style={[
           {
             padding: 10,
@@ -85,12 +86,12 @@ export default class HomeScreen extends HomeScreenController {
             {item.Title.substring(0, 20)}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   renderItemArt = (item: any, index) => {
     return (
-      <View
+      <TouchableOpacity onPress={()=> Linking.openURL(item.FileName)}
         style={[
           {
             borderRadius: 10,
@@ -134,7 +135,7 @@ export default class HomeScreen extends HomeScreenController {
             {item.Title.substring(0, 20)}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   renderItemhead = (item: any) => {

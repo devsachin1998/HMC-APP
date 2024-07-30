@@ -26,6 +26,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons'
 // import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-native-date-picker'
+import Loader from '../../../componants/Loader';
 export default class CouncilLogin extends CouncilLoginController {
   constructor(props: Props) {
     super(props); 
@@ -64,6 +65,8 @@ export default class CouncilLogin extends CouncilLoginController {
           behavior={Platform.OS === 'ios' ? 'padding' : null}
           // keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         >
+                    <Loader loading={this.state.isLoading} />
+
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <ImageBackground
               style={{ width: '100%', height: '100%', justifyContent: 'center' }}
@@ -86,8 +89,8 @@ export default class CouncilLogin extends CouncilLoginController {
                   style={styles.icon}
                 />
               </TouchableOpacity>
-
-              <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 20 }}>
+              <View style={{ flex: 1, justifyContent: 'center' }}>
+              <View style={{ paddingHorizontal: 20 }}>
                 <View style={styles.logoContainer}>
                   <Image
                     resizeMode="cover"
@@ -162,6 +165,7 @@ export default class CouncilLogin extends CouncilLoginController {
                     LOGIN
                   </Text>
                 </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate('Login')}
                   style={{
@@ -176,7 +180,9 @@ export default class CouncilLogin extends CouncilLoginController {
                     Doctor Login ?
                   </Text>
                 </TouchableOpacity>
-              </View>
+                </View>
+               
+          
               <View style={{ justifyContent: 'flex-end', flex: 0.1 }}>
                 <Text style={{
                   paddingStart: 0,

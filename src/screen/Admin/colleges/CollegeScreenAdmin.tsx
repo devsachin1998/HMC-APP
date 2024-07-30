@@ -35,6 +35,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome';
 // import ImageComponent from "./components/ImageComponent/ImageComponent";
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
+import BackIcon from 'react-native-vector-icons/Entypo';
 
 import Loader from '../../../componants/Loader';
 import CollegeScreenAdminController, {Props} from './CollegeScreenAdminController';
@@ -194,7 +195,35 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
         <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
           <CustomHeader />
           <Loader loading={this.state.isLoading} />
-
+          <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: 'blue',
+                padding: 10,
+              }}>
+              <TouchableOpacity
+                style={{flex: 0.1}}
+                onPress={() => this.props.navigation.goBack()}>
+                <BackIcon
+                  name="chevron-small-left"
+                  size={32}
+                  color="white"
+                  style={{width: Scale(30), height: Scale(30)}}
+                />
+              </TouchableOpacity>
+              <View style={{flex: 1, alignSelf: 'center'}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    marginStart: 5,
+                    marginTop: 1,
+                    fontSize: Scale(18),
+                  }}>
+                  {'Colleges'}
+                </Text>
+              </View>
+            </View>
           <View>
           <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',padding:5,backgroundColor:'white',borderRadius:8}}>
           <Icon
@@ -206,7 +235,6 @@ export default class CollegeScreenAdmin extends CollegeScreenAdminController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-underlineColorAndroid='red'
 autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.searchValueById(e)}
@@ -278,6 +306,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flex:1,
     padding: 10,
+    marginBottom:0,
     borderColor: 'skyblue',
     borderBottomWidth: 1,
     borderRadius: 5,

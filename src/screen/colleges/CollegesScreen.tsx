@@ -166,6 +166,7 @@ export default class CollegeScreen extends CollegeScreenController {
               </View>
               <View style={{flexDirection: 'row',justifyContent:'center',marginTop:10}}>
                 <TouchableOpacity
+                onPress={()=> this.setState({modal:false},()=>Linking.openURL(`http://hmc.khedutmitra.com/Colleges/${item.PDFFile}`))}
                   style={{
                     backgroundColor: '#3F3F3F',
                     padding: 5,
@@ -285,8 +286,6 @@ export default class CollegeScreen extends CollegeScreenController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-underlineColorAndroid='red'
-autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.updateValueById(e)}
             />

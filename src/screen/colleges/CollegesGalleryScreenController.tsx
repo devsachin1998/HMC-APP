@@ -2,6 +2,7 @@ import {Component} from 'react';
 import {apiFunctions, storeData, getdata, launchGallary} from '../../globalServices/utils';
 import {makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
+import RNFS from 'react-native-fs';
 
 export interface Props {
   navigation?: any;
@@ -123,11 +124,15 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
   }
   uploadimages =()=>
     {
-      launchGallary((response: string) => {
+      launchGallary(async (response: string) => {
         const data = JSON.parse(response);
-        // console.log("dsad",data)
-        const selectedImage = data.assets[0].base64;
-        this.addimages(selectedImage);
+         console.log("dsad",data)
+        const selectedImage = data.assets[0].uri;
+        // console.log("dsad",selectedImage)
+        const fileData = await RNFS.readFile(selectedImage, 'base64');
+       console.log("dsad",fileData)
+
+    //   this.addimages(selectedImage);
     })  }
 
   addimages = async (selectedImage) => {
@@ -136,10 +141,11 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
     const loginDetails= await getdata("loginDetails");
     let ID =  loginDetails.UserID;
     let collegeid = this.props.route.params?.Id;
-    let CollegeName = this.props.route.params.CollegeName;
-    const responseData = 
-    await makeApiCallxml(apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`, 'GET', "admin`");
-    console.log('responseData:::--->headline', responseData);
+    console.log('responseData:::--->headline', apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`);
+
+    // let CollegeName = this.props.route.params.CollegeName;
+    // const responseData = 
+    // await makeApiCallxml(apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`, 'GET', "admin`");
 
   // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
   this.setState({isLoading:false})

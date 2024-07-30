@@ -2,6 +2,8 @@ import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
 import {makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
+import RNFetchBlob from 'rn-fetch-blob';
+import { Alert, Platform } from 'react-native';
 
 export interface Props {
   navigation?: any;
@@ -94,6 +96,7 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
       Email:table?.Email,
       Address:table?.Address,
       Website:table?.Website,
+      PDFFile:table?.PDFFile
 
   }))
   this.setState({datalist:jsonData1,filterdata:jsonData1})
@@ -121,6 +124,38 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
  console.log('responseData:::--->headline', responseData);
 
   }
-
+  downloadfile = async () => {
+    const { dirs } = RNFetchBlob.fs;
+    const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir;
+    const configfbAndroid = {
+      fileCache: true,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        mediaScannable: true,
+        title: `26072021114609PM.pdf`,
+        path: `${dirToSave}/26072021114609PM.pdf`,
+      },
+    }
+    try {
+    await RNFetchBlob.config(configfbAndroid)
+        .fetch('GET', `http://hmc.khedutmitra.com/Colleges/26072021114609PM.pdf`)
+        .then((res: any) => {
+          console.log('The file saved path ', res.data);
+        
+        })
+        .catch((e: any) => {
+          Alert.alert("", 'Error in download file.',
+            [
+              {
+                text: "Ok", onPress: async () => {
+                }
+              }
+            ])
+        });
+    } catch (error) {
+      console.log("catch error..", error)
+    }
   // Customizable Area End
+}
 }

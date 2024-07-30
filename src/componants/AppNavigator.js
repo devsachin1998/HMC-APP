@@ -38,6 +38,29 @@ import UniversityScreenAdmin from '../screen/Admin/university/UniversityScreenAd
 import UploadPhotoAdmin from '../screen/Admin/uploadphoto/UploadPhotoAdmin';
 import NewsScreenAdmin from '../screen/Admin/news/NewsScreenAdmin';
 import AddNewsAdmin from '../screen/Admin/news/AddNewsAdmin';
+import CountryScreenAdmin from '../screen/Admin/countries/CountryScreenAdmin';
+import AddCountryAdmin from '../screen/Admin/countries/AddCountryAdmin';
+import StatesScreenAdmin from '../screen/Admin/states/StatesScreenAdmin';
+import AddStatesAdmin from '../screen/Admin/states/AddStatesAdmin';
+import DistrictScreenAdmin from '../screen/Admin/districts/DistrictScreenAdmin';
+import AddDistrictsAdmin from '../screen/Admin/districts/AddDistrictsAdmin';
+import TalukaScreenAdmin from '../screen/Admin/talukas/TalukaScreenAdmin';
+import AddTalukaAdmin from '../screen/Admin/talukas/AddTalukaAdmin';
+import CityScreenAdmin from '../screen/Admin/cities/CityScreenAdmin';
+import AddCityAdmin from '../screen/Admin/cities/AddCityAdmin';
+import DesignationScreenAdmin from '../screen/Admin/designations/DesignationScreenAdmin';
+import AddDesignationAdmin from '../screen/Admin/designations/AddDesignationAdmin';
+import UserTypesScreenAdmin from '../screen/Admin/userType/UserTypesScreenAdmin';
+import AddUserTypesAdmin from '../screen/Admin/userType/AddUserTypesAdmin';
+import QueriesPageScreen from '../screen/Admin/queries/QueriesPageScreen';
+import AddQueryScreen from '../screen/Admin/queries/AddQueryScreen';
+import QualificationScreenAdmin from '../screen/Admin/qualifications/QualificationScreenAdmin';
+import AddQualificationAdmin from '../screen/Admin/qualifications/AddQualificationAdmin';
+import AddactsToNotificationAdmin from '../screen/Admin/actsToNotification/AddactsToNotificationAdmin';
+import ActsToNotificationScreenAdmin from '../screen/Admin/actsToNotification/ActsToNotificationScreenAdmin';
+import { TransitionPresets } from '@react-navigation/stack';
+import CouncilMemberAdmin from '../screen/Admin/councilmember/CouncilMemberAdmin';
+import AddCouncilMemberAdmin from '../screen/Admin/councilmember/AddCouncilMemberAdmin';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -46,7 +69,16 @@ const AppNavigator = () => (
   <NavigationContainer>
 
     <Stack.Navigator initialRouteName="SplashScreen">
-
+      <Stack.Screen
+        name="ActsToNotificationScreenAdmin"
+        component={ActsToNotificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddactsToNotificationAdmin"
+        component={AddactsToNotificationAdmin}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
@@ -184,7 +216,8 @@ const DrawerNavigator = ({navigation}) => {
        <Stack.Screen
         name="CollegeScreen"
         component={CollegeScreen}
-        options={{headerShown: false}}
+        options={{headerShown: false        ,  ...TransitionPresets.SlideFromRightIOS,
+        }}
       />
       
        <Stack.Screen
@@ -306,8 +339,8 @@ const DrawerNavigatorAdmin = () => {
       <Stack.Screen
         name="GalleryScreen"
         component={GalleryScreen}
-        options={{headerShown: false}}
-      />
+        options={{headerShown: false        ,  ...TransitionPresets.SlideFromRightIOS,}}
+          />
        <Stack.Screen
         name="Maintenance"
         component={Maintenance}
@@ -323,6 +356,17 @@ const DrawerNavigatorAdmin = () => {
         component={AddCollegeAdmin}
         options={{headerShown: false}}
       />
+        <Stack.Screen
+        name="CouncilMemberAdmin"
+        component={CouncilMemberAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="AddCouncilMemberAdmin"
+        component={AddCouncilMemberAdmin}
+        options={{headerShown: false}}
+      />
+      
        <Stack.Screen
         name="AddUniversityAdmin"
         component={AddUniversityAdmin}
@@ -346,6 +390,108 @@ const DrawerNavigatorAdmin = () => {
        <Stack.Screen
         name="NewsScreenAdmin"
         component={NewsScreenAdmin}
+        />
+        <Stack.Screen
+        name="CountryScreenAdmin"
+        component={CountryScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddCountryAdmin"
+        component={AddCountryAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="StatesScreenAdmin"
+        component={StatesScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddStatesAdmin"
+        component={AddStatesAdmin}
+        options={{headerShown: false}}
+      />
+
+      <Stack.Screen
+        name="DistrictScreenAdmin"
+        component={DistrictScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddDistrictsAdmin"
+        component={AddDistrictsAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="TalukaScreenAdmin"
+        component={TalukaScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddTalukaAdmin"
+        component={AddTalukaAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="CityScreenAdmin"
+        component={CityScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddCityAdmin"
+        component={AddCityAdmin}
+        options={{headerShown: false}}
+      />
+          <Stack.Screen
+        name="DesignationScreenAdmin"
+        component={DesignationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddDesignationAdmin"
+        component={AddDesignationAdmin}
+        options={{headerShown: false}}
+      />
+
+    <Stack.Screen
+        name="UserTypesScreenAdmin"
+        component={UserTypesScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddUserTypesAdmin"
+        component={AddUserTypesAdmin}
+        options={{headerShown: false}}
+      />
+
+    <Stack.Screen
+        name="QueriesPageScreen"
+        component={QueriesPageScreen}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddQueryScreen"
+        component={AddQueryScreen}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="QualificationScreenAdmin"
+        component={QualificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddQualificationAdmin"
+        component={AddQualificationAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="ActsToNotificationScreenAdmin"
+        component={ActsToNotificationScreenAdmin}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddactsToNotificationAdmin"
+        component={AddactsToNotificationAdmin}
         options={{headerShown: false}}
       />
     </Drawer.Navigator>

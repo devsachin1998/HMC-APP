@@ -64,6 +64,7 @@ export default class Login extends LoginController {
           behavior={Platform.OS === 'ios' ? 'padding' : null}
           // keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
         >
+          
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
     
        <ImageBackground
