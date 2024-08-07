@@ -35,6 +35,7 @@ import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 import {TextInput} from 'react-native-gesture-handler';
 import Loader from '../../../componants/Loader';
+import { apiFunctions } from '../../../globalServices/utils';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -129,9 +130,12 @@ export default class ArticlePage extends ArticlePageController {
                 <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
                   {item.Date}{' '}
                 </Text>
-                <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+                
+                <TouchableOpacity onPress={()=> Linking.openURL(apiFunctions.bannerurl+"Article/"+item.PDFFile)}>
+                <Text style={{marginVertical: Scale(1), color: '#009AEE',textDecorationLine:'underline'}}>
                   {item.PDFFile}{' '}
                 </Text>
+                </TouchableOpacity>
                 <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
                   {item.Description}{' '}
                 </Text>

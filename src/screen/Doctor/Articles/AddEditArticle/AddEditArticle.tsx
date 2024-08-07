@@ -38,6 +38,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AddEditArticleController, {Props} from './AddEditArticleController';
 import {CustomHeader} from '../../../../componants/CustomHeader';
 import Scale from '../../../../globalServices/Scale';
+import Loader from '../../../../componants/Loader';
 
 // import { Button } from "react-native-elements";
 // Customizable Area End
@@ -83,6 +84,8 @@ export default class EditArticle extends AddEditArticleController {
       <SafeAreaView style={{ flex: 1 }}>
        
        <CustomHeader backgroundColor='maroon' logout={true}/>
+       <Loader loading={this.state.isLoading}></Loader>
+
           <View style={{backgroundColor:'green',flexDirection:'row',alignItems:'center',paddingLeft:Scale(10)}}>
             <Icon
             name="article"
@@ -104,10 +107,7 @@ export default class EditArticle extends AddEditArticleController {
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Date</Text>
             <TouchableOpacity style={{borderWidth:1,borderColor:'green',paddingStart:Scale(5),borderRadius:Scale(5)}}>
 
-                <TextInput placeholder='Date' style={{fontSize:Scale(14),height:45}} value={date1.toISOString().substr(0, 10) ==
-                  new Date().toISOString().substr(0, 10)
-                    ? ''
-                    : date1.toISOString().substr(0, 10)} onPressIn={()=>this.setState({open: true})}/>
+                <TextInput placeholder='Date' style={{fontSize:Scale(14),height:45}} value={date1.toISOString().substr(0, 10)} onPressIn={()=>this.setState({open: true})}/>
                 <DatePicker
                     modal
                     open={open}
@@ -134,20 +134,21 @@ export default class EditArticle extends AddEditArticleController {
               style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5)}}>
                 <Text  style={{color:'white',fontWeight:'bold'}}>CHOOSE FILE</Text>
               </TouchableOpacity>
-              <Text>No File Choosen</Text>
+              <Text>{this.state.filename==""?"No File Choosen":this.state.filename}</Text>
             </View>
             <View>
             <Text style={{fontWeight:'bold',paddingStart:5,marginTop:15}}>Description</Text>
             <TextInput
               placeholder='Description'
               multiline={true}
+              
               style={{borderWidth:1,borderColor:'green',borderRadius:Scale(5),padding:Scale(10),marginVertical:Scale(10),height:100}}
               value={this.state.desc}
               onChangeText={(e)=>this.setState({desc:e})}
             />
             </View>
             <View style={{flexDirection:'row',justifyContent:'space-between',gap:10}}>
-              <TouchableOpacity onPress={()=>this.addArticle()} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
+              <TouchableOpacity onPress={()=>this.state.ArticleID==""?this.addArticle(): this.updateArticle() } style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'white',fontWeight:'bold'}}>SUBMIT</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={()=>this.props.navigation.navigate("ArticlePage")} style={{padding:Scale(10),backgroundColor:'green',borderRadius:Scale(5),flex:1,justifyContent:'center',alignItems:'center'}}>

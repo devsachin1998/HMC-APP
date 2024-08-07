@@ -1,9 +1,10 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../../../globalServices/utils';
-import {makeApiCallxml} from '../../../../globalServices/api';
+import {makeApiCallxml, makeApiCallxmlimage} from '../../../../globalServices/api';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 import moment from 'moment';
+// import RNFS from 'react-native-fs';
 
 
 export interface Props {
@@ -35,7 +36,9 @@ interface S {
   articleName:string,
   pickedDocument:any,
   pdfFile:any,
+  filename:any,
   desc:string,
+  ArticleID:any
 
   // Customizable Area End
 }
@@ -68,6 +71,8 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
       totalPage: 1,
       moreLoading: false,
       images:[],
+      filename:"",
+      ArticleID:'',
       currentIndex: 0,
       texts: [
         {
@@ -99,40 +104,97 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
-    
-    this.setState({isLoading:true})
-   this.getArticle();
-  }
-  
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+
+
  
-  getArticle = async()=>{
-    const responseData = await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
-    console.log('responseData Articles::--->', responseData);
-    const jsonData1 =  responseData.Table.map((table: any) => ({
-      Title: table?.Title,
-      Date: table?.Date,
-      PDFFile:table?.PDFFile,
-      Description:table?.Description,
-      ArticleID:table?.ArticleID,
-      iscollaps:false
-    }))
-    this.setState({ArticleList:jsonData1})
-    this.setState({isLoading:false})
+    if(this.props?.route.params.type==1)
+    {
+      let item =this.props.route.params.item
+      
+      // console.log("date1111')",moment(item.Date).format('YYYY-MM-DD'))
+      this.setState({desc:item.Description,articleName:item.Title,filename:item.PDFFile,date1:new Date(item.Date),ArticleID:item.ArticleID})
+
+    } 
+
   }
 
-  addArticle = async()=>{
+
+  addArticle = async () => {
     this.setState({isLoading:true})
-    const pdfFile = ""
+    const pdfFile = this.state.pdfFile
+
     const loginDetails= await getdata("loginDetails")
     const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
-    const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title=${this.state.articleName}&Date1=${sDate}&PDFDoc=${pdfFile}&Description=${this.state.desc}&RegistrationID=${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
-    console.log('responseData Articles::--->', responseData);
-    this.setState({isLoading:false})
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("UN1", "1");
+    urlencoded.append("PWD1", "1");
+    urlencoded.append("Title", this.state.articleName);
+    urlencoded.append("Date1", sDate);
+    urlencoded.append("Description", this.state.desc);
+
+    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP);
+    urlencoded.append('PDFDoc',pdfFile)
+    const responseData = 
+    await makeApiCallxmlimage(apiFunctions.ArticleInsert, 'POST', "web",urlencoded.toString());
+    console.log("responseData",responseData)
+    this.props.navigation.navigate("ArticlePage")
+        // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+  this.setState({isLoading:false})
+  
+  
   }
+  updateArticle = async () => {
+    this.setState({isLoading:true})
+    const pdfFile = this.state.pdfFile
+
+    const loginDetails= await getdata("loginDetails")
+    const sDate=moment(this.state.date1).format('YYYY-MM-DD');
+
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("UN1", "1");
+    urlencoded.append("ArticleID", this.state.ArticleID);
+    
+    urlencoded.append("PWD1", "1");
+    urlencoded.append("Title", this.state.articleName);
+    urlencoded.append("Date1", sDate);
+    urlencoded.append("Description", this.state.desc);
+
+    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP);
+    if(pdfFile=="")
+    {
+      const response = await RNFetchBlob.config({ fileCache: true }).fetch("GET", apiFunctions.bannerurl+"Article/"+this.state.filename);
+      const base64Data = await response.readFile("base64");
+      urlencoded.append('PDFDoc',base64Data)
+    }
+    else
+    {
+      urlencoded.append('PDFDoc',pdfFile)
+    }
+   
+
+    const responseData = 
+    await makeApiCallxmlimage(apiFunctions.ArticleUpdate, 'POST', "web",urlencoded.toString());
+    console.log("responseData",responseData)
+    this.props.navigation.navigate("ArticlePage")
+        // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+  this.setState({isLoading:false})
+  
+  
+  }
+
+  // addArticle = async()=>{
+  //   this.setState({isLoading:true})
+  //   const pdfFile = ""
+  //   const loginDetails= await getdata("loginDetails")
+  //   const sDate=moment(this.state.date1).format('YYYY-MM-DD');
+
+  //   const responseData = await makeApiCallxml(apiFunctions.ArticleInsert+`?UN1=1&PWD1=1&Title=${this.state.articleName}&Date1=${sDate}&PDFDoc=${pdfFile}&Description=${this.state.desc}&RegistrationID=${loginDetails[0]?.CouncilMemberIDP}`, 'GET', "web");
+  //   console.log('responseData Articles::--->', responseData);
+  //   this.setState({isLoading:false})
+  // }
 
   updateValueById = (ArticleID) => {
     let updatedDataList = this.state.ArticleList.map(article => {
@@ -153,13 +215,15 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
         
+        
       });
       // this.setState({ file: res });
       console.log("sdsdsdf",res);
 
-      let resi=res[0].uri;
+      // let resi=res[0].uri;
+      let resi = res[0].uri.replace('file://', '');
       const fileBase64 = await RNFetchBlob.fs.readFile(resi, 'base64');
-      console.log("sdsdsdf",fileBase64);
+      this.setState({pdfFile:fileBase64,filename:res[0].name})
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('User canceled the picker');

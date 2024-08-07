@@ -98,6 +98,7 @@ export default class FAQPageController extends Component<Props, S, SS> {
   }
  
   getFAQS = async()=>{
+    
     const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', "admin");
     // console.log('responseData FAQS:::--->', responseData);
     const jsonData1 =  responseData.Table.map((table: any) => ({

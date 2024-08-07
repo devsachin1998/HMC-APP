@@ -59,6 +59,7 @@ export default class DownloadScreen extends DownloadScreenController {
               borderWidth: 1,
               borderColor: '#009AEE',
               borderRadius: 5,
+              height:90,
               marginTop: 3,
             }}>
             <View style={{flex: 1, flexDirection: 'row'}}>
@@ -86,9 +87,11 @@ export default class DownloadScreen extends DownloadScreenController {
                 }}>
                 PDF File
               </Text>
-              <Text style={{flex: 1, paddingStart: 10, color: '#009AEE'}}>
+              <TouchableOpacity style={{flex: 1, paddingStart: 10,}} onPress={()=> Linking.openURL("https://gujarathmc.org/FileDownload.ashx?pId=293&filename=Attachment/"+item.FileName+"&fileIDP="+item.AttachmentIDP)}>
+              <Text style={{flex: 1, color: '#009AEE',fontSize:Scale(12),textDecorationLine:'underline'}}>
                 {item.FileName}
               </Text>
+              </TouchableOpacity>
             </View>
            
           </View>
@@ -155,18 +158,18 @@ export default class DownloadScreen extends DownloadScreenController {
             <TextInput
               placeholder="Search hear.."
               style={styles.input}
-underlineColorAndroid='red'
+// underlineColorAndroid='red'
 autoCorrect={false}
               // value={this.state.firstName}
               onChangeText={(e)=>this.searchValueById(e)}
             />
             </View>
-            <View >
+            <View style={{marginBottom:200}} >
               <FlatList
                 data={this.state.datalist}
                 extraData={this.state.datalist}
                 renderItem={({item, index}) => this.renderItemAct(item, index)}
-                contentContainerStyle={{paddingBottom: 150}}
+                contentContainerStyle={{marginBottom: 150}}
                 // keyExtractor={(item) => item.id}
               />
             </View>

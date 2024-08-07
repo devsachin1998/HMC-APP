@@ -22,6 +22,7 @@ interface S {
   open: boolean,
   date1: any,
   termsAndConditions:any,
+  isloading:any;
 }
 
 interface SS {
@@ -34,11 +35,12 @@ export default class LoginController extends Component<Props, S, SS> {
     this.state = {
       phoneNumber: '',
       isDatePickerVisible: false,
-      date: new Date(1598051730000),
+      date: '',
       mode: 'date',
       open: false,
-      date1: new Date(),
+      date1: '',
       termsAndConditions: '',
+      isloading:false
     };
   }
 
@@ -100,30 +102,63 @@ export default class LoginController extends Component<Props, S, SS> {
     }
  
   onClickDoctorLogin = async ()=>{
-    if(this.state.phoneNumber=="" && this.state.date1 )
+    this.setState({isloading:true})
+    console.log("this.state.phoneNumber",typeof(this.state.phoneNumber))
+    console.log("this.state.date1",typeof(this.state.phoneNumber))
+
+    if(this.state.date1 == "")
       {
         let msg="Please Enter Phone Number and Date.."
+        this.setState({isloading:false})
+
         if (Platform.OS === 'android') {
           return  ToastAndroid.show(msg, ToastAndroid.SHORT)
         } else {
           return  Alert.alert(msg);
         }
       }
-      else
+      else if (this.state.phoneNumber == "")
       {
+        let msg="Please Enter Phone Number and Date.."
+        this.setState({isloading:false})
+
+        if (Platform.OS === 'android') {
+          return  ToastAndroid.show(msg, ToastAndroid.SHORT)
+        } else {
+          return  Alert.alert(msg);
+        }
+      }
+      else 
+      {
+        
     const sDate=moment(this.state.date1).format('YYYY-MM-DD');
 
     const responseData = await makeApiCall(apiFunctions.DoctorLogin+`?MobileNo=${this.state.phoneNumber}&DateOfBirth=${sDate}`, 'GET');
     console.log('responseData:::  LOGIn--->', responseData);
    if(responseData)
     {
+      if(responseData[0].Status=="Entry not found")
+      {
+        this.setState({isloading:false})
+
+        if (Platform.OS === 'android') {
+          return  ToastAndroid.show(responseData[0].Status, ToastAndroid.SHORT)
+        } else {
+          return  Alert.alert(responseData[0].Status);
+        }
+      }
+      else
+      {
       storeData("loginDetails",responseData)
+      this.setState({isloading:false})
 
       this.props.navigation.navigate('DrawerNavigatorDoctor');
+      }
     }
     else
     {
       let msg="Please Enter Valid Phone Number and Date.."
+      this.setState({isloading:false})
 
       if (Platform.OS === 'android') {
         return  ToastAndroid.show(msg, ToastAndroid.SHORT)

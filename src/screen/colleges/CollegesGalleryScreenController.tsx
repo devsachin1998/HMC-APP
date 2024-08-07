@@ -1,8 +1,9 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata, launchGallary} from '../../globalServices/utils';
-import {makeApiCallxml} from '../../globalServices/api';
+import {makeApiCallxml, makeApiCallxmlimage} from '../../globalServices/api';
 import moment from 'moment';
 import RNFS from 'react-native-fs';
+import { Alert } from 'react-native';
 
 export interface Props {
   navigation?: any;
@@ -96,6 +97,7 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
       CollegeID:table?.CollegeID, 
       CollegeName:table?.CollegeName,
       Image:apiFunctions.bannerurl+"img/CollegeGallery/"+table?.Image,
+      CollegeGalleryID:table?.CollegeGalleryID
 
   }))
   let filteredData = jsonData1.filter((item: { CollegeID: any; }) => item.CollegeID == collegeID);
@@ -103,7 +105,7 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
   this.setState({datalist:filteredData})
   this.setState({isLoading:false})
 
-//  console.log('responseData:::--->headline', this.state.datalist);
+ console.log('responseData:::--->headline', this.state.datalist);
 
   }
   getGallaryDetails = async (GalleryID:any) => {
@@ -122,31 +124,100 @@ export default class CollegeScreenController extends Component<Props, S, SS> {
  console.log('responseData:::--->headline', jsonData1);
 
   }
-  uploadimages =()=>
+  showAlert = (CollegeGalleryID: any) => {
+    Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress:()=> this.deleteNotification(CollegeGalleryID) },
+      ],
+      { cancelable: false }
+    );
+  };
+  deleteNotification = async (CollegeGalleryID: any) => {
+    this.setState({isLoading:true})
+   
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    const res = await makeApiCallxml(apiFunctions.CollegeGalleryDelete+`?UN1=1&PWD1=1&CollegeGalleryID=${CollegeGalleryID}&UserID=${ID}`,'GET',"admin");
+   console.log("dsadasd0",res)
+   
+    // this.setState({isLoading:false})
+    const ID1 = this.props.route.params?.Id;
+
+    this.getdata(ID1);
+
+  
+  
+  }
+  uploadimages =(type:any,id:any)=>
     {
       launchGallary(async (response: string) => {
         const data = JSON.parse(response);
          console.log("dsad",data)
-        const selectedImage = data.assets[0].uri;
-        // console.log("dsad",selectedImage)
-        const fileData = await RNFS.readFile(selectedImage, 'base64');
-       console.log("dsad",fileData)
+        const selectedImage = data.assets[0].base64;
+        if(type=="add")
+        {
+          this.addimages(selectedImage);
 
-    //   this.addimages(selectedImage);
+        }
+        else
+        {
+          this.updateimage(selectedImage,id);
+
+        }
     })  }
 
-  addimages = async (selectedImage) => {
+  addimages = async (selectedImage: string) => {
     this.setState({isLoading:true})
 
     const loginDetails= await getdata("loginDetails");
     let ID =  loginDetails.UserID;
     let collegeid = this.props.route.params?.Id;
-    console.log('responseData:::--->headline', apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`);
+    let CollegeName = this.props.route.params.CollegeName;
 
-    // let CollegeName = this.props.route.params.CollegeName;
-    // const responseData = 
-    // await makeApiCallxml(apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`, 'GET', "admin`");
+    // console.log('responseData:::--->headline', apiFunctions.CollegeGalleryInsert+`?UN1=1&PWD1=1&CollegeID=${collegeid}&UserID=${ID}&abc=${selectedImage}`);
 
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("UN1", "1");
+    urlencoded.append("PWD1", "1");
+    urlencoded.append("CollegeID", collegeid);
+    urlencoded.append("UserID", ID);
+    urlencoded.append('abc',selectedImage)
+    const responseData = 
+    await makeApiCallxmlimage(apiFunctions.CollegeGalleryInsert, 'POST', "admin",urlencoded.toString());
+    console.log("responseData",responseData)
+    this.getdata(collegeid);
+  // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+  this.setState({isLoading:false})
+  
+  
+  }
+  updateimage = async (selectedImage: string,CollegeGalleryID:any) => {
+    this.setState({isLoading:true})
+
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    let collegeid = this.props.route.params?.Id;
+    let CollegeName = this.props.route.params.CollegeName;
+
+
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("UN1", "1");
+    urlencoded.append("PWD1", "1");
+    urlencoded.append("CollegeID", collegeid);
+    urlencoded.append("CollegeGalleryID", CollegeGalleryID);
+    urlencoded.append("UserID", ID);
+    urlencoded.append('abc',selectedImage)
+    const responseData = 
+    await makeApiCallxmlimage(apiFunctions.CollegeGalleryUpdate, 'POST', "admin",urlencoded.toString());
+    console.log("responseData",responseData)
+    this.getdata(collegeid);
   // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
   this.setState({isLoading:false})
   

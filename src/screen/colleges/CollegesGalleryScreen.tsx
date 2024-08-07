@@ -77,7 +77,7 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
       {this.state.edit?
         <View style={{backgroundColor:'skyblue',flexDirection:'row',alignSelf:'center',marginEnd:10,flex:0.4}}>
         <TouchableOpacity  style={{flex:1,alignItems:'center'}} 
-           onPress={() => { this.props.navigation.navigate('AddCollegeAdmin',{edit:true,item:item})}}>
+                  onPress={() => this.uploadimages("update",item.CollegeGalleryID)}>
           <FontAwesome5
             name={'pencil'}
             size={25}
@@ -85,7 +85,7 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
             style={{padding: 5, marginEnd: 1, marginTop:6}}
           />
            </TouchableOpacity>
-           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.CollegeID)}>
+           <TouchableOpacity  style={{flex:1,alignItems:'center'}}  onPress={()=>this.showAlert(item.CollegeGalleryID)}>
            <FontAwesome5
             name={'trash'}
             size={25}
@@ -154,7 +154,7 @@ export default class CollegesGalleryScreen extends CollegesGalleryScreenControll
           small
           color='white'
           icon="plus"
-          onPress={() => this.uploadimages()}
+          onPress={() => this.uploadimages("add",-1)}
         />:null}
       </SafeAreaView>
     );

@@ -32,13 +32,13 @@ export default class CouncilLoginController extends Component<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      name: 'Admin',
+      name: '',
       isDatePickerVisible: false,
       date: new Date(1598051730000),
       mode: 'date',
       open: false,
       date1: new Date(),
-      Password:'7710',
+      Password:'',
       isLoading:false
     };
   }

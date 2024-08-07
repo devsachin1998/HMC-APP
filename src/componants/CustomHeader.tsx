@@ -59,7 +59,7 @@ export const CustomHeader = ({backgroundColor='#3F3F3F',logout=false,menu=true})
             flex: 1,
             marginStart: Scale(5),
 
-            fontSize: Scale(15),
+            fontSize: Scale(13),
           }}>
           Council Of Homoeopathic System Of Medicine
         </Text>

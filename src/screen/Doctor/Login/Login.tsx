@@ -26,6 +26,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons'
 // import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-native-date-picker'
+import Loader from '../../../componants/Loader';
 export default class Login extends LoginController {
   constructor(props: Props) {
     super(props);
@@ -59,6 +60,7 @@ export default class Login extends LoginController {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={{ flex: 1 }}>
+        <Loader loading={this.state.isloading}></Loader>
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -135,7 +137,15 @@ export default class Login extends LoginController {
               <TouchableOpacity
                 onPress={() => this.setState({open:true})}
                 >
-                <TextInput
+                   <Text  style={{color: date1 == ""?'#C0C0C0':'black',fontSize:15}}>
+
+{  date1 == ""
+                ? 'Select Date'
+                : date1 .toISOString().substr(0, 10)}
+            
+  
+  </Text>
+                {/* <TextInput
                   placeholder="Select Date"
                   autoCapitalize="sentences"
                   returnKeyType="next"
@@ -143,12 +153,12 @@ export default class Login extends LoginController {
                   color="black"
                   value={date1.toISOString().substr(0, 10) == new Date().toISOString().substr(0, 10) ?'':date1.toISOString().substr(0, 10)}
                   // onChangeText={(txt) => setCloseDate(txt)}
-                />
+                /> */}
               </TouchableOpacity>
               <DatePicker
                 modal
                 open={open}
-                date={date1}
+                date={this.state.date1 == "" ? new Date():this.state.date1 }
                 mode="date"
                 onConfirm={selectedDate => {
                   console.log(

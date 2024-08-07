@@ -63,7 +63,12 @@ class CustomSideMenuDoctor extends Component {
             <ScrollView>
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("DoctorHomeScreen")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('DoctorHomeScreen'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <Icon name="home" size={Scale(20)} color="white"  />
                 <Text style={styles.textstyle}>Home</Text>
@@ -82,16 +87,24 @@ class CustomSideMenuDoctor extends Component {
   
               <TouchableOpacity
                 style={styles.mainview}
-                
-                onPress={()=>this.props.navigation.navigate("ArticlePage")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('ArticlePage'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <MaterialIcons name="article" size={20} color="white"  />
                 <Text style={styles.textstyle}>Articles</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.mainview}
-                
-                onPress={()=>this.props.navigation.navigate("QueriesPage")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('QueriesPage'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <MaterialIcons name="progress-question" size={20} color="white"  />
                 <Text style={styles.textstyle}>Queries</Text>
@@ -99,7 +112,12 @@ class CustomSideMenuDoctor extends Component {
              
               <TouchableOpacity
                 style={styles.mainview}
-                onPress={()=>this.props.navigation.navigate("FAQPage")}
+                onPress={()=>   {
+                  this.props.navigation.closeDrawer(); // Close the drawer first
+                  setTimeout(() => {
+                    this.props.navigation.navigate('FAQPage'); // Navigate to the AboutUsScreen after a short delay
+                  }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+                }}
                 >
                <MaterialIcons name="frequently-asked-questions" size={20} color="white"  />
                 <Text style={styles.textstyle}>FAQs</Text>

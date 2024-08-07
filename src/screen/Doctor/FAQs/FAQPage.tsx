@@ -34,6 +34,7 @@ import FAQPageController, {Props} from './FAQPageController';
 import {CustomHeader} from '../../../componants/CustomHeader';
 import Scale from '../../../globalServices/Scale';
 import { TextInput } from 'react-native-gesture-handler';
+import Loader from '../../../componants/Loader';
 // import { Button } from "react-native-elements";
 // Customizable Area End
 
@@ -97,7 +98,7 @@ export default class FAQPage extends FAQPageController {
     const { searchVal,iconChange } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-       
+       <Loader loading={this.state.isLoading}></Loader>
        <CustomHeader backgroundColor={this.props?.route?.params?.isfrom=="basic"?'#3F3F3F':"maroon"}  logout={this.props?.route?.params?.isfrom=="basic"?false:true}/>
           <View style={{backgroundColor:'blue'}}>
             <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>FAQs</Text>

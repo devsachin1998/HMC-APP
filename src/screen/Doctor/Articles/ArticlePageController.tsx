@@ -94,6 +94,8 @@ export default class ArticlePageController extends Component<Props, S, SS> {
   }
  
   getArticle = async()=>{
+    this.setState({isLoading:true})
+
     const responseData = await makeApiCallxml(apiFunctions.ArticleSelect+"?UN1=1&PWD1=1", 'GET', "web");
     console.log('responseData Articles::--->', responseData);
     const jsonData1 =  responseData.Table.map((table: any) => ({
@@ -140,13 +142,15 @@ export default class ArticlePageController extends Component<Props, S, SS> {
   };
  
   deleteArticle = async(ArticleID)=>{
+    this.setState({isLoading:true})
+
     const user = await getdata('loginDetails');
     const id = user[0].CouncilMemberIDP;
     const responseData = await makeApiCallxml(apiFunctions.ArticleDelete+`?UN1=1&PWD1=1&ArticleID=${ArticleID}&RegistrationID=${id}`, 'GET', "web");
     console.log('responseData Articles oof delete::--->', responseData,ArticleID);
   
     this.getArticle()
-    //this.setState({isLoading:false})
+    this.setState({isLoading:false})
 
   }
   
