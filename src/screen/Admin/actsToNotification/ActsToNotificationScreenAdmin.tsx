@@ -113,13 +113,16 @@ export default class ActsToNotificationScreenAdmin extends ActsToNotificationScr
              Download Description
              </Text>
            </View>
-           <View style={{marginVertical: Scale(10), paddingLeft: Scale(5)}}>
+           <View style={{marginVertical: Scale(10), paddingLeft: Scale(5),flex:1}}>
              <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
                {item.Title}{' '}
              </Text>
-             <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
+             <TouchableOpacity onPress={()=>Linking.openURL("http://hmc.Khedutmitra.com/Notification/"+item.FileName)}>
+             <Text style={{marginVertical: Scale(1), color: '#009AEE',textDecorationLine:"underline"}}>
                {item.FileName}{' '}
              </Text>
+
+             </TouchableOpacity>
              <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
                {item.FileType}{' '}
              </Text>
@@ -148,7 +151,7 @@ export default class ActsToNotificationScreenAdmin extends ActsToNotificationScr
               }}>
               <TouchableOpacity
                 style={{flex: 0.1,alignSelf:'center',marginTop:5}}
-                onPress={() => this.props.navigation.goBack()}>
+                onPress={() => this.props.navigation.navigate("Maintenance")}>
                 <Icon
                   name="chevron-back-sharp"
                   size={25}

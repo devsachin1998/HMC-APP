@@ -106,7 +106,7 @@ export const makeApiCallxmlimage  = async (endpoint, method, url = "base",body) 
   };
   
   try {
-
+    console.log("Api:::::", options);
     const response = await fetch(apiUrl, options);
     const responseData = await response.text();
     console.log("Api:::::", responseData,response);
@@ -118,7 +118,7 @@ export const makeApiCallxmlimage  = async (endpoint, method, url = "base",body) 
           reject(error);
         } else {
           const tables = result['diffgr:diffgram'].NewDataSet;
-          // console.log("tables:::::11", tables);
+          console.log("tables:::::11", tables);
           resolve(tables);
         }
       });

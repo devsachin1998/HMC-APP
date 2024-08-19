@@ -112,7 +112,9 @@ export default class DownloadScreen extends DownloadScreenController {
           <View style={{padding: 10, flex: 1}}>
             <Text style={{color: 'white'}}>{item.AttachmentTypeName}</Text>
           </View>
-          <TouchableOpacity onPress={()=>{}}>
+          {this.props?.route?.params?.isdelete &&(
+          <TouchableOpacity onPress={()=>{this.showAlert(item.AttachmentTypeIDP)}}>
+       
           <MaterialIcons
             name={'delete'}
             size={23}
@@ -120,6 +122,7 @@ export default class DownloadScreen extends DownloadScreenController {
             style={{padding: 5, marginEnd: 10}}
           />
           </TouchableOpacity>
+          )}
           <FontAwesome5
             name={item.isCollapsed ? 'caret-up' : 'caret-down'}
             size={28}

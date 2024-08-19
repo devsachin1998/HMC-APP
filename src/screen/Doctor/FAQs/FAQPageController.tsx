@@ -85,18 +85,9 @@ export default class FAQPageController extends Component<Props, S, SS> {
   async componentDidMount() {
     this.setState({isLoading:true})
     this.getFAQS();
-
-    this.interval = setInterval(() => {
-      this.setState(prevState => ({
-        currentIndex: (prevState.currentIndex + 1) % this.state.texts.length
-      }));
-    }, 3000);
   }
   
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
- 
+
   getFAQS = async()=>{
     
     const responseData = await makeApiCallxml(apiFunctions.FAQsList+"?UN1=1&PWD1=1", 'GET', "admin");

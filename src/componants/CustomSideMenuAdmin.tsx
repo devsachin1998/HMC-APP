@@ -130,7 +130,7 @@ class CustomSideMenuAdmin extends Component {
         onPress={()=>   {
           this.props.navigation.closeDrawer(); // Close the drawer first
           setTimeout(() => {
-            this.props.navigation.navigate('UniversityScreenAdmin'); // Navigate to the AboutUsScreen after a short delay
+            this.props.navigation.navigate('PhotosAdminScreen'); // Navigate to the AboutUsScreen after a short delay
           }, 100); // Adjust the delay as needed to ensure the drawer animation completes
         }}
       >
@@ -140,6 +140,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('CouncilMemberAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
         <Icon name="users" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Council Members</Text>
@@ -147,6 +153,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('CouncilUserAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
         <Icon name="user" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>Council User</Text>
@@ -154,6 +166,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('FAQPageAdmin'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
       >
   <MaterialCommunityIcons name="frequently-asked-questions" size={Scale(20)} color="white" />
         <Text style={styles.textstyle}>FAQs</Text>
@@ -174,6 +192,12 @@ class CustomSideMenuAdmin extends Component {
 
       <TouchableOpacity
         style={styles.mainview}
+        onPress={()=>   {
+          this.props.navigation.closeDrawer(); // Close the drawer first
+          setTimeout(() => {
+            this.props.navigation.navigate('Addvertisement'); // Navigate to the AboutUsScreen after a short delay
+          }, 100); // Adjust the delay as needed to ensure the drawer animation completes
+        }}
     
       >
            <MaterialCommunityIcons

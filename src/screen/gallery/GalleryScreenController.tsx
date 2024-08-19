@@ -23,6 +23,7 @@ interface S {
   moreLoading: boolean;
   datalist:any;
   selectedTab:any;
+  
   // Customizable Area End
 }
 
@@ -54,7 +55,7 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
       totalPage: 1,
       moreLoading: false,
       datalist:[],
-      selectedTab:'photos'
+      selectedTab:'photos',
       // Customizable Area End
     };
 
@@ -99,12 +100,24 @@ export default class GalleryScreenController extends Component<Props, S, SS> {
           text: 'No',
           style: 'cancel',
         },
-        { text: 'Yes', onPress:()=> {} },
+        { text: 'Yes', onPress:()=> {this.deletegallary(UniversityID)} },
       ],
       { cancelable: false }
     );
   };
- 
+  deletegallary = async (UniversityID) => {
+    this.setState({isLoading:true})
+   
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    const res = await makeApiCallxml(apiFunctions.GalleryDelete+`?UN1=1&PWD1=1&GalleryID=${UniversityID}&UserID=${ID}`,'GET',"admin");
+   console.log("dsadasd0",res)
+   
+    this.setState({isLoading:false})
+    this.getdata()
+  
+  
+  }
   getdata = async () => {
     const responseData =  await makeApiCallxml(apiFunctions.GallerySelect+"?UN1=1&PWD1=1", 'GET', "admin");
     const tables = Array.isArray(responseData.Table) ? responseData.Table : [responseData.Table];

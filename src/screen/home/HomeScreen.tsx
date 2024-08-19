@@ -15,6 +15,8 @@ import {
   SafeAreaView,
   Platform,
   Linking,
+  Dimensions,
+  Modal,
 } from 'react-native';
 import color from '../../globalServices/color';
 import GlobalStyle from '../../globalServices/globalStyle';
@@ -70,7 +72,7 @@ export default class HomeScreen extends HomeScreenController {
         </View>
         <View style={{marginStart: 10}}>
           <Text
-            numberOfLines={1}
+            // numberOfLines={1}
             style={{
               width: '100%',
               fontSize: 16,
@@ -85,6 +87,8 @@ export default class HomeScreen extends HomeScreenController {
             style={{color: 'white', width: '100%', fontSize: 10, padding: 5}}>
             {item.Title.substring(0, 20)}
           </Text>
+          
+        
         </View>
       </TouchableOpacity>
     );
@@ -142,21 +146,42 @@ export default class HomeScreen extends HomeScreenController {
     return (
       <View
         style={[
-          styles.headcontainer,
+          styles.headcontainer,{width:Dimensions.get("window").width-50,},
           Platform.OS === 'android' && styles.androidShadow,
+          
         ]}>
-        <View style={[{flex: 1, padding: 5}]}>
+        <View style={[{ marginEnd:10,marginTop:8}]}>
           <Text
             style={{
               color: 'black',
-              width: '100%',
-              fontSize: 16,
-              padding: 5,
-              fontWeight: 700,
+              fontSize: 14,
+              padding: Scale(7),
+              textAlign:'center',
+              fontWeight: "700",
             }}>
-            {item.item.NewsLine}
+{item.item.NewsLine.length > 75
+    ? `${item.item.NewsLine.substring(0, 70)}...`
+    : item.item.NewsLine}
+{/* {item.item.NewsLine > 100
+              ? `${item.item.NewsLine}`
+              : `${item.item.NewsLine.substring(0, 100)}...`} */}
           </Text>
+          {item.item.NewsLine.length > 75?
+          <TouchableOpacity style={{alignItems:'flex-end'}} onPress={()=>this.setState({showmodal:true,texthead:item.item.NewsLine})}>
+          <Text
+              style={{
+                // padding: 10,
+                // flex:1,
+                color:'red',
+                fontSize: 16,
+                textDecorationLine:'underline',
+                fontWeight: '500',
+              }}>
+              View All
+            </Text>
+            </TouchableOpacity>:null}
         </View>
+       
       </View>
     );
   };
@@ -376,6 +401,41 @@ export default class HomeScreen extends HomeScreenController {
       </View>
     );
   };
+   renderModal = () => {
+    return (
+      <Modal
+            transparent={true}
+            animationType='none'
+            visible={this.state.showmodal}
+            onRequestClose={() => this.setState({ showmodal: false })}
+        >
+            <View style={styles.modalBackground}>
+                <View style={styles.modalBackground2}>
+                    
+                    <View style={{ marginTop: 10 ,alignItems:"center"}}>
+                        <Text style={{ color: 'red', fontSize: 20, fontWeight: "600" }}>{"Headline"}</Text>
+                    </View>
+
+                    <View style={styles.activityIndicatorWrapper}>
+                        <Text style={{ fontWeight: "600" }}>{this.state.texthead}</Text>
+                    </View>
+                    
+                                          <TouchableOpacity
+                        style={styles.okayButton}
+                        onPress={() => {
+                            // Handle Okay button functionality here
+                            this.setState({ showmodal: false });
+                            // Add more actions as needed
+                        }}
+                    >
+                        <Text style={styles.okayButtonText}> Okay </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    );
+};
+
 
   renderbottom = () => {
     return (
@@ -478,6 +538,8 @@ export default class HomeScreen extends HomeScreenController {
                       data={this.state.headline}
                       horizontal
                       renderItem={item => this.renderItemhead(item)}
+                      showsHorizontalScrollIndicator={false}
+                      // contentContainerStyle={{width:"40%"}}
                       // keyExtractor={(item) => item.id}
                     />
                   </View>
@@ -486,6 +548,7 @@ export default class HomeScreen extends HomeScreenController {
                 {this.renderGallary()}
                 {this.renderAct()}
                 {this.renderbottom()}
+                {this.renderModal()}
               </View>
             </ScrollView>
             {this.bottomTab()}
@@ -498,6 +561,54 @@ export default class HomeScreen extends HomeScreenController {
 
 // Customizable Area Start
 const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+modalBackground2: {
+    // justifyContent: 'space-between', // Adjust this to push content apart
+    // alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    height: "75%",
+    width: "90%", // Make the modal responsive
+    padding: 20,  // Add padding for better spacing
+    borderRadius: 8,
+},
+activityIndicatorWrapper: {
+    flex: 1, 
+    marginTop:20,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    width: '100%',
+},
+okayButton: {
+    width: '100%',
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20, // Adding some margin to keep it off the very bottom edge
+},
+okayButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+},
+closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    padding: 10,
+    borderRadius: 20,
+    backgroundColor: 'red',
+},
+closeButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+},
   container: {
     marginTop: 20,
     backgroundColor: '#ffaa11',
@@ -529,6 +640,7 @@ const styles = StyleSheet.create({
   headcontainer: {
     backgroundColor: 'white',
     borderRadius: 10,
+    flex:0.5,
     margin: 10,
     ...Platform.select({
       ios: {

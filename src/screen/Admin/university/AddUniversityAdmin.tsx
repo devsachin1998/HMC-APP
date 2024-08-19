@@ -55,7 +55,7 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
+          <Loader loading={this.state.isLoading}/>
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
             <CustomHeader />
             <View
@@ -117,7 +117,7 @@ export default class AddUniversityAdmin extends AddUniversityAdminController {
                   />
                 </View>
 
-                <TouchableOpacity style={styles.button} onPress={() => this.props.route.params.edit ?this.updatenews():this.addnews()}>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.route.params.edit ?this.updateuniversity():this.adduniversity()}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                     {this.props.route.params.edit ? 'Update' : 'Submit'}

@@ -2,6 +2,7 @@ import {Component} from 'react';
 import {apiFunctions, storeData, getdata} from '../../globalServices/utils';
 import {makeApiCall, makeApiCallxml} from '../../globalServices/api';
 import moment from 'moment';
+import { Alert } from 'react-native';
 
 export interface Props {
   navigation?: any;
@@ -66,7 +67,7 @@ export default class DownloadScreenController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
-
+      console.log("dasd",this.props?.route?.params?.isdelete)
       this.setState({ isLoading: true }); 
         this.getdata();
       
@@ -75,7 +76,7 @@ export default class DownloadScreenController extends Component<Props, S, SS> {
   updateValueById = (articleId) => {
     let updatedDataList = this.state.datalist.map(article => {
       if (article.AttachmentTypeIDP === articleId) {
-          return { ...article, isCollapsed: true };
+          return { ...article, isCollapsed: !article.isCollapsed };
       }
       else 
       {
@@ -98,7 +99,33 @@ export default class DownloadScreenController extends Component<Props, S, SS> {
     this.setState({datasublist:responseData,filterdata:responseData})
   
   }
-
+  showAlert = (deleteID) => {
+    Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress:()=> {this.deletedownload(deleteID)} },
+      ],
+      { cancelable: false }
+    );
+  };
+  deletedownload = async (deleteID) => {
+    this.setState({isLoading:true})
+   
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    const res = await makeApiCallxml(apiFunctions.DownloadDelete+`?UN1=2&PWD1=2&DownloadID=${deleteID}&Title=&FileName=&FileType=&Description=&UserID=${ID}`,'GET',"base");
+   console.log("dsadasd0",res)
+   
+    this.setState({isLoading:false})
+    this.getdata()
+  
+  
+  }
   searchValueById = (Title: string) => {
     let filteredData = this.state.datasublist.filter((item: { Titel: string; }) => item.Titel.toLowerCase().includes(Title.toLowerCase()));
   this.setState({ filterdata: filteredData }, () => {

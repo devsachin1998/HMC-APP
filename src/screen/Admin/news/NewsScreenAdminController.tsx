@@ -103,7 +103,7 @@ export default class NewsScreenAdminController extends Component<Props, S, SS> {
   
 
   searchValueById = (Title: string) => {
-    let filteredData = this.state.datalist.filter(item => item.UniversityName.toLowerCase().includes(Title.toLowerCase()));
+    let filteredData = this.state.datalist.filter(item => item.NewsLine.toLowerCase().includes(Title.toLowerCase()));
 
   
   this.setState({ filterdata: filteredData }, () => {

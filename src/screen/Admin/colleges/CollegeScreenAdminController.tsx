@@ -71,7 +71,7 @@ export default class CollegeScreenAdminController extends Component<Props, S, SS
       this.getdata()
 
   }
-  showAlert = (ArticleID) => {
+  showAlert = (CID) => {
     Alert.alert(
       'Delete Confirmation',
       'Are you sure you want to delete this item?',
@@ -80,12 +80,24 @@ export default class CollegeScreenAdminController extends Component<Props, S, SS
           text: 'No',
           style: 'cancel',
         },
-        { text: 'Yes', onPress:()=> {} },
+        { text: 'Yes', onPress:()=> {this.deletecollege(CID)} },
       ],
       { cancelable: false }
     );
   };
- 
+  deletecollege = async (CID) => {
+    this.setState({isLoading:true})
+   
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    const res = await makeApiCallxml(apiFunctions.CollegeDelete+`?UN1=1&PWD1=1&CollegeID=${CID}&UserID=${ID}`,'GET',"admin");
+   console.log("dsadasd0",res)
+   
+    this.setState({isLoading:false})
+    this.getdata()
+  
+  
+  }
   updateValueById = (articleId) => {
     let updatedDataList = this.state.filterdata.map(article => {
       if (article.CollegeID === articleId) {

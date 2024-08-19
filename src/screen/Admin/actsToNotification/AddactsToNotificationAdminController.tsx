@@ -1,10 +1,10 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata, selectdocument, showToastOrAlert} from '../../../globalServices/utils';
-import {makeApiCallxml} from '../../../globalServices/api';
+import {makeApiCallxml, makeApiCallxmlimage} from '../../../globalServices/api';
 import moment from 'moment';
 import { Alert } from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-
 export interface Props {
   navigation?: any;
   id?: string;
@@ -39,6 +39,8 @@ interface S {
   Title:string;
   Description:string;
   FileType:string
+  pdfFile:any,
+
   // Customizable Area End
 }
 
@@ -85,7 +87,8 @@ export default class AddactsToNotificationAdmin extends Component<Props, S, SS> 
       NotificationID:'',
       Title:'',
       Description:'',
-      FileType:''
+      FileType:'',
+      pdfFile:''
       // Customizable Area End
     };
 
@@ -148,36 +151,96 @@ console.log("State Res....",updatedTable)
 this.setState({isLoading:false})
 }
   
-  uploadpdf =()=>
-    {
-      selectdocument((response: string) => {
-        const data = JSON.parse(response);
-        console.log("dsad",data)
-        this.setState({file:data,FileName:data[0].name})
-        // const data1 = a RNFetchBlob.fs.readFile(data[0].uri, 'base64');
-        // console.log("dsad11",data1)
-
-    })  }
 
 
-    addNotification = async () => {
+    uploadpdf = async () => {
+      try {
+        const res = await DocumentPicker.pick({
+          type: [DocumentPicker.types.pdf],
+          
+          
+        });
+        // this.setState({ file: res });
+        console.log("sdsdsdf",res);
+  
+        // let resi=res[0].uri;
+        let resi = res[0].uri.replace('file://', '');
+        const fileBase64 = await RNFetchBlob.fs.readFile(resi, 'base64');
+        console.log("sdsdsdf",fileBase64);
+
+        this.setState({pdfFile:fileBase64,FileName:res[0].name,file:res})
+      } catch (err) {
+        if (DocumentPicker.isCancel(err)) {
+          console.log('User canceled the picker');
+        } else {
+          throw err;
+        }
+      }
+    };
+  
+
+
+addNotification= async () => {
   this.setState({isLoading:true})
- 
+  const pdfFile = this.state.pdfFile
 
-  const res = await makeApiCallxml(apiFunctions.NotificationInsert+`?UN1=2&PWD1=2&Title=${this.state.Title}&FileName=${this.state.FileName}&FileType=pdf&Description=${this.state.Description}&UserID=${this.state.userid}`,'GET',"base");
- console.log("add Notification.",res)
- 
-  this.setState({isLoading:false})
-  this.props.navigation.navigate("ActsToNotificationScreenAdmin");
+
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("UN1", "2");
+  urlencoded.append("PWD1", "2");
+  urlencoded.append("Title", this.state.Title);
+    urlencoded.append("Description", this.state.Description);
+    urlencoded.append("FileType", "pdf");
+
+  urlencoded.append("UserID", this.state.userid);
+  urlencoded.append('FileName',pdfFile)
+  const responseData = 
+  await makeApiCallxmlimage(apiFunctions.NotificationInsert, 'POST', "base",urlencoded.toString());
+  console.log("responseData",responseData)
+      // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+this.setState({isLoading:false})
+this.props.navigation.navigate("ActsToNotificationScreenAdmin");
+
 
 }
-
 updateNotification = async () => {
   this.setState({isLoading:true})
-  const res = await makeApiCallxml(apiFunctions.NotificationUpdate+`?UN1=2&PWD1=2&NotificationID=${this.state.NotificationID}&Title=${this.state.Title}&Description=${this.state.Description}&FileName=${this.state.FileName}&FileType=pdf&UserID=${this.state.userid}`,'GET',"base");
- console.log("update Notification",res)
-  this.setState({isLoading:false})
-  this.props.navigation.navigate("ActsToNotificationScreenAdmin");
+  const pdfFile = this.state.pdfFile
+
+
+
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("UN1", "2");
+  urlencoded.append("PWD1", "2");
+  urlencoded.append("NotificationID", this.state.NotificationID);
+  
+
+  urlencoded.append("Title", this.state.Title);
+  urlencoded.append("Description", this.state.Description);
+  urlencoded.append("FileType", "pdf");
+
+  
+  urlencoded.append("UserID", this.state.userid);
+  if(pdfFile=="")
+  {
+    const response = await RNFetchBlob.config({ fileCache: true }).fetch("GET", "http://hmc.Khedutmitra.com/Notification/"+this.state.FileName);
+    const base64Data = await response.readFile("base64");
+    urlencoded.append('FileName',base64Data)
+  }
+  else
+  {
+    urlencoded.append('FileName',pdfFile)
+  }
+ 
+
+  const responseData = 
+  await makeApiCallxmlimage(apiFunctions.NotificationUpdate, 'POST', "base",urlencoded.toString());
+  console.log("responseData",responseData)
+      // this.setState({datalist:responseData?.Table,filterdata:responseData?.Table})
+this.setState({isLoading:false})
+this.props.navigation.navigate("ActsToNotificationScreenAdmin");
+
 
 }
 

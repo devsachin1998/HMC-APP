@@ -1,0 +1,145 @@
+import {Component} from 'react';
+import {apiFunctions, storeData, getdata} from '../../../globalServices/utils';
+import {makeApiCallxml} from '../../../globalServices/api';
+import moment from 'moment';
+import { Alert } from 'react-native';
+
+export interface Props {
+  navigation?: any;
+  id?: string;
+  // Customizable Area Start
+  // Customizable Area End
+}
+
+interface S {
+  // Customizable Area Start
+  isLoading: boolean;
+  needRetakeToken: boolean;
+  //   leaderboard: LeaderboardItem[];
+  token: string;
+  totalCount: number;
+  totalPage: number;
+  pageIndex: number;
+  moreLoading: boolean;
+  datalist:any;
+  selectedTab:any;
+  visible:any
+  url:any;
+  // Customizable Area End
+}
+
+interface SS {
+  id: any;
+  // Customizable Area Start
+  // Customizable Area End
+}
+
+export default class PhotosAdminController extends Component<Props, S, SS> {
+  // Customizable Area Start
+  //   unsubscribe: object;
+  //   loginApiCallId: string;
+  //   getLeaderboardDataApi: string;
+  //   getMoreLeaderboardDataApi: string;
+  //   pageSize: number;
+  // Customizable Area End
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      // Customizable Area Start
+      isLoading: false,
+      needRetakeToken: true,
+      //   leaderboard: [],
+      token: '',
+      pageIndex: 0,
+      totalCount: 1,
+      totalPage: 1,
+      moreLoading: false,
+      datalist:[],
+      selectedTab:'photos',
+      visible:false,
+      url:''
+
+      // Customizable Area End
+    };
+
+    // Customizable Area Start
+
+    // Customizable Area End
+  }
+
+  // Customizable Area Start
+  async componentDidMount() {
+
+      this.setState({ isLoading: true }); // Example: Set isLoading state to true
+    
+        this.getdata();
+
+  }
+  handleTabPress = (tab:any)=>
+    {
+      this.setState({selectedTab:tab})
+    }
+  
+  updateValueById = (articleId) => {
+    let updatedDataList = this.state.datalist.map(article => {
+      if (article.ArticleID === articleId) {
+          return { ...article, iscollaps: !article.iscollaps };
+      }
+      return article;
+  });
+  
+  this.setState({ datalist: updatedDataList }, () => {
+      console.log("Updated datalist:", this.state.datalist);
+  });
+  
+  
+  }
+  showAlert = (UniversityID) => {
+    Alert.alert(
+      'Delete Confirmation',
+      'Are you sure you want to delete this item?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress:()=> {this.deletegallary(UniversityID)} },
+      ],
+      { cancelable: false }
+    );
+  };
+  deletegallary = async (UniversityID) => {
+    this.setState({isLoading:true})
+   
+    const loginDetails= await getdata("loginDetails");
+    let ID =  loginDetails.UserID;
+    const res = await makeApiCallxml(apiFunctions.GalleryDetailDelete+`?UN1=1&PWD1=1&GalleryDetailID=${UniversityID}&UserID=${ID}`,'GET',"admin");
+   console.log("dsadasd0",res)
+   
+    this.setState({isLoading:false})
+    this.getdata()
+  
+  
+  }
+
+  getdata = async () => {
+    const responseData =  await makeApiCallxml(apiFunctions.ProcGalleryDetailSelectSP+"?UN1=1&PWD1=1", 'GET', "admin");
+    const tables = Array.isArray(responseData.Table) ? responseData.Table : [responseData.Table];
+
+      const jsonData1 =  tables.map((table: any) => ({
+      GalleryID:table?.GalleryID, 
+      GalleryDetailID:table?.GalleryDetailID,
+      Title:table?.Title,
+      Image:apiFunctions.bannerurl+"/img/GalleryDetails/"+table?.Image,
+      CreatedDate:table?.CreatedDate,
+      UpdatedDate:table?.UpdatedDate,
+  }))
+  this.setState({datalist:jsonData1})
+  this.setState({isLoading:false})
+
+ console.log('responseData:::--->headline', tables);
+
+  }
+ 
+}

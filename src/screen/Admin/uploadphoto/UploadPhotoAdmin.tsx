@@ -56,8 +56,9 @@ export default class UploadPhotoAdmin extends UploadPhotoAdminController {
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
+          <Loader loading={this.state.isLoading}/>
+
             <CustomHeader />
             <View
               style={{
@@ -149,7 +150,7 @@ export default class UploadPhotoAdmin extends UploadPhotoAdminController {
               
                 </View>
               
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() =>this.props.route.params.edit ?   this.updateimage():this.addimages()}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                     {this.props.route.params.edit ? 'Update' : 'Submit'}

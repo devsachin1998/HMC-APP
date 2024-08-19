@@ -15,6 +15,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {clearData} from '../globalServices/utils';
 import Icon from 'react-native-vector-icons/Entypo';
 import MaterialIcons from'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import FontAwesome5 from'react-native-vector-icons/FontAwesome5';
 
@@ -106,7 +107,7 @@ class CustomSideMenuDoctor extends Component {
                   }, 100); // Adjust the delay as needed to ensure the drawer animation completes
                 }}
                 >
-               <MaterialIcons name="progress-question" size={20} color="white"  />
+               <MaterialCommunityIcons name="progress-question" size={20} color="white"  />
                 <Text style={styles.textstyle}>Queries</Text>
               </TouchableOpacity>
              
@@ -119,7 +120,7 @@ class CustomSideMenuDoctor extends Component {
                   }, 100); // Adjust the delay as needed to ensure the drawer animation completes
                 }}
                 >
-               <MaterialIcons name="frequently-asked-questions" size={20} color="white"  />
+               <MaterialCommunityIcons name="frequently-asked-questions" size={20} color="white"  />
                 <Text style={styles.textstyle}>FAQs</Text>
               </TouchableOpacity>
               <TouchableOpacity

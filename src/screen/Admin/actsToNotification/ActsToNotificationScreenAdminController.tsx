@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import {apiFunctions, storeData, getdata, showToastOrAlert} from '../../../globalServices/utils';
-import {makeApiCallxml} from '../../../globalServices/api';
+import {makeApiCallxml, makeApiCallxmlimage} from '../../../globalServices/api';
 import moment from 'moment';
 import { Alert } from 'react-native';
 
@@ -138,6 +138,7 @@ deleteNotification = async (NotificationID) => {
 
 
 }
+
 
   // Customizable Area End
 }

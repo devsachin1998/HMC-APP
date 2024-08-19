@@ -107,7 +107,7 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
 
 
  
-    if(this.props?.route.params.type==1)
+    if(this.props?.route?.params?.type==1)
     {
       let item =this.props.route.params.item
       
@@ -134,7 +134,7 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
     urlencoded.append("Date1", sDate);
     urlencoded.append("Description", this.state.desc);
 
-    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP);
+    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP ? loginDetails[0]?.CouncilMemberIDP:loginDetails.UserID);
     urlencoded.append('PDFDoc',pdfFile)
     const responseData = 
     await makeApiCallxmlimage(apiFunctions.ArticleInsert, 'POST', "web",urlencoded.toString());
@@ -161,8 +161,9 @@ export default class AddEditArticleController extends Component<Props, S, SS> {
     urlencoded.append("Title", this.state.articleName);
     urlencoded.append("Date1", sDate);
     urlencoded.append("Description", this.state.desc);
+    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP ? loginDetails[0]?.CouncilMemberIDP:loginDetails.UserID);
 
-    urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP);
+    // urlencoded.append("RegistrationID", loginDetails[0]?.CouncilMemberIDP);
     if(pdfFile=="")
     {
       const response = await RNFetchBlob.config({ fileCache: true }).fetch("GET", apiFunctions.bannerurl+"Article/"+this.state.filename);

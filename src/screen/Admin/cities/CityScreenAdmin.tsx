@@ -101,7 +101,7 @@ export default class CityScreenAdmin extends CityScreenAdminController {
               }}>
               <TouchableOpacity
                 style={{flex: 0.1,alignSelf:'center',marginTop:5}}
-                onPress={() => this.props.navigation.goBack()}>
+                onPress={() => this.props.navigation.navigate("Maintenance")}>
                 <Icon
                   name="chevron-back-sharp"
                   size={25}

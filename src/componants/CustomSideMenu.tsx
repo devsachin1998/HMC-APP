@@ -171,7 +171,7 @@ class CustomSidebarMenu extends Component {
                 onPress={()=>   {
                   this.props.navigation.closeDrawer(); // Close the drawer first
                   setTimeout(() => {
-                    this.props.navigation.navigate('DownloadScreen'); // Navigate to the AboutUsScreen after a short delay
+                    this.props.navigation.navigate('DownloadScreen',{isdelete:true}); // Navigate to the AboutUsScreen after a short delay
                   }, 200); // Adjust the delay as needed to ensure the drawer animation completes
                 }}
 

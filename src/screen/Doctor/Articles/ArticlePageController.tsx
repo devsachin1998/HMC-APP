@@ -27,6 +27,7 @@ interface S {
   addQuery:string;
   iconChange:boolean;
   ArticleList:any;
+  filterdata:any;
   
   // Customizable Area End
 }
@@ -60,6 +61,7 @@ export default class ArticlePageController extends Component<Props, S, SS> {
       moreLoading: false,
       images:[],
       currentIndex: 0,
+      filterdata:[],
       texts: [
         {
           text: "Welcome To HMC - The Council of Homoeopathic System of Medicine Gujarat",
@@ -84,7 +86,6 @@ export default class ArticlePageController extends Component<Props, S, SS> {
 
   // Customizable Area Start
   async componentDidMount() {
-    this.setState({isLoading:true})
     this.getArticle();
 
    
@@ -106,20 +107,20 @@ export default class ArticlePageController extends Component<Props, S, SS> {
       ArticleID:table?.ArticleID,
       iscollaps:false
     }))
-    this.setState({ArticleList:jsonData1})
+    this.setState({ArticleList:jsonData1,filterdata:jsonData1})
     this.setState({isLoading:false})
   }
  
 
   updateValueById = (ArticleID) => {
-    let updatedDataList = this.state.ArticleList.map(article => {
+    let updatedDataList = this.state.filterdata.map(article => {
       if (article.ArticleID === ArticleID) {
           return { ...article, iscollaps: !article.iscollaps };
       }
       return article;
   });
   
-  this.setState({ ArticleList: updatedDataList }, () => {
+  this.setState({ filterdata: updatedDataList }, () => {
       console.log("Updated datalist:", this.state.ArticleList);
   });
   
@@ -140,12 +141,19 @@ export default class ArticlePageController extends Component<Props, S, SS> {
       { cancelable: false }
     );
   };
- 
+  searchValueById = (Title: string) => {
+    let filteredData = this.state.ArticleList.filter(item => item.Title.toLowerCase().includes(Title.toLowerCase()));
+
+  
+  this.setState({ filterdata: filteredData, }, () => {
+      console.log("Updated datalist:", this.state.filterdata);
+  });
+}
   deleteArticle = async(ArticleID)=>{
     this.setState({isLoading:true})
 
-    const user = await getdata('loginDetails');
-    const id = user[0].CouncilMemberIDP;
+    const loginDetails = await getdata('loginDetails');
+    const id =  loginDetails[0]?.CouncilMemberIDP ? loginDetails[0]?.CouncilMemberIDP:loginDetails.UserID
     const responseData = await makeApiCallxml(apiFunctions.ArticleDelete+`?UN1=1&PWD1=1&ArticleID=${ArticleID}&RegistrationID=${id}`, 'GET', "web");
     console.log('responseData Articles oof delete::--->', responseData,ArticleID);
   

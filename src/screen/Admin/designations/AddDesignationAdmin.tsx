@@ -55,8 +55,9 @@ export default class AddDesignationAdmin extends AddDesignationAdminController {
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
+          <Loader loading={this.state.isLoading}/>
+
             <CustomHeader />
             <View
               style={{

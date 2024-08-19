@@ -87,7 +87,6 @@ export default class AddDesignationAdminController extends Component<Props, S, S
   // Customizable Area Start
   async componentDidMount() {
 
-     this.setState({ isLoading: true }); 
      let data=this.props.route.params.edit;
      console.log("component Data",this.props.route.params)
       if(data)

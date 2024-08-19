@@ -137,6 +137,8 @@ export default class AddUniversityAdminController extends Component<Props, S, SS
 getdata = async () => {
   const districtlist = await makeApiCallxml(apiFunctions.DistrictSelectByStateID+`?UN1=1&PWD1=1&StateID=1`,'GET',"web");
   this.setState({District:districtlist.Table})
+  // this.setState({ District: [districtlist.Table] });
+
  this.setState({isLoading:false})
 
 

@@ -18,10 +18,12 @@ import {
 import color from '../../../globalServices/color';
 import GlobalStyle from '../../../globalServices/globalStyle';
 import Icon from 'react-native-vector-icons/Entypo';
+import SIcon from 'react-native-vector-icons/Ionicons';
 
 import Icon1 from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SliderBox} from 'react-native-image-slider-box';
+import BackIcon from 'react-native-vector-icons/Entypo';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 // Merge Engine - import assets - Start
@@ -126,7 +128,7 @@ export default class ArticlePage extends ArticlePageController {
                   Description
                 </Text>
               </View>
-              <View style={{marginVertical: Scale(10), paddingLeft: Scale(5)}}>
+              <View style={{marginVertical: Scale(10), paddingLeft: Scale(5),flex:1}}>
                 <Text style={{marginVertical: Scale(1), color: '#009AEE'}}>
                   {item.Date}{' '}
                 </Text>
@@ -154,33 +156,56 @@ export default class ArticlePage extends ArticlePageController {
       <SafeAreaView style={{flex: 1}}>
         <CustomHeader backgroundColor="maroon" logout={true} />
         <Loader loading={this.state.isLoading}></Loader>
-        <View style={{backgroundColor: 'green'}}>
-          <Text
-            style={{
-              color: 'white',
-              fontWeight: 'bold',
-              padding: Scale(10),
-              fontSize: Scale(18),
-            }}>
-            Articles
-          </Text>
-        </View>
-        <View style={{marginTop: Scale(10), flex: 1}}>
-          <TextInput
-            placeholder="Search"
-            placeholderTextColor="#009AEE"
-            style={{
-              borderBottomWidth: 1,
-              borderColor: '#009AEE',
-              fontSize: Scale(18),
-            }}
-            value={searchVal}
-            onChangeText={e => this.setState({searchVal: e})}
-          />
 
+        <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: 'green',
+                padding: 10,
+              }}>
+              <TouchableOpacity
+                style={{flex: 0.1}}
+                onPress={() => this.props.navigation.goBack()}>
+                <BackIcon
+                  name="chevron-small-left"
+                  size={32}
+                  color="white"
+                  style={{width: Scale(30), height: Scale(30)}}
+                />
+              </TouchableOpacity>
+              <View style={{flex: 1, alignSelf: 'center'}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    marginStart: 5,
+                    marginTop: 1,
+                    fontSize: Scale(18),
+                  }}>
+                  {'Articles'}
+                </Text>
+              </View>
+            </View>
+     
+        <View style={{marginTop: Scale(10), flex: 1}}>
+        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center',padding:5,backgroundColor:'white',borderRadius:8}}>
+          <SIcon
+          size={22}
+          color={"#009AEE"}
+            name={"search"}
+           style={{padding:10,marginTop:10}}
+          />
+            <TextInput
+              placeholder="Search hear.."
+              style={styles.input}
+autoCorrect={false}
+              // value={this.state.firstName}
+              onChangeText={(e)=>this.searchValueById(e)}
+            />
+            </View>
           <View>
             <FlatList
-              data={this.state.ArticleList}
+              data={this.state.filterdata}
               renderItem={({item, index}) => this.renderItemFAQs(item, index)}
               // keyExtractor={(item) => item.id}
             />
@@ -205,6 +230,16 @@ export default class ArticlePage extends ArticlePageController {
 
 // Customizable Area Start
 const styles = StyleSheet.create({
+  input: {
+    marginTop: Scale(10),
+    fontSize: 16,
+    flex:1,
+    padding: 10,
+    marginBottom:0,
+    borderColor: 'skyblue',
+    borderBottomWidth: 1,
+    borderRadius: 5,
+  },
   container: {
     marginTop: 20,
     backgroundColor: '#ffaa11',

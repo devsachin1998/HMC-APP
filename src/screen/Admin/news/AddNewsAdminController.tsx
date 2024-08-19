@@ -89,7 +89,6 @@ export default class AddNewsAdminController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
 
-     this.setState({ isLoading: true }); 
      let data=this.props.route.params.edit;
      console.log("Dsadasdas",this.props.route.params)
       if(data)

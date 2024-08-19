@@ -55,7 +55,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
+          <Loader loading={this.state.isLoading}/>
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
             <CustomHeader />
             <View
@@ -112,7 +112,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     value={this.state.university}
                     onChange={item => {
                       console.log('itemmmm', item);
-                      this.setState({university: item.label});
+                      this.setState({university: item.UniversityName,UniversityID: item.UniversityID});
                     }}
                   />
                 </View>
@@ -138,7 +138,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     selectedTextStyle={{paddingStart: 5}}
                     value={this.state.district}
                     onChange={item => {
-                      this.setState({district: item.label});
+                      this.setState({district: item.DistrictName,DistrictID:item.DistrictID});
                     }}
                   />
                 </View>
@@ -189,14 +189,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
 
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={() =>
-                      this.props.navigation.navigate('CollegesGalleryScreen', {
-                        Id: this.props.route.params.item.CollegeID,
-                        CollegeName: this.props.route.params.item.CollegeName,
-                        type: '',
-                        edit: true,
-                      })
-                    }>
+                    onPress={() =>this.uploadclick() }>
                     <Text
                       style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                       Upload Images
@@ -221,7 +214,7 @@ export default class AddCollegeAdmin extends AddCollegeAdminController {
                     <Icon name="cross" color="red" size={45} />
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => {}}>
+                <TouchableOpacity style={styles.button} onPress={() => {this.props.route.params.edit ? this.updatecollege():this.addcollege() }}>
                   <Text
                     style={{fontSize: 20, fontWeight: '700', color: 'white'}}>
                     {this.props.route.params.edit ? 'Update' : 'Submit'}

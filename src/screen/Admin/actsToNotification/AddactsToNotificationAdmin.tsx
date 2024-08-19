@@ -55,7 +55,7 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
+          <Loader loading={this.state.isLoading}/>
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
             <CustomHeader />
             <View
@@ -106,6 +106,7 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                   <TextInput
                     placeholder="Act. File Name"
                     style={styles.input}
+                    editable={false}
                     value={this.state.FileName}
                     onChangeText={e => this.setState({FileName:e})}
                   />
@@ -113,10 +114,10 @@ export default class AddactsToNotificationAdmin extends AddactsToNotificationAdm
                 <View>
                 <Text style={styles.label}>Act. File Type</Text>
                 <View style={{flexDirection:'row',flex:1}}>
-                  <TouchableOpacity  style={[styles.input,{flex:1,alignItems:'center'}]}>
+                  <TouchableOpacity  style={[styles.input,{flex:1,alignItems:'center'}]} onPress={()=>this.uploadpdf()}>
                     <Text>CHOOSE FILE</Text>
                   </TouchableOpacity>
-                  <Text style={{flex:1,alignSelf:'center',marginLeft:Scale(10)}}>No File Choosen</Text>
+                  <Text style={{flex:1,alignSelf:'center',marginLeft:Scale(10)}}>{this.state.FileName==""?"No File Choosen":this.state.FileName}</Text>
                 </View>
                 </View>
 

@@ -55,7 +55,7 @@ export default class AddNewsAdmin extends AddNewsAdminController {
           style={{flex: 1}}
           // keyboardVerticalOffset={Scale(50)}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
-          {/* <Loader isLoading={this.state.isLoading}/> */}
+          <Loader loading={this.state.isLoading}/>
           <View style={{flex: 1, backgroundColor: '#fffbe7'}}>
             <CustomHeader />
             <View

@@ -20,6 +20,7 @@ import {
 import color from '../../../../globalServices/color';
 import GlobalStyle from '../../../../globalServices/globalStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import BackIcon from 'react-native-vector-icons/Entypo';
 
 import moment from 'moment';
 import Icon1 from 'react-native-vector-icons/AntDesign';
@@ -82,19 +83,41 @@ export default class EditArticle extends AddEditArticleController {
     const { searchVal,open,date1 } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-       
        <CustomHeader backgroundColor='maroon' logout={true}/>
+       <ScrollView>
+
        <Loader loading={this.state.isLoading}></Loader>
 
-          <View style={{backgroundColor:'green',flexDirection:'row',alignItems:'center',paddingLeft:Scale(10)}}>
-            <Icon
-            name="article"
-            size={16}
-            color="white"
-            // style={styles.icon}
-            />
-            <Text style={{color:'white',fontWeight:'bold',padding:Scale(10),fontSize:Scale(18)}}>Add Article</Text>
-          </View>
+
+        <View
+              style={{
+                flexDirection: 'row',
+                backgroundColor: 'green',
+                padding: 10,
+              }}>
+              <TouchableOpacity
+                style={{flex: 0.1}}
+                onPress={() => this.props.navigation.navigate("ArticlePage")}>
+                <BackIcon
+                  name="chevron-small-left"
+                  size={32}
+                  color="white"
+                  style={{width: Scale(30), height: Scale(30)}}
+                />
+              </TouchableOpacity>
+              <View style={{flex: 1, alignSelf: 'center'}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    marginStart: 5,
+                    marginTop: 1,
+                    fontSize: Scale(18),
+                  }}>
+                  {'Add Article'}
+                </Text>
+              </View>
+            </View>
           <View style={{marginTop:Scale(10),flex:1,paddingHorizontal:Scale(10)}}>
             <View style={{paddingVertical:Scale(5)}}>
             <Text style={{fontWeight:'700',fontSize:Scale(14)}}>Article Name</Text>
@@ -156,7 +179,7 @@ export default class EditArticle extends AddEditArticleController {
               </TouchableOpacity>
             </View>
         </View>
-
+        </ScrollView>
         
          
       </SafeAreaView>

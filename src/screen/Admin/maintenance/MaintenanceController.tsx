@@ -60,11 +60,11 @@ homeBlocks : [
     { label: "Designations", bgColor: "purple",iconName: "people-line",pagename:'DesignationScreenAdmin' },
     { label: "UserTypes", bgColor: "darkkhaki", iconName:"people-roof",pagename:"UserTypesScreenAdmin" },
     { label: "Qualification", bgColor: "brown",iconName: "clipboard-question",pagename:'QualificationScreenAdmin'  },
-    { label: "Downloads", bgColor: "darkslateblue",iconName: "rectangle-ad"  },
+    { label: "Downloads", bgColor: "darkslateblue",iconName: "rectangle-ad",pagename:'DownloadScreen'  },
     { label: "Act.to Notifications", bgColor: "darkcyan",iconName: "newspaper",pagename:'ActsToNotificationScreenAdmin' },
-    { label: "Inquiries", bgColor: "gray",iconName: "gears"  },
-    { label: "Articles", bgColor: "gray",iconName: "gears"  },
-    { label: "Queries", bgColor: "gray",iconName: "gears",pagename:'QueriesPageScreen'  }
+    { label: "Inquiries", bgColor: "gray",iconName: "gears", pagename:'InquiriesScreen' },
+    { label: "Articles", bgColor: "gray",iconName: "gears",pagename:'ArticlePage'   },
+    { label: "Queries", bgColor: "gray",iconName: "gears",pagename:'QueryScreenAdmin'  }
 
 ]
 
@@ -80,37 +80,8 @@ homeBlocks : [
     async componentDidMount() {
     }
 
-    updateValueById = (articleId) => {
-        let updatedDataList = this.state.datalist.map(article => {
-            if (article.ArticleID === articleId) {
-                return { ...article, iscollaps: !article.iscollaps };
-            }
-            return article;
-        });
-
-        this.setState({ datalist: updatedDataList }, () => {
-            console.log("Updated datalist:", this.state.datalist);
-        });
 
 
-    }
-
-
-    getdata = async () => {
-        const responseData =
-            await makeApiCallxml(apiFunctions.CollegeSelect + "?UN1=1&PWD1=1", 'GET', "web");
-        const jsonData1 = responseData.Table.map((table: any) => ({
-            CollegeID: table?.CollegeID,
-            CollegeName: table?.CollegeName,
-            UniversityName: table?.UniversityName,
-
-        }))
-        this.setState({ datalist: jsonData1 })
-        this.setState({ isLoading: false })
-
-        console.log('responseData:::--->headline', responseData);
-
-    }
 
     // Customizable Area End
 }

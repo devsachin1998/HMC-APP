@@ -27,6 +27,8 @@ interface S {
   headline:any;
   actlist:any;
   articleslist:any;
+  showmodal:any
+  texthead:any;
   // Customizable Area End
 }
 
@@ -61,7 +63,9 @@ export default class HomeScreenController extends Component<Props, S, SS> {
       gallaryimages:[],
       headline:[],
       actlist:[],
-      articleslist:[]
+      articleslist:[],
+      showmodal:false,
+      texthead:''
       // Customizable Area End
     };
 
@@ -157,7 +161,7 @@ export default class HomeScreenController extends Component<Props, S, SS> {
   // const jsonData1 =  [{"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}, {"GalleryID": "12", "Title": "National Homoeopathic Conference 2012", "Url": "http://hmc.Khedutmitra.com/img/Gallery/16082021021049AM.jpg"}]
   const jsonData1 =  responseData.Table.map((table: any) => ({
     GalleryID: table?.GalleryID,
-    Url: apiFunctions.bannerurl+"img/Gallery/"+table?.GalImage,
+    Url: apiFunctions.galleryurl+table?.Image,
     Title:table?.Title
   }))
 

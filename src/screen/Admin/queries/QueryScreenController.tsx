@@ -61,7 +61,8 @@ export default class QueryScreenController extends Component<Props, S, SS> {
       datalist:[],
       searchVal:'',
       addQuery: '',
-      iconChange: false
+      iconChange: false,
+      texts:""
       // Customizable Area End
     };
 
@@ -84,18 +85,18 @@ export default class QueryScreenController extends Component<Props, S, SS> {
   // Customizable Area Start
   async componentDidMount() {
     this.setState({isLoading:true})
-
-    const user = await getdata('loginDetails');
-    // console.log("dasdasdasdsa",user[0].FirstName+ ' '+user[0].MiddleName+' '+user[0].LastName)
-    const id = user[0].CouncilMemberIDP;
+    const user= await getdata("loginDetails");
+    // let ID =  user.UserID;
+    // const user = await getdata('loginDetails');
+    // console.log("dasdasdasdsa",user)
+    const id = user[0]?.CouncilMemberIDP?user[0]?.CouncilMemberIDP: user.UserID;
     this.getdata(id);
   }
   getdata = async (Id) => {
-
     const responseData =  await makeApiCallxml(apiFunctions.QAnsSelectbyuserID+"?UN1=2&PWD1=2&RegistrationID="+Id, 'GET', "base");
     const tables = Array.isArray(responseData?.Table) ? responseData?.Table : [responseData?.Table];
-    console.log("Dsad",responseData)
-    if(tables.length>0)
+    console.log("Dsad",tables)
+    if(tables.length>0 && responseData?.Table!=undefined)
       {
 
       

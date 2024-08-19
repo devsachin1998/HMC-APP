@@ -61,6 +61,17 @@ import ActsToNotificationScreenAdmin from '../screen/Admin/actsToNotification/Ac
 import { TransitionPresets } from '@react-navigation/stack';
 import CouncilMemberAdmin from '../screen/Admin/councilmember/CouncilMemberAdmin';
 import AddCouncilMemberAdmin from '../screen/Admin/councilmember/AddCouncilMemberAdmin';
+import CouncilUserAdmin from '../screen/Admin/counciluser/CouncilUserAdmin';
+import AddCouncilUserAdmin from '../screen/Admin/counciluser/AddCouncilUserAdmin';
+import FAQPageAdmin from '../screen/Admin/faqAdmin/FAQPageAdmin';
+import AddFaqAdmin from '../screen/Admin/faqAdmin/AddFaqAdmin';
+import InquiriesScreen from '../screen/Admin/inquiries/InquiriesScreen';
+import AddInquiriesScreen from '../screen/Admin/inquiries/AddInquiriesScreen';
+import QueryScreenAdmin from '../screen/Admin/queries/QueriesPageAdminScreen';
+import Addvertisement from '../screen/Admin/adds/Addvertisement';
+import AddvertisementAdmin from '../screen/Admin/adds/AddvertisementAdmin';
+import AddPhotosAdmin from '../screen/Admin/addphotos/AddPhotosAdmin';
+import PhotosAdminScreen from '../screen/Admin/addphotos/PhotosAdminScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -366,12 +377,63 @@ const DrawerNavigatorAdmin = () => {
         component={AddCouncilMemberAdmin}
         options={{headerShown: false}}
       />
+        <Stack.Screen
+        name="CouncilUserAdmin"
+        component={CouncilUserAdmin}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddFaqAdmin"
+        component={AddFaqAdmin}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="InquiriesScreen"
+        component={InquiriesScreen}
+        options={{headerShown: false}}
+      />
       
+       <Stack.Screen
+        name="FAQPageAdmin"
+        component={FAQPageAdmin}
+        options={{headerShown: false}}
+      />
+      
+         <Stack.Screen
+        name="AddCouncilUserAdmin"
+        component={AddCouncilUserAdmin}
+        options={{headerShown: false}}
+      />
+
+<Stack.Screen
+        name="DownloadScreen"
+        component={DownloadScreen}
+        options={{headerShown: false}}
+      />
+   
+      
+
        <Stack.Screen
         name="AddUniversityAdmin"
         component={AddUniversityAdmin}
         options={{headerShown: false}}
       />
+         <Stack.Screen
+        name="ArticlePage"
+        component={ArticlePage}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="AddEditArticle"
+        component={AddEditArticle}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddInquiriesScreen"
+        component={AddInquiriesScreen}
+        options={{headerShown: false}}
+      />
+      
        <Stack.Screen
         name="UniversityScreenAdmin"
         component={UniversityScreenAdmin}
@@ -489,6 +551,37 @@ const DrawerNavigatorAdmin = () => {
         component={ActsToNotificationScreenAdmin}
         options={{headerShown: false}}
       />
+       <Stack.Screen
+        name="QueryScreenAdmin"
+        component={QueryScreenAdmin}
+        options={{headerShown: false}}
+      />
+         <Stack.Screen
+        name="Addvertisement"
+        component={Addvertisement}
+        options={{headerShown: false}}
+      />
+        <Stack.Screen
+        name="AddvertisementAdmin"
+        component={AddvertisementAdmin}
+        options={{headerShown: false}}
+      />
+      
+         <Stack.Screen
+        name="AddPhotosAdmin"
+        component={AddPhotosAdmin}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="PhotosAdminScreen"
+        component={PhotosAdminScreen}
+        options={{headerShown: false}}
+      />
+      
+      
+      
+      
+      
         <Stack.Screen
         name="AddactsToNotificationAdmin"
         component={AddactsToNotificationAdmin}

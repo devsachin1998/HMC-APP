@@ -245,7 +245,7 @@ autoCorrect={false}
                 data={this.state.filterdata}
                 extraData={this.state.filterdata}
                 renderItem={({item, index}) => this.renderItemAct(item, index)}
-                contentContainerStyle={{paddingBottom: 150}}
+                contentContainerStyle={{paddingBottom: 300}}
                 // keyExtractor={(item) => item.id}
               />
             </View>
